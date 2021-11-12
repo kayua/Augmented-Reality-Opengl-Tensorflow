@@ -12,12 +12,10 @@ import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.tensorlearning.facemasks.Engine.SurfaceComponent;
+
 import java.io.IOException;
 
-import app.mosquito.appmosquito.appmosquito.AR.Engine.SurfaceComponent;
-import app.mosquito.appmosquito.appmosquito.R;
-
-import static app.mosquito.appmosquito.appmosquito.Editor.TextEditorDialogFragment.TAG;
 
 public class AugmentedActivity extends Activity implements SurfaceHolder.Callback {
     private Camera camera;
@@ -56,7 +54,7 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
 
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
-                Log.i(TAG, "Saving a bitmap to file");
+                Log.i("1", "Saving a bitmap to file");
                 Bitmap picture = BitmapFactory.decodeByteArray(data, 0, data.length);
 
             }

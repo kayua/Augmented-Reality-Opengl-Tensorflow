@@ -8,9 +8,6 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.gpu.GpuDelegate;
 
