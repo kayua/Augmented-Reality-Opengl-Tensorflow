@@ -77,7 +77,6 @@ public class ByteBufferModel {
     }
 
 
-
     private void FaceTrackerCastBitmapToByteBuffer(Bitmap bitmap) {
 
         if (faceTrackerByteBufferStreamInput == null) { return; }
