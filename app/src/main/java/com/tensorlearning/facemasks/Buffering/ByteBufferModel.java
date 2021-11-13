@@ -77,6 +77,7 @@ public class ByteBufferModel {
     }
 
 
+
     private void FaceTrackerCastBitmapToByteBuffer(Bitmap bitmap) {
 
         if (faceTrackerByteBufferStreamInput == null) { return; }
@@ -95,7 +96,6 @@ public class ByteBufferModel {
         long endTime = SystemClock.uptimeMillis();
         Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
     }
-
 
     private void PersonalModelCastBitmapToByteBuffer(Bitmap bitmap) {
 
@@ -116,7 +116,6 @@ public class ByteBufferModel {
         Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
     }
 
-
     private void IdentificationFacialPointsCastBitmapToByteBuffer(Bitmap bitmap) {
 
         if (identificationFacialPointsByteBufferStreamInput == null) { return; }
@@ -135,7 +134,6 @@ public class ByteBufferModel {
         long endTime = SystemClock.uptimeMillis();
         Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
     }
-
 
     private void SpatialEstimationCastBitmapToByteBuffer(Bitmap bitmap) {
 
@@ -158,17 +156,265 @@ public class ByteBufferModel {
 
 
 
+    private MappedByteBuffer FaceTrackerLoadModelFile() throws IOException {
 
-    private MappedByteBuffer FaceTrackerLoadModelFile(String file) throws IOException
-    {
-        AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(file);
+        AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(faceTrackerFileModel);
         FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
         FileChannel fileChannel = fileInputStream.getChannel();
-
         long startOffset = assetFileDescriptor.getStartOffset();
         long len = assetFileDescriptor.getLength();
-
         return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
+
+    }
+
+    private MappedByteBuffer PersonalModelLoadModelFile() throws IOException {
+
+        AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(personalModelFileModel);
+        FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
+        FileChannel fileChannel = fileInputStream.getChannel();
+        long startOffset = assetFileDescriptor.getStartOffset();
+        long len = assetFileDescriptor.getLength();
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
+
+    }
+
+    private MappedByteBuffer IdentificationFacialPointsLoadModelFile() throws IOException {
+
+        AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(identificationFacialFileModel);
+        FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
+        FileChannel fileChannel = fileInputStream.getChannel();
+        long startOffset = assetFileDescriptor.getStartOffset();
+        long len = assetFileDescriptor.getLength();
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
+
+    }
+
+    private MappedByteBuffer SpatialEstimationLoadModelFile() throws IOException {
+
+        AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(spatialEstimationFileModel);
+        FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
+        FileChannel fileChannel = fileInputStream.getChannel();
+        long startOffset = assetFileDescriptor.getStartOffset();
+        long len = assetFileDescriptor.getLength();
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
+
+    }
+
+
+    public void setFaceTrackerSizeImageHeight(int faceTrackerSizeImageHeight) {
+
+        this.faceTrackerSizeImageHeight = faceTrackerSizeImageHeight;
+
+    }
+
+    public void setFaceTrackerSizeImageWidth(int faceTrackerSizeImageWidth) {
+
+        this.faceTrackerSizeImageWidth = faceTrackerSizeImageWidth;
+
+    }
+
+    public void setFaceTrackerCoordinateMeanImage(int faceTrackerCoordinateMeanImage) {
+
+        this.faceTrackerCoordinateMeanImage = faceTrackerCoordinateMeanImage;
+
+    }
+
+    public void setSpatialEstimationSizeImageHeight(int spatialEstimationSizeImageHeight) {
+
+        this.spatialEstimationSizeImageHeight = spatialEstimationSizeImageHeight;
+
+    }
+
+    public void setSpatialEstimationSizeImageWidth(int spatialEstimationSizeImageWidth) {
+
+        this.spatialEstimationSizeImageWidth = spatialEstimationSizeImageWidth;
+
+    }
+
+    public void setSpatialEstimationCoordinateMeanImage(int spatialEstimationCoordinateMeanImage) {
+
+        this.spatialEstimationCoordinateMeanImage = spatialEstimationCoordinateMeanImage;
+
+    }
+
+    public void setPersonalModelSizeImageHeight(int personalModelSizeImageHeight) {
+
+        this.personalModelSizeImageHeight = personalModelSizeImageHeight;
+
+    }
+
+    public void setPersonalModelSizeImageWidth(int personalModelSizeImageWidth) {
+
+        this.personalModelSizeImageWidth = personalModelSizeImageWidth;
+
+    }
+
+    public void setPersonalModelCoordinateMeanImage(int personalModelCoordinateMeanImage) {
+
+        this.personalModelCoordinateMeanImage = personalModelCoordinateMeanImage;
+
+    }
+
+    public void setIdentificationFacialPointsSizeImageHeight(int identificationFacialPointsSizeImageHeight) {
+
+        this.identificationFacialPointsSizeImageHeight = identificationFacialPointsSizeImageHeight;
+
+    }
+
+    public void setIdentificationFacialPointsSizeImageWidth(int identificationFacialPointsSizeImageWidth) {
+
+        this.identificationFacialPointsSizeImageWidth = identificationFacialPointsSizeImageWidth;
+
+    }
+
+    public void setIdentificationFacialPointsCoordinateMeanImage(int identificationFacialPointsCoordinateMeanImage) {
+
+        this.identificationFacialPointsCoordinateMeanImage = identificationFacialPointsCoordinateMeanImage;
+
+    }
+
+    public void setFaceTrackerCoordinateMeanStandard(float faceTrackerCoordinateMeanStandard) {
+
+        this.faceTrackerCoordinateMeanStandard = faceTrackerCoordinateMeanStandard;
+
+    }
+
+    public void setSpatialEstimationCoordinateMeanStandard(float spatialEstimationCoordinateMeanStandard) {
+
+        this.spatialEstimationCoordinateMeanStandard = spatialEstimationCoordinateMeanStandard;
+
+    }
+
+    public void setPersonalModelCoordinateMeanStandard(float personalModelCoordinateMeanStandard) {
+
+        this.personalModelCoordinateMeanStandard = personalModelCoordinateMeanStandard;
+
+    }
+
+    public void setIdentificationFacialPointsCoordinateMeanStandard(float identificationFacialPointsCoordinateMeanStandard) {
+
+        this.identificationFacialPointsCoordinateMeanStandard = identificationFacialPointsCoordinateMeanStandard;
+
+    }
+
+    public void setFaceTrackerFlattenAllocationBuffer(int[] faceTrackerFlattenAllocationBuffer) {
+
+        this.faceTrackerFlattenAllocationBuffer = faceTrackerFlattenAllocationBuffer;
+
+    }
+
+    public void setPersonalModelFlattenAllocationBuffer(int[] personalModelFlattenAllocationBuffer) {
+
+        this.personalModelFlattenAllocationBuffer = personalModelFlattenAllocationBuffer;
+
+    }
+
+    public void setSpatialEstimationFlattenAllocationBuffer(int[] spatialEstimationFlattenAllocationBuffer) {
+
+        this.spatialEstimationFlattenAllocationBuffer = spatialEstimationFlattenAllocationBuffer;
+
+    }
+
+    public void setIdentificationFacialPointsFlattenAllocationBuffer(int[] identificationFacialPointsFlattenAllocationBuffer) {
+
+        this.identificationFacialPointsFlattenAllocationBuffer = identificationFacialPointsFlattenAllocationBuffer;
+
+    }
+
+    public void setFaceTrackerBufferOutput(float[][] faceTrackerBufferOutput) {
+
+        this.faceTrackerBufferOutput = faceTrackerBufferOutput;
+
+    }
+
+    public void setPersonalModelBufferOutput(float[][] personalModelBufferOutput) {
+
+        this.personalModelBufferOutput = personalModelBufferOutput;
+
+    }
+
+    public void setSpatialEstimationBufferOutput(float[][] spatialEstimationBufferOutput) {
+
+        this.spatialEstimationBufferOutput = spatialEstimationBufferOutput;
+
+    }
+
+    public void setIdentificationFacialPointsBufferOutput(float[][] identificationFacialPointsBufferOutput) {
+
+        this.identificationFacialPointsBufferOutput = identificationFacialPointsBufferOutput;
+
+    }
+
+    public void setFaceTrackerByteBufferStreamInput(ByteBuffer faceTrackerByteBufferStreamInput) {
+
+        this.faceTrackerByteBufferStreamInput = faceTrackerByteBufferStreamInput;
+
+    }
+
+    public void setPersonalModelByteBufferStreamInput(ByteBuffer personalModelByteBufferStreamInput) {
+
+        this.personalModelByteBufferStreamInput = personalModelByteBufferStreamInput;
+
+    }
+
+    public void setSpatialEstimationByteBufferStreamInput(ByteBuffer spatialEstimationByteBufferStreamInput) {
+
+        this.spatialEstimationByteBufferStreamInput = spatialEstimationByteBufferStreamInput;
+
+    }
+
+    public void setIdentificationFacialPointsByteBufferStreamInput(ByteBuffer identificationFacialPointsByteBufferStreamInput) {
+
+        this.identificationFacialPointsByteBufferStreamInput = identificationFacialPointsByteBufferStreamInput;
+
+    }
+
+    public void setFaceTrackerBufferStreamOutput(ByteArrayOutputStream faceTrackerBufferStreamOutput) {
+
+        this.faceTrackerBufferStreamOutput = faceTrackerBufferStreamOutput;
+
+    }
+
+    public void setPersonalModelBufferStreamOutput(ByteArrayOutputStream personalModelBufferStreamOutput) {
+
+        this.personalModelBufferStreamOutput = personalModelBufferStreamOutput;
+
+    }
+
+    public void setSpatialEstimationBufferStreamOutput(ByteArrayOutputStream spatialEstimationBufferStreamOutput) {
+
+        this.spatialEstimationBufferStreamOutput = spatialEstimationBufferStreamOutput;
+
+    }
+
+    public void setIdentificationFacialPointsBufferStreamOutput(ByteArrayOutputStream identificationFacialPointsBufferStreamOutput) {
+
+        this.identificationFacialPointsBufferStreamOutput = identificationFacialPointsBufferStreamOutput;
+
+    }
+
+    public void setFaceTrackerFileModel(String faceTrackerFileModel) {
+
+        this.faceTrackerFileModel = faceTrackerFileModel;
+
+    }
+
+    public void setPersonalModelFileModel(String personalModelFileModel) {
+
+        this.personalModelFileModel = personalModelFileModel;
+
+    }
+
+    public void setSpatialEstimationFileModel(String spatialEstimationFileModel) {
+
+        this.spatialEstimationFileModel = spatialEstimationFileModel;
+
+    }
+
+    public void setIdentificationFacialFileModel(String identificationFacialFileModel) {
+
+        this.identificationFacialFileModel = identificationFacialFileModel;
+
     }
 
 
