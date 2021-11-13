@@ -37,6 +37,8 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
     SurfaceHolder mSurfaceHolder;
     Interpreter interpreter = null;
     int[] intArray = new int[129600];
+    float[][][][] f = new float[1][360][360][1];
+    float[][] output_signal_return = new float[1][40];
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     private SurfaceComponent mGLSurfaceView;
 
@@ -89,7 +91,7 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
         Interpreter.Options options = new Interpreter.Options();
 
         options.setNumThreads(2);
-
+        options.setAllowBufferHandleOutput(true);
 
         return options;
     }
@@ -161,9 +163,6 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
     public void doInference(float[][][][] a) throws IOException {
 
         interpreter = new Interpreter(loadModelFile("model_face.tflite"), setConfig());
-
-        float[][] output_signal_return = new float[1][40];
-
         interpreter.run(a, output_signal_return);
 
 
@@ -172,7 +171,6 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
 
         bitmap.getPixels(intArray, 0, 360, 0, 0, 360, 360);
 
-        float[][][][] f = new float[1][360][360][1];
         int i;
         int j;
         for(i=0; i< 360; i++){
