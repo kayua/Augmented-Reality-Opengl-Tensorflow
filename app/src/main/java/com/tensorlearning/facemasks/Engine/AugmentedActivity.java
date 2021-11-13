@@ -129,6 +129,7 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
 
         options.setNumThreads(2);
         options.setAllowBufferHandleOutput(true);
+        options.setUseNNAPI(true);
         options.setAllowFp16PrecisionForFp32(true);
 
         return options;
