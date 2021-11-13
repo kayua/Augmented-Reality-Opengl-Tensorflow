@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
@@ -20,6 +22,7 @@ import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.image.ops.ResizeOp;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -75,11 +78,7 @@ class EngineRenderer implements GLSurfaceView.Renderer {
 
         mCubeRotation -= 2.90f;
 
-        try {
-            doInference();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
 
     }
@@ -98,33 +97,6 @@ class EngineRenderer implements GLSurfaceView.Renderer {
     }
 
 
-    private MappedByteBuffer loadModelFile(String file) throws IOException
-    {
-        AssetFileDescriptor assetFileDescriptor = context.getAssets().openFd(file);
-        FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
-        FileChannel fileChannel = fileInputStream.getChannel();
-
-        long startOffset = assetFileDescriptor.getStartOffset();
-        long len = assetFileDescriptor.getLength();
-
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
-    }
-
-    public void doInference() throws IOException {
-
-        float[][][][] a = new float [1][60][60][1];
-        interpreter = new Interpreter(loadModelFile("0.tflite"), null);
-        Log.i("New Model", "-----");
-
-
-        float[][] output_signal_return = new float[1][1];
-
-        interpreter.run(a, output_signal_return);
-        String s = Float.toString(output_signal_return[0][0]);
-        Log.i("----->", s);
-
-
-    }
 
 
 
