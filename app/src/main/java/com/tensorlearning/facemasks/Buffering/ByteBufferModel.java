@@ -20,34 +20,47 @@ public class ByteBufferModel {
     private int faceTrackerSizeImageHeight;
     private int faceTrackerSizeImageWidth;
     private int faceTrackerCoordinateMeanImage;
+
+    private int spatialEstimationSizeImageHeight;
+    private int spatialEstimationSizeImageWidth;
+    private int spatialEstimationCoordinateMeanImage;
+
     private int personalModelSizeImageHeight;
     private int personalModelSizeImageWidth;
     private int personalModelCoordinateMeanImage;
+
     private int identificationFacialPointsSizeImageHeight;
     private int identificationFacialPointsSizeImageWidth;
     private int identificationFacialPointsCoordinateMeanImage;
 
+
     private float faceTrackerCoordinateMeanStandard;
+    private float spatialEstimationCoordinateMeanStandard;
     private float personalModelCoordinateMeanStandard;
     private float identificationFacialPointsCoordinateMeanStandard;
 
+
     public int[] faceTrackerFlattenAllocationBuffer = null;
     public int[] personalModelFlattenAllocationBuffer = null;
+    public int[] spatialEstimationFlattenAllocationBuffer = null;
     public int[] identificationFacialPointsFlattenAllocationBuffer = null;
+
 
     public float [][] faceTrackerBufferOutput;
     public float [][] personalModelBufferOutput;
+    public float [][] spatialEstimationBufferOutput;
     public float [][] identificationFacialPointsBufferOutput;
+
 
     public ByteBuffer faceTrackerByteBufferStreamInput;
     public ByteBuffer personalModelByteBufferStreamInput;
+    public ByteBuffer spatialEstimationByteBufferStreamInput;
     public ByteBuffer identificationFacialPointsByteBufferStreamInput;
 
     public ByteArrayOutputStream faceTrackerBufferStreamOutput = null;
     public ByteArrayOutputStream personalModelBufferStreamOutput = null;
+    public ByteArrayOutputStream spatialEstimationBufferStreamOutput = null;
     public ByteArrayOutputStream identificationFacialPointsBufferStreamOutput = null;
-
-
 
     Context foreignContext;
 
@@ -57,6 +70,7 @@ public class ByteBufferModel {
         this.foreignContext = context;
 
     }
+
 
     private void FaceTrackerCastBitmapToByteBuffer(Bitmap bitmap) {
 
@@ -116,6 +130,28 @@ public class ByteBufferModel {
         long endTime = SystemClock.uptimeMillis();
         Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
     }
+
+
+    private void spatialEstimationCastBitmapToByteBuffer(Bitmap bitmap) {
+
+        if (spatialEstimationByteBufferStreamInput == null) { return; }
+        spatialEstimationByteBufferStreamInput.rewind();
+        bitmap.getPixels(spatialEstimationFlattenAllocationBuffer, 0, bitmap.getWidth(), 0, 0, spatialEstimationSizeImageHeight, spatialEstimationSizeImageWidth);
+        int pixelShift = 0;
+        long startTime = SystemClock.uptimeMillis();
+        for (int i = 0; i < spatialEstimationSizeImageHeight; ++i) {
+            for (int j = 0; j < spatialEstimationSizeImageWidth; ++j) {
+                final int val = spatialEstimationFlattenAllocationBuffer[pixelShift++];
+                spatialEstimationByteBufferStreamInput.put((byte) ((((val >> 16) & 0xFF)- spatialEstimationCoordinateMeanImage)/ spatialEstimationCoordinateMeanStandard));
+                spatialEstimationByteBufferStreamInput.put((byte) ((((val >> 8) & 0xFF)- spatialEstimationCoordinateMeanImage)/ spatialEstimationCoordinateMeanStandard));
+                spatialEstimationByteBufferStreamInput.put((byte) ((((val) & 0xFF)- spatialEstimationCoordinateMeanImage)/ spatialEstimationCoordinateMeanStandard));
+            }
+        }
+        long endTime = SystemClock.uptimeMillis();
+        Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
+    }
+
+
 
 
     private MappedByteBuffer loadModelFile(String file) throws IOException
