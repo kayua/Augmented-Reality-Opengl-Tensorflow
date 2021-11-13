@@ -98,34 +98,24 @@ public class ByteBufferModel {
     }
 
 
+    private void identificationFacialPointsCastBitmapToByteBuffer(Bitmap bitmap) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if (identificationFacialPointsByteBufferStreamInput == null) { return; }
+        identificationFacialPointsByteBufferStreamInput.rewind();
+        bitmap.getPixels(identificationFacialPointsFlattenAllocationBuffer, 0, bitmap.getWidth(), 0, 0, identificationFacialPointsSizeImageHeight, identificationFacialPointsSizeImageWidth);
+        int pixelShift = 0;
+        long startTime = SystemClock.uptimeMillis();
+        for (int i = 0; i < identificationFacialPointsSizeImageHeight; ++i) {
+            for (int j = 0; j < identificationFacialPointsSizeImageWidth; ++j) {
+                final int val = identificationFacialPointsFlattenAllocationBuffer[pixelShift++];
+                identificationFacialPointsByteBufferStreamInput.put((byte) ((((val >> 16) & 0xFF)- identificationFacialPointsCoordinateMeanImage)/ identificationFacialPointsCoordinateMeanStandard));
+                identificationFacialPointsByteBufferStreamInput.put((byte) ((((val >> 8) & 0xFF)- identificationFacialPointsCoordinateMeanImage)/ identificationFacialPointsCoordinateMeanStandard));
+                identificationFacialPointsByteBufferStreamInput.put((byte) ((((val) & 0xFF)- identificationFacialPointsCoordinateMeanImage)/ identificationFacialPointsCoordinateMeanStandard));
+            }
+        }
+        long endTime = SystemClock.uptimeMillis();
+        Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
+    }
 
 
     private MappedByteBuffer loadModelFile(String file) throws IOException
