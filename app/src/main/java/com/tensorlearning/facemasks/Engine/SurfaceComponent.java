@@ -2,10 +2,13 @@ package com.tensorlearning.facemasks.Engine;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Camera;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
+import android.util.AttributeSet;
 import android.util.Log;
 
+import org.checkerframework.checker.units.qual.C;
 import org.tensorflow.lite.Interpreter;
 
 import java.io.FileInputStream;
@@ -17,39 +20,20 @@ public class SurfaceComponent extends GLSurfaceView {
 
     public EngineRenderer cr;
 
-    public SurfaceComponent(Context context) {
 
-        super(context);
+    public SurfaceComponent(Context context, android.hardware.Camera camera) {
+        super(context, (AttributeSet) camera);
+
         Interpreter interpreter = null;
 
-        String a = "a.tflite";
-        try {
-
-
-            Interpreter.Options options = new Interpreter.Options();
-
-            options.setUseNNAPI(true);
-
-            options.setUseXNNPACK(true);
-            options.setAllowBufferHandleOutput(true);
-            options.setAllowFp16PrecisionForFp32(true);
-
-
-            interpreter = new Interpreter(loadModelFile(a), options);
-
-            Log.i("Carregou","");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        cr = new EngineRenderer(interpreter);
+        cr = new EngineRenderer(getContext(), interpreter, camera);
         this.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         this.setRenderer(cr);
         this.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
         this.getHolder().setFormat(PixelFormat.TRANSPARENT);
 
     }
+
     private MappedByteBuffer loadModelFile(String file) throws IOException {
 
         AssetFileDescriptor assetFileDescriptor = getContext().getAssets().openFd(file);

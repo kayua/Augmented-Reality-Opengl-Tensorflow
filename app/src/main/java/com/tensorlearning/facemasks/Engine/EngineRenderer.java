@@ -1,11 +1,30 @@
 package com.tensorlearning.facemasks.Engine;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 
+
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
+import org.tensorflow.lite.support.image.ImageProcessor;
+import org.tensorflow.lite.support.image.TensorImage;
+import org.tensorflow.lite.support.image.ops.ResizeOp;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -13,20 +32,17 @@ import javax.microedition.khronos.opengles.GL10;
 class EngineRenderer implements GLSurfaceView.Renderer {
 
     private ModelRendering mCube;
-
-
+    Interpreter interpreter = null;
+    Camera camera;
     private float mCubeRotation;
+    private Context context;
 
-
-    public EngineRenderer( Interpreter interpreter) {
+    public EngineRenderer(Context context,  Interpreter interpreter, Camera camera) {
         mCube = new ModelRendering();
         this.context=context;
-       // inp = interpreter;
-        Handler handler = new Handler();
-
+        this.camera = camera;
 
     }
-    private Context context;
 
 
 
@@ -59,10 +75,15 @@ class EngineRenderer implements GLSurfaceView.Renderer {
 
         mCubeRotation -= 2.90f;
 
-
+        try {
+            doInference();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
+
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -75,4 +96,36 @@ class EngineRenderer implements GLSurfaceView.Renderer {
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
     }
+
+
+    private MappedByteBuffer loadModelFile(String file) throws IOException
+    {
+        AssetFileDescriptor assetFileDescriptor = context.getAssets().openFd(file);
+        FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
+        FileChannel fileChannel = fileInputStream.getChannel();
+
+        long startOffset = assetFileDescriptor.getStartOffset();
+        long len = assetFileDescriptor.getLength();
+
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
+    }
+
+    public void doInference() throws IOException {
+
+        float[][][][] a = new float [1][60][60][1];
+        interpreter = new Interpreter(loadModelFile("0.tflite"), null);
+        Log.i("New Model", "-----");
+
+
+        float[][] output_signal_return = new float[1][1];
+
+        interpreter.run(a, output_signal_return);
+        String s = Float.toString(output_signal_return[0][0]);
+        Log.i("----->", s);
+
+
+    }
+
+
+
 }
