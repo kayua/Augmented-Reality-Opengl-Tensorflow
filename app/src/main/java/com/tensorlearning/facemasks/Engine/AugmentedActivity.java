@@ -59,7 +59,7 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
         try {
             interpreter = new Interpreter(loadModelFile("model_face.tflite"), setConfig());
             interpreter.allocateTensors();
-            imgData = ByteBuffer.allocateDirect(4 * 256 * 512);
+            imgData = ByteBuffer.allocateDirect(524288);
             imgData.order(ByteOrder.nativeOrder());
 
         } catch (IOException e) {
@@ -96,9 +96,9 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
         for (int i = 0; i < 256; ++i) {
             for (int j = 0; j < 512; ++j) {
                 final int val = intValues[pixel++];
-                imgData.putFloat((((val >> 16) & 0xFF)-IMAGE_MEAN)/IMAGE_STD);
-                imgData.putFloat((((val >> 8) & 0xFF)-IMAGE_MEAN)/IMAGE_STD);
-                imgData.putFloat((((val) & 0xFF)-IMAGE_MEAN)/IMAGE_STD);
+                imgData.put((byte) ((((val >> 16) & 0xFF)-IMAGE_MEAN)/IMAGE_STD));
+                imgData.put((byte) ((((val >> 8) & 0xFF)-IMAGE_MEAN)/IMAGE_STD));
+                imgData.put((byte) ((((val) & 0xFF)-IMAGE_MEAN)/IMAGE_STD));
             }
         }
         long endTime = SystemClock.uptimeMillis();
