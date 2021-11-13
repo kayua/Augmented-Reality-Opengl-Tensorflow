@@ -98,7 +98,8 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
                 yuvImage.compressToJpeg(new Rect(0, 0, 60, 60), 90, out);
                 byte[] imageBytes = out.toByteArray();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                reshape()
+                float[][][][] ll = reshape(bitmap);
+
                 try {
                     out.flush();
                 } catch (IOException e) {
@@ -111,7 +112,7 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
                 }
                 Log.i("Callback Camera", "asdasd");
                 try {
-                    doInference();
+                    doInference(ll);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -141,9 +142,9 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
         return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
     }
 
-    public void doInference() throws IOException {
+    public void doInference(float[][][][] a) throws IOException {
 
-        float[][][][] a = new float [1][60][60][1];
+
         interpreter = new Interpreter(loadModelFile("0.tflite"), null);
         Log.i("New Model", "-----");
 
