@@ -9,9 +9,6 @@ import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -19,17 +16,19 @@ import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.tensorlearning.facemasks.Engine.SurfaceComponent;
 import com.tensorlearning.facemasks.R;
-import android.hardware.Camera;
 
 import org.tensorflow.lite.Interpreter;
+import org.tensorflow.lite.gpu.CompatibilityList;
+import org.tensorflow.lite.gpu.GpuDelegate;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.time.Duration;
+import java.time.Instant;
 
 
 public class AugmentedActivity extends Activity implements SurfaceHolder.Callback {
@@ -37,6 +36,8 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
     private SurfaceView mSurfaceView;
     SurfaceHolder mSurfaceHolder;
     Interpreter interpreter = null;
+    int[] intArray = new int[129600];
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
     private SurfaceComponent mGLSurfaceView;
 
     @Override
@@ -82,6 +83,18 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
 
     }
 
+
+    public Interpreter.Options setConfig(){
+
+        Interpreter.Options options = new Interpreter.Options();
+
+        options.setNumThreads(2);
+
+
+        return options;
+    }
+
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
@@ -91,11 +104,11 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
             @Override
             public void onPreviewFrame(byte[] data, Camera camera) {
                 Camera.Parameters parameters = camera.getParameters();
+                Instant start = Instant.now();
 
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
 
                 YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
-                yuvImage.compressToJpeg(new Rect(0, 0, 60, 60), 90, out);
+                yuvImage.compressToJpeg(new Rect(0, 0, 360, 360), 90, out);
                 byte[] imageBytes = out.toByteArray();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                 float[][][][] ll = reshape(bitmap);
@@ -110,15 +123,18 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Log.i("Callback Camera", "asdasd");
+
                 try {
                     doInference(ll);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
+                Instant end = Instant.now();
+                Log.i("TIME:     ",Duration.between(start, end).toString());
 
             }
+
+
         };
 
         camera.setPreviewCallback(previewCallback);
@@ -144,31 +160,24 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
 
     public void doInference(float[][][][] a) throws IOException {
 
+        interpreter = new Interpreter(loadModelFile("model_face.tflite"), setConfig());
 
-        interpreter = new Interpreter(loadModelFile("0.tflite"), null);
-        Log.i("New Model", "-----");
-
-        float[][] output_signal_return = new float[1][1];
+        float[][] output_signal_return = new float[1][40];
 
         interpreter.run(a, output_signal_return);
-        String s = Float.toString(output_signal_return[0][0]);
-        Log.i("----->", s);
 
 
     }
     public float[][][][] reshape(Bitmap bitmap){
 
-        int x = bitmap.getWidth();
-        int y = bitmap.getHeight();
-        int[] intArray = new int[x * y];
-        bitmap.getPixels(intArray, 0, x, 0, 0, x, y);
+        bitmap.getPixels(intArray, 0, 360, 0, 0, 360, 360);
 
-        float[][][][] f = new float[1][60][60][1];
+        float[][][][] f = new float[1][360][360][1];
         int i;
         int j;
-        for(i=0; i< 60; i++){
+        for(i=0; i< 360; i++){
 
-            for(j=0; j< 60; j++){
+            for(j=0; j< 360; j++){
                 int t = intArray[0];
                 f[0][i][j][0]= (float) t;
 
