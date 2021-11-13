@@ -18,24 +18,29 @@ public class ByteBufferModel {
 
     private final int modelFaceTrackerSizeImageHeight = 128;
     private final int modelFaceTrackerSizeImageWidth = 256;
+    private final int modelFaceTrackerCoordinateMeanImage = 128;
+    private final float modelFaceTrackerCoordinateMeanStandard = 128.0f;
+    public  float [][] modelFaceTrackerBufferOutputModel;
 
-    private final int modelFaceTrackerSizeImageHeight = 128;
-    private final int modelFaceTrackerSizeImageWidth = 256;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    private final int valueSizeImageHeight = 128;
-    private final int valueSizeImageWidth = 256;
-    private final int coordinateMeanImage = 128;
-    private final float coordinateMeanStandard = 128.0f;
+
+
+    private final int modelPersonalModelsSizeImageHeight = 128;
+    private final int modelPersonalModelsSizeImageWidth = 256;
+    private final int modelPersonalModelsCoordinateMeanImage = 128;
+    private final float modelPersonalModelsCoordinateMeanStandard = 128.0f;
+    public  float [][]modelPersonalModelsBufferOutputModel;
+
+
+
+    private final int modelIdentificationFacialPointsSizeImageHeight = 128;
+    private final int modelIdentificationFacialPointsSizeImageWidth = 256;
+    private final int modelIdentificationFacialPointsCoordinateMeanImage = 128;
+    private final float modelIdentificationFacialPointsCoordinateMeanStandard = 128.0f;
+    public  float [][]  modelIdentificationFacialPointsBufferOutputModel;
+
+
+
+
     public  float [][] bufferOutputModel;
     ByteArrayOutputStream bufferStreamOutputModel = new ByteArrayOutputStream();
     private final int[] flattenAllocationBuffer = new int[valueSizeImageHeight * size_image_y];
