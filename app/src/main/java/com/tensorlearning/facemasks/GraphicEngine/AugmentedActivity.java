@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.Engine;
+package com.tensorlearning.facemasks.GraphicEngine;
 
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
@@ -20,8 +20,6 @@ import android.view.WindowManager;
 import com.tensorlearning.facemasks.R;
 
 import org.tensorflow.lite.Interpreter;
-import org.tensorflow.lite.gpu.CompatibilityList;
-import org.tensorflow.lite.gpu.GpuDelegate;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -39,17 +37,17 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
     private SurfaceView mSurfaceView;
     SurfaceHolder mSurfaceHolder;
     Interpreter interpreter = null;
-    int[] intArray = new int[131072];
-    float[][][][] f = new float[1][256][512][1];
+
+    int size_image_x = 128;
+    int size_image_y = 256;
     private static final int IMAGE_MEAN = 128;
     private static final float IMAGE_STD = 128.0f;
     float[][] output_signal_return = new float[1][40];
-    private int[] intValues = new int[256 * 512];
+    private final int[] intValues = new int[size_image_x * size_image_y];
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     private SurfaceComponent mGLSurfaceView;
     ByteBuffer imgData;
-    int i;
-    int j;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +57,7 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
         try {
             interpreter = new Interpreter(loadModelFile("model_face.tflite"), setConfig());
             interpreter.allocateTensors();
-            imgData = ByteBuffer.allocateDirect(524288);
+            imgData = ByteBuffer.allocateDirect(size_image_x * size_image_y*4);
             imgData.order(ByteOrder.nativeOrder());
 
         } catch (IOException e) {
@@ -89,12 +87,12 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
             return;
         }
         imgData.rewind();
-        bitmap.getPixels(intValues, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+        bitmap.getPixels(intValues, 0, bitmap.getWidth(), 0, 0, size_image_x, size_image_y);
         // Convert the image to floating point.
         int pixel = 0;
         long startTime = SystemClock.uptimeMillis();
-        for (int i = 0; i < 256; ++i) {
-            for (int j = 0; j < 512; ++j) {
+        for (int i = 0; i < size_image_x; ++i) {
+            for (int j = 0; j < size_image_y; ++j) {
                 final int val = intValues[pixel++];
                 imgData.put((byte) ((((val >> 16) & 0xFF)-IMAGE_MEAN)/IMAGE_STD));
                 imgData.put((byte) ((((val >> 8) & 0xFF)-IMAGE_MEAN)/IMAGE_STD));
@@ -129,7 +127,6 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
 
         options.setNumThreads(2);
         options.setAllowBufferHandleOutput(true);
-        options.setUseNNAPI(true);
         options.setAllowFp16PrecisionForFp32(true);
 
         return options;
@@ -148,7 +145,7 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
 
 
                 YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
-                yuvImage.compressToJpeg(new Rect(0, 0, 256, 512), 90, out);
+                yuvImage.compressToJpeg(new Rect(0, 0, size_image_x, size_image_y), 90, out);
                 byte[] imageBytes = out.toByteArray();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                 convertBitmapToByteBuffer(bitmap);
@@ -192,25 +189,7 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
         Instant end = Instant.now();
         Log.i("TIME:     ",Duration.between(start, end).toString());
     }
-    public float[][][][] reshape(Bitmap bitmap){
 
-        bitmap.getPixels(intArray, 0, 256, 0, 0, 256, 512);
-
-
-
-        for(i=0; i< 256; i++){
-
-            for(j=0; j< 512; j++){
-                int t = intArray[0];
-                f[0][i][j][0]= (float) t;
-
-            }
-
-        }
-        Instant end = Instant.now();
-        return f;
-
-    }
 
 
     public static void setCameraDisplayOrientation(Activity activity,

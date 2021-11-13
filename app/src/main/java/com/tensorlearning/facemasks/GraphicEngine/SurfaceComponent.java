@@ -1,14 +1,11 @@
-package com.tensorlearning.facemasks.Engine;
+package com.tensorlearning.facemasks.GraphicEngine;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
-import android.graphics.Camera;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
-import android.util.Log;
 
-import org.checkerframework.checker.units.qual.C;
 import org.tensorflow.lite.Interpreter;
 
 import java.io.FileInputStream;
