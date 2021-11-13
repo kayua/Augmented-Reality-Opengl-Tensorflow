@@ -18,6 +18,9 @@ public class ByteBufferModel {
 
     private final int modelFaceTrackerSizeImageHeight = 128;
     private final int modelFaceTrackerSizeImageWidth = 256;
+
+    private final int modelFaceTrackerSizeImageHeight = 128;
+    private final int modelFaceTrackerSizeImageWidth = 256;
     
     
     
