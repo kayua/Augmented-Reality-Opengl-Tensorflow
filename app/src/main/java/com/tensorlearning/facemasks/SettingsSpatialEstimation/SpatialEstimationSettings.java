@@ -1,8 +1,8 @@
-package com.tensorlearning.facemasks.SpatialRecognition;
+package com.tensorlearning.facemasks.SettingsSpatialEstimation;
 
 
 
-public class SpatialRecognitionSettings {
+public class SpatialEstimationSettings {
 
     private final int spatialEstimationSizeImageHeight = 256;
     private final int spatialEstimationSizeImageWidth = 512;
@@ -46,6 +46,7 @@ public class SpatialRecognitionSettings {
         return spatialEstimationCoordinateMeanStandard;
 
     }
+
 
 }
 

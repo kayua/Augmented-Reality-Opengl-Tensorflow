@@ -77,6 +77,7 @@ public class ByteBufferModel {
     }
 
 
+
     private void FaceTrackerCastBitmapToByteBuffer(Bitmap bitmap) {
 
         if (faceTrackerByteBufferStreamInput == null) { return; }
@@ -155,7 +156,7 @@ public class ByteBufferModel {
 
 
 
-    private MappedByteBuffer FaceTrackerLoadModelFile() throws IOException {
+    public MappedByteBuffer FaceTrackerLoadModelFile() throws IOException {
 
         AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(faceTrackerFileModel);
         FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
@@ -166,7 +167,7 @@ public class ByteBufferModel {
 
     }
 
-    private MappedByteBuffer PersonalModelLoadModelFile() throws IOException {
+    public MappedByteBuffer PersonalModelLoadModelFile() throws IOException {
 
         AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(personalModelFileModel);
         FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
@@ -177,7 +178,7 @@ public class ByteBufferModel {
 
     }
 
-    private MappedByteBuffer IdentificationFacialPointsLoadModelFile() throws IOException {
+    public MappedByteBuffer IdentificationFacialPointsLoadModelFile() throws IOException {
 
         AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(identificationFacialFileModel);
         FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
@@ -188,7 +189,7 @@ public class ByteBufferModel {
 
     }
 
-    private MappedByteBuffer SpatialEstimationLoadModelFile() throws IOException {
+    public MappedByteBuffer SpatialEstimationLoadModelFile() throws IOException {
 
         AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(spatialEstimationFileModel);
         FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
