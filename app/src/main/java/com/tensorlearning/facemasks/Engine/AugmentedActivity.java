@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -25,6 +26,8 @@ import org.tensorflow.lite.gpu.GpuDelegate;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.time.Duration;
@@ -36,18 +39,32 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
     private SurfaceView mSurfaceView;
     SurfaceHolder mSurfaceHolder;
     Interpreter interpreter = null;
-    int[] intArray = new int[129600];
-    float[][][][] f = new float[1][360][360][1];
+    int[] intArray = new int[131072];
+    float[][][][] f = new float[1][256][512][1];
+    private static final int IMAGE_MEAN = 128;
+    private static final float IMAGE_STD = 128.0f;
     float[][] output_signal_return = new float[1][40];
+    private int[] intValues = new int[256 * 512];
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     private SurfaceComponent mGLSurfaceView;
+    ByteBuffer imgData;
+    int i;
+    int j;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        try {
+            interpreter = new Interpreter(loadModelFile("model_face.tflite"), setConfig());
+            interpreter.allocateTensors();
+            imgData = ByteBuffer.allocateDirect(4 * 256 * 512);
+            imgData.order(ByteOrder.nativeOrder());
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.tests);
 
         mSurfaceView = findViewById(R.id.surfaceView);
@@ -66,7 +83,27 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
 
 
     }
-    
+
+    private void convertBitmapToByteBuffer(Bitmap bitmap) {
+        if (imgData == null) {
+            return;
+        }
+        imgData.rewind();
+        bitmap.getPixels(intValues, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+        // Convert the image to floating point.
+        int pixel = 0;
+        long startTime = SystemClock.uptimeMillis();
+        for (int i = 0; i < 256; ++i) {
+            for (int j = 0; j < 512; ++j) {
+                final int val = intValues[pixel++];
+                imgData.putFloat((((val >> 16) & 0xFF)-IMAGE_MEAN)/IMAGE_STD);
+                imgData.putFloat((((val >> 8) & 0xFF)-IMAGE_MEAN)/IMAGE_STD);
+                imgData.putFloat((((val) & 0xFF)-IMAGE_MEAN)/IMAGE_STD);
+            }
+        }
+        long endTime = SystemClock.uptimeMillis();
+        Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
+    }
 
 
     @Override
@@ -92,6 +129,7 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
 
         options.setNumThreads(2);
         options.setAllowBufferHandleOutput(true);
+        options.setAllowFp16PrecisionForFp32(true);
 
         return options;
     }
@@ -106,33 +144,18 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
             @Override
             public void onPreviewFrame(byte[] data, Camera camera) {
                 Camera.Parameters parameters = camera.getParameters();
-                Instant start = Instant.now();
 
 
                 YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
-                yuvImage.compressToJpeg(new Rect(0, 0, 360, 360), 90, out);
+                yuvImage.compressToJpeg(new Rect(0, 0, 256, 512), 90, out);
                 byte[] imageBytes = out.toByteArray();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                float[][][][] ll = reshape(bitmap);
-
+                convertBitmapToByteBuffer(bitmap);
                 try {
-                    out.flush();
+                    doInference();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    doInference(ll);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Instant end = Instant.now();
-                Log.i("TIME:     ",Duration.between(start, end).toString());
 
             }
 
@@ -160,29 +183,30 @@ public class AugmentedActivity extends Activity implements SurfaceHolder.Callbac
         return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
     }
 
-    public void doInference(float[][][][] a) throws IOException {
+    public void doInference() throws IOException {
+        Instant start = Instant.now();
 
-        interpreter = new Interpreter(loadModelFile("model_face.tflite"), setConfig());
-        interpreter.run(a, output_signal_return);
+        interpreter.run(imgData, output_signal_return);
 
-
+        Instant end = Instant.now();
+        Log.i("TIME:     ",Duration.between(start, end).toString());
     }
     public float[][][][] reshape(Bitmap bitmap){
 
-        bitmap.getPixels(intArray, 0, 360, 0, 0, 360, 360);
+        bitmap.getPixels(intArray, 0, 256, 0, 0, 256, 512);
 
-        int i;
-        int j;
-        for(i=0; i< 360; i++){
 
-            for(j=0; j< 360; j++){
+
+        for(i=0; i< 256; i++){
+
+            for(j=0; j< 512; j++){
                 int t = intArray[0];
                 f[0][i][j][0]= (float) t;
 
             }
 
         }
-
+        Instant end = Instant.now();
         return f;
 
     }
