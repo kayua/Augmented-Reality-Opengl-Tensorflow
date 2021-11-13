@@ -9,6 +9,7 @@ import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
@@ -16,36 +17,38 @@ import java.nio.channels.FileChannel;
 public class ByteBufferModel {
 
 
-    private final int modelFaceTrackerSizeImageHeight = 128;
-    private final int modelFaceTrackerSizeImageWidth = 256;
-    private final int modelFaceTrackerCoordinateMeanImage = 128;
-    private final float modelFaceTrackerCoordinateMeanStandard = 128.0f;
-    public  float [][] modelFaceTrackerBufferOutputModel;
+    private int faceTrackerSizeImageHeight;
+    private int faceTrackerSizeImageWidth;
+    private int faceTrackerCoordinateMeanImage;
+    private float faceTrackerCoordinateMeanStandard;
+    public int[] faceTrackerFlattenAllocationBuffer = null;
+    public float [][] faceTrackerBufferOutput;
+    public ByteArrayOutputStream faceTrackerBufferStreamOutput = null;
+    public ByteBuffer faceTrackerByteBufferStreamInput;
 
 
-
-    private final int modelPersonalModelsSizeImageHeight = 128;
-    private final int modelPersonalModelsSizeImageWidth = 256;
-    private final int modelPersonalModelsCoordinateMeanImage = 128;
-    private final float modelPersonalModelsCoordinateMeanStandard = 128.0f;
-    public  float [][]modelPersonalModelsBufferOutputModel;
-
-
-
-    private final int modelIdentificationFacialPointsSizeImageHeight = 128;
-    private final int modelIdentificationFacialPointsSizeImageWidth = 256;
-    private final int modelIdentificationFacialPointsCoordinateMeanImage = 128;
-    private final float modelIdentificationFacialPointsCoordinateMeanStandard = 128.0f;
-    public  float [][]  modelIdentificationFacialPointsBufferOutputModel;
+    private int personalModelsSizeImageHeight;
+    private int personalModelsSizeImageWidth;
+    private int personalModelsCoordinateMeanImage;
+    private float personalModelsCoordinateMeanStandard;
+    public float [][] personalModelsBufferOutput;
+    public int[] personalFlattenAllocationBuffer = null;
+    public ByteArrayOutputStream personalBufferStreamOutput = null;
+    public ByteBuffer personalByteBufferStreamInput;
 
 
+    private int identificationFacialPointsSizeImageHeight;
+    private int identificationFacialPointsSizeImageWidth;
+    private int identificationFacialPointsCoordinateMeanImage;
+    private float identificationFacialPointsCoordinateMeanStandard;
+    public  float [][] identificationFacialPointsBufferOutput;
+    public final int[] identificationFacialPointsFlattenAllocationBuffer = null;
+    public ByteArrayOutputStream identificationFacialPointsBufferStreamOutput = null;
+    public ByteBuffer identificationFacialPointsByteBufferStreamInput;
 
 
-    public  float [][] bufferOutputModel;
-    ByteArrayOutputStream bufferStreamOutputModel = new ByteArrayOutputStream();
-    private final int[] flattenAllocationBuffer = new int[valueSizeImageHeight * size_image_y];
-    java.nio.ByteBuffer byteBufferStreamInputModel;
     Context foreignContext;
+
 
     public ByteBufferModel(Context context) {
 
@@ -53,24 +56,54 @@ public class ByteBufferModel {
 
     }
 
-    private void convertBitmapToByteBuffer(Bitmap bitmap) {
+    private void FaceTrackerCastBitmapToByteBuffer(Bitmap bitmap) {
 
-        if (byteBufferStreamInputModel == null) { return; }
-        byteBufferStreamInputModel.rewind();
-        bitmap.getPixels(flattenAllocationBuffer, 0, bitmap.getWidth(), 0, 0, valueSizeImageHeight, size_image_y);
-        int pixel = 0;
+        if (faceTrackerByteBufferStreamInput == null) { return; }
+        faceTrackerByteBufferStreamInput.rewind();
+        bitmap.getPixels(faceTrackerFlattenAllocationBuffer, 0, bitmap.getWidth(), 0, 0, faceTrackerSizeImageHeight, faceTrackerSizeImageWidth);
+        int pixelShift = 0;
         long startTime = SystemClock.uptimeMillis();
-        for (int i = 0; i < valueSizeImageHeight; ++i) {
-            for (int j = 0; j < size_image_y; ++j) {
-                final int val = flattenAllocationBuffer[pixel++];
-                byteBufferStreamInputModel.put((byte) ((((val >> 16) & 0xFF)-IMAGE_MEAN)/IMAGE_STD));
-                byteBufferStreamInputModel.put((byte) ((((val >> 8) & 0xFF)-IMAGE_MEAN)/IMAGE_STD));
-                byteBufferStreamInputModel.put((byte) ((((val) & 0xFF)-IMAGE_MEAN)/IMAGE_STD));
+        for (int i = 0; i < faceTrackerSizeImageHeight; ++i) {
+            for (int j = 0; j < faceTrackerSizeImageWidth; ++j) {
+                final int val = faceTrackerFlattenAllocationBuffer[pixelShift++];
+                faceTrackerByteBufferStreamInput.put((byte) ((((val >> 16) & 0xFF)- faceTrackerCoordinateMeanImage)/ faceTrackerCoordinateMeanStandard));
+                faceTrackerByteBufferStreamInput.put((byte) ((((val >> 8) & 0xFF)- faceTrackerCoordinateMeanImage)/ faceTrackerCoordinateMeanStandard));
+                faceTrackerByteBufferStreamInput.put((byte) ((((val) & 0xFF)- faceTrackerCoordinateMeanImage)/ faceTrackerCoordinateMeanStandard));
             }
         }
         long endTime = SystemClock.uptimeMillis();
         Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private MappedByteBuffer loadModelFile(String file) throws IOException
