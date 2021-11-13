@@ -20,31 +20,33 @@ public class ByteBufferModel {
     private int faceTrackerSizeImageHeight;
     private int faceTrackerSizeImageWidth;
     private int faceTrackerCoordinateMeanImage;
-    private float faceTrackerCoordinateMeanStandard;
-    public int[] faceTrackerFlattenAllocationBuffer = null;
-    public float [][] faceTrackerBufferOutput;
-    public ByteArrayOutputStream faceTrackerBufferStreamOutput = null;
-    public ByteBuffer faceTrackerByteBufferStreamInput;
-
-
-    private int personalModelsSizeImageHeight;
-    private int personalModelsSizeImageWidth;
-    private int personalModelsCoordinateMeanImage;
-    private float personalModelsCoordinateMeanStandard;
-    public float [][] personalModelsBufferOutput;
-    public int[] personalFlattenAllocationBuffer = null;
-    public ByteArrayOutputStream personalBufferStreamOutput = null;
-    public ByteBuffer personalByteBufferStreamInput;
-
-
+    private int personalModelSizeImageHeight;
+    private int personalModelSizeImageWidth;
+    private int personalModelCoordinateMeanImage;
     private int identificationFacialPointsSizeImageHeight;
     private int identificationFacialPointsSizeImageWidth;
     private int identificationFacialPointsCoordinateMeanImage;
+
+    private float faceTrackerCoordinateMeanStandard;
+    private float personalModelCoordinateMeanStandard;
     private float identificationFacialPointsCoordinateMeanStandard;
-    public  float [][] identificationFacialPointsBufferOutput;
-    public final int[] identificationFacialPointsFlattenAllocationBuffer = null;
-    public ByteArrayOutputStream identificationFacialPointsBufferStreamOutput = null;
+
+    public int[] faceTrackerFlattenAllocationBuffer = null;
+    public int[] personalModelFlattenAllocationBuffer = null;
+    public int[] identificationFacialPointsFlattenAllocationBuffer = null;
+
+    public float [][] faceTrackerBufferOutput;
+    public float [][] personalModelBufferOutput;
+    public float [][] identificationFacialPointsBufferOutput;
+
+    public ByteBuffer faceTrackerByteBufferStreamInput;
+    public ByteBuffer personalModelByteBufferStreamInput;
     public ByteBuffer identificationFacialPointsByteBufferStreamInput;
+
+    public ByteArrayOutputStream faceTrackerBufferStreamOutput = null;
+    public ByteArrayOutputStream personalModelBufferStreamOutput = null;
+    public ByteArrayOutputStream identificationFacialPointsBufferStreamOutput = null;
+
 
 
     Context foreignContext;
@@ -69,6 +71,26 @@ public class ByteBufferModel {
                 faceTrackerByteBufferStreamInput.put((byte) ((((val >> 16) & 0xFF)- faceTrackerCoordinateMeanImage)/ faceTrackerCoordinateMeanStandard));
                 faceTrackerByteBufferStreamInput.put((byte) ((((val >> 8) & 0xFF)- faceTrackerCoordinateMeanImage)/ faceTrackerCoordinateMeanStandard));
                 faceTrackerByteBufferStreamInput.put((byte) ((((val) & 0xFF)- faceTrackerCoordinateMeanImage)/ faceTrackerCoordinateMeanStandard));
+            }
+        }
+        long endTime = SystemClock.uptimeMillis();
+        Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
+    }
+
+
+    private void PersonalModelCastBitmapToByteBuffer(Bitmap bitmap) {
+
+        if (personalModelByteBufferStreamInput == null) { return; }
+        personalModelByteBufferStreamInput.rewind();
+        bitmap.getPixels(personalModelFlattenAllocationBuffer, 0, bitmap.getWidth(), 0, 0, personalModelSizeImageHeight, personalModelSizeImageWidth);
+        int pixelShift = 0;
+        long startTime = SystemClock.uptimeMillis();
+        for (int i = 0; i < personalModelSizeImageHeight; ++i) {
+            for (int j = 0; j < personalModelSizeImageWidth; ++j) {
+                final int val = personalModelFlattenAllocationBuffer[pixelShift++];
+                personalModelByteBufferStreamInput.put((byte) ((((val >> 16) & 0xFF)- personalModelCoordinateMeanImage)/ personalModelCoordinateMeanStandard));
+                personalModelByteBufferStreamInput.put((byte) ((((val >> 8) & 0xFF)- personalModelCoordinateMeanImage)/ personalModelCoordinateMeanStandard));
+                personalModelByteBufferStreamInput.put((byte) ((((val) & 0xFF)- personalModelCoordinateMeanImage)/ personalModelCoordinateMeanStandard));
             }
         }
         long endTime = SystemClock.uptimeMillis();
