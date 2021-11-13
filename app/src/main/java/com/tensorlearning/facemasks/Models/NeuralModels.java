@@ -28,14 +28,10 @@ public class NeuralModels {
     private Interpreter interpreterSpatialEstimation = null;
     private Interpreter interpreterIdentificationFacialPoints = null;
 
-
     private FaceTrackerSettings faceTrackerSettings = new FaceTrackerSettings();
     private FacialPointsSettings facialPointsSettings = new FacialPointsSettings();
     private PersonalModelsSettings personalModelSettings = new PersonalModelsSettings();
     private SpatialEstimationSettings spatialEstimationSettings = new SpatialEstimationSettings();
-
-
-
 
     private Context context;
 
@@ -45,28 +41,38 @@ public class NeuralModels {
 
     public void createInterpreter(){
 
+
         try {
 
-            interpreterFaceTracker = new Interpreter(byteBuffer.FaceTrackerLoadModelFile(),byteBuffer. setConfig());
 
-            interpreterPersonalModel = new Interpreter(byteBuffer.PersonalModelLoadModelFile(), setConfig());
-
-            interpreterSpatialEstimation = new Interpreter(byteBuffer.SpatialEstimationLoadModelFile(), setConfig());
-
-            interpreterIdentificationFacialPoints = new Interpreter(byteBuffer.IdentificationFacialPointsLoadModelFile(), setConfig());
-
+            interpreterFaceTracker = new Interpreter(byteBuffer.FaceTrackerLoadModelFile(),faceTrackerSettings());
+            interpreterPersonalModel = new Interpreter(byteBuffer.PersonalModelLoadModelFile(), personalModelSettings());
+            interpreterSpatialEstimation = new Interpreter(byteBuffer.SpatialEstimationLoadModelFile(), spatialEstimationModelSettings());
+            interpreterIdentificationFacialPoints = new Interpreter(byteBuffer.IdentificationFacialPointsLoadModelFile(), identificationFacialModelSettings());
 
             interpreterFaceTracker.allocateTensors();
             interpreterPersonalModel.allocateTensors();
             interpreterSpatialEstimation.allocateTensors();
             interpreterIdentificationFacialPoints.allocateTensors();
 
+            byteBuffer.faceTrackerByteBufferStreamInput = ByteBuffer.allocateDirect(faceTrackerSettings.getFaceTrackerSizeImageHeight() *faceTrackerSettings.getFaceTrackerSizeImageWidth()*4);
+            byteBuffer.faceTrackerByteBufferStreamInput.order(ByteOrder.nativeOrder());
 
-            imgData = ByteBuffer.allocateDirect(size_image_x * size_image_y*4);
-            imgData.order(ByteOrder.nativeOrder());
+            byteBuffer.personalModelByteBufferStreamInput= ByteBuffer.allocateDirect(personalModelSettings.getPersonalModelsSizeImageHeight() *personalModelSettings.getPersonalModelsSizeImageWidth()*4);
+            byteBuffer.personalModelByteBufferStreamInput.order(ByteOrder.nativeOrder());
+
+            byteBuffer.spatialEstimationByteBufferStreamInput = ByteBuffer.allocateDirect(spatialEstimationSettings.getSpatialEstimationSizeImageHeight() *spatialEstimationSettings.getSpatialEstimationSizeImageWidth()*4);
+            byteBuffer.spatialEstimationByteBufferStreamInput.order(ByteOrder.nativeOrder());
+
+            byteBuffer.identificationFacialPointsByteBufferStreamInput = ByteBuffer.allocateDirect(facialPointsSettings.getIdentificationFacialPointsSizeImageHeight() *facialPointsSettings.getIdentificationFacialPointsSizeImageWidth()*4);
+            byteBuffer.identificationFacialPointsByteBufferStreamInput.order(ByteOrder.nativeOrder());
+
+
 
         } catch (IOException e) {
+
             e.printStackTrace();
+
         }
 
 
