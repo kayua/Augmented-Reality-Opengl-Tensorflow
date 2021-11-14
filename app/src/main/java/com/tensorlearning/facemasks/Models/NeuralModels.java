@@ -192,6 +192,28 @@ public class NeuralModels {
 
     }
 
+    public void predictIdentificationFacialPoints(byte[] data, Camera camera){
+
+        Camera.Parameters parameters = camera.getParameters();
+
+        YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
+        yuvImage.compressToJpeg(new Rect(0, 0,facialPointsSettings.getIdentificationFacialPointsSizeImageHeight(), facialPointsSettings.getIdentificationFacialPointsSizeImageWidth()), 90, byteBuffer.identificationFacialPointsBufferStreamOutput);
+        byte[] imageBytes = byteBuffer.identificationFacialPointsBufferStreamOutput.toByteArray();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        byteBuffer.IdentificationFacialPointsCastBitmapToByteBuffer(bitmap);
+
+        try {
+
+            inferenceSpatialEstimation();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
 
 
 
