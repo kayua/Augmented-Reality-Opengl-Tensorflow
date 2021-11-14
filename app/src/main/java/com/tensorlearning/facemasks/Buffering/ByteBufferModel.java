@@ -154,7 +154,6 @@ public class ByteBufferModel {
     }
 
 
-
     public MappedByteBuffer FaceTrackerLoadModelFile() throws IOException {
 
         AssetFileDescriptor assetFileDescriptor = this.foreignContext.getAssets().openFd(faceTrackerFileModel);
