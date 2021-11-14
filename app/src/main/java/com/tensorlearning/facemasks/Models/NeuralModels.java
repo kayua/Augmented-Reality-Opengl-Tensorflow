@@ -204,7 +204,7 @@ public class NeuralModels {
 
         try {
 
-            inferenceSpatialEstimation();
+            inferenceIdentificationFacialPoints();
 
         } catch (IOException e) {
 
@@ -213,9 +213,6 @@ public class NeuralModels {
         }
 
     }
-
-
-
 
 
     public void inferenceFaceTracker() throws IOException {
