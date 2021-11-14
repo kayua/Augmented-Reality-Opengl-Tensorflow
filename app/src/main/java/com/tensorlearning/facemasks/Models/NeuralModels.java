@@ -148,6 +148,52 @@ public class NeuralModels {
 
     }
 
+    public void predictPersonalModel(byte[] data, Camera camera){
+
+        Camera.Parameters parameters = camera.getParameters();
+
+        YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
+        yuvImage.compressToJpeg(new Rect(0, 0, personalModelSettings.getPersonalModelsSizeImageHeight(), personalModelSettings.getPersonalModelsSizeImageWidth()), 90, byteBuffer.personalModelBufferStreamOutput);
+        byte[] imageBytes = byteBuffer.personalModelBufferStreamOutput.toByteArray();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        byteBuffer.PersonalModelCastBitmapToByteBuffer(bitmap);
+
+        try {
+
+            inferencePersonalModel();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public void predictSpatialEstimation(byte[] data, Camera camera){
+
+        Camera.Parameters parameters = camera.getParameters();
+
+        YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
+        yuvImage.compressToJpeg(new Rect(0, 0, spatialEstimationSettings.getSpatialEstimationSizeImageHeight(), spatialEstimationSettings.getSpatialEstimationSizeImageWidth()), 90, byteBuffer.spatialEstimationBufferStreamOutput);
+        byte[] imageBytes = byteBuffer.spatialEstimationBufferStreamOutput.toByteArray();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        byteBuffer.SpatialEstimationCastBitmapToByteBuffer(bitmap);
+
+        try {
+
+            inferenceSpatialEstimation();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+
 
 
     public void inferenceFaceTracker() throws IOException {
