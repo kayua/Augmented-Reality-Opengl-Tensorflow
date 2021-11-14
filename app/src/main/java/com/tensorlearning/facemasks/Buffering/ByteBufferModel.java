@@ -46,7 +46,7 @@ public class ByteBufferModel {
     public int[] identificationFacialPointsFlattenAllocationBuffer = null;
 
 
-    public float [][] faceTrackerBufferOutput;
+    public float [][] faceTrackerBufferOutput = new float[1][40];;
     public float [][] personalModelBufferOutput;
     public float [][] spatialEstimationBufferOutput;
     public float [][] identificationFacialPointsBufferOutput;
@@ -57,10 +57,10 @@ public class ByteBufferModel {
     public ByteBuffer spatialEstimationByteBufferStreamInput;
     public ByteBuffer identificationFacialPointsByteBufferStreamInput;
 
-    public ByteArrayOutputStream faceTrackerBufferStreamOutput = null;
-    public ByteArrayOutputStream personalModelBufferStreamOutput = null;
-    public ByteArrayOutputStream spatialEstimationBufferStreamOutput = null;
-    public ByteArrayOutputStream identificationFacialPointsBufferStreamOutput = null;
+    public ByteArrayOutputStream faceTrackerBufferStreamOutput = new ByteArrayOutputStream();;
+    public ByteArrayOutputStream personalModelBufferStreamOutput = new ByteArrayOutputStream();;
+    public ByteArrayOutputStream spatialEstimationBufferStreamOutput = new ByteArrayOutputStream();;
+    public ByteArrayOutputStream identificationFacialPointsBufferStreamOutput = new ByteArrayOutputStream();;
 
     private String faceTrackerFileModel;
     private String personalModelFileModel;
@@ -78,7 +78,7 @@ public class ByteBufferModel {
 
 
 
-    private void FaceTrackerCastBitmapToByteBuffer(Bitmap bitmap) {
+    public void FaceTrackerCastBitmapToByteBuffer(Bitmap bitmap) {
 
         if (faceTrackerByteBufferStreamInput == null) { return; }
         faceTrackerByteBufferStreamInput.rewind();
@@ -97,7 +97,7 @@ public class ByteBufferModel {
         Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
     }
 
-    private void PersonalModelCastBitmapToByteBuffer(Bitmap bitmap) {
+    public void PersonalModelCastBitmapToByteBuffer(Bitmap bitmap) {
 
         if (personalModelByteBufferStreamInput == null) { return; }
         personalModelByteBufferStreamInput.rewind();
@@ -116,7 +116,7 @@ public class ByteBufferModel {
         Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
     }
 
-    private void IdentificationFacialPointsCastBitmapToByteBuffer(Bitmap bitmap) {
+    public void IdentificationFacialPointsCastBitmapToByteBuffer(Bitmap bitmap) {
 
         if (identificationFacialPointsByteBufferStreamInput == null) { return; }
         identificationFacialPointsByteBufferStreamInput.rewind();
@@ -135,7 +135,7 @@ public class ByteBufferModel {
         Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
     }
 
-    private void SpatialEstimationCastBitmapToByteBuffer(Bitmap bitmap) {
+    public void SpatialEstimationCastBitmapToByteBuffer(Bitmap bitmap) {
 
         if (spatialEstimationByteBufferStreamInput == null) { return; }
         spatialEstimationByteBufferStreamInput.rewind();

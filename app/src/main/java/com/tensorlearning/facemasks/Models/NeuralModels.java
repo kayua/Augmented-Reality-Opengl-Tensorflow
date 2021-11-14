@@ -2,6 +2,12 @@ package com.tensorlearning.facemasks.Models;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
+import android.hardware.Camera;
+import android.util.Log;
 
 import com.tensorlearning.facemasks.Buffering.ByteBufferModel;
 import com.tensorlearning.facemasks.SettingsFaceTracker.FaceTrackerSettings;
@@ -14,6 +20,8 @@ import org.tensorflow.lite.Interpreter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.time.Duration;
+import java.time.Instant;
 
 public class NeuralModels {
 
@@ -37,13 +45,10 @@ public class NeuralModels {
 
     private ByteBufferModel byteBuffer = new ByteBufferModel(context);
 
-
-
     public void createInterpreter(){
 
 
         try {
-
 
             interpreterFaceTracker = new Interpreter(byteBuffer.FaceTrackerLoadModelFile(),faceTrackerSettings());
             interpreterPersonalModel = new Interpreter(byteBuffer.PersonalModelLoadModelFile(), personalModelSettings());
@@ -68,7 +73,6 @@ public class NeuralModels {
             byteBuffer.identificationFacialPointsByteBufferStreamInput.order(ByteOrder.nativeOrder());
 
 
-
         } catch (IOException e) {
 
             e.printStackTrace();
@@ -79,7 +83,6 @@ public class NeuralModels {
 
 
     }
-
 
 
     public Interpreter.Options faceTrackerSettings(){
@@ -123,12 +126,61 @@ public class NeuralModels {
     }
 
 
+    public void predictFaceTracker(byte[] data, Camera camera){
+
+        Camera.Parameters parameters = camera.getParameters();
+
+        YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
+        yuvImage.compressToJpeg(new Rect(0, 0, faceTrackerSettings.getFaceTrackerSizeImageHeight(), faceTrackerSettings.getFaceTrackerSizeImageWidth()), 90, byteBuffer.faceTrackerBufferStreamOutput);
+        byte[] imageBytes = byteBuffer.faceTrackerBufferStreamOutput.toByteArray();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        byteBuffer.FaceTrackerCastBitmapToByteBuffer(bitmap);
+
+        try {
+
+            inferenceFaceTracker();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
 
 
 
+    public void inferenceFaceTracker() throws IOException {
 
+        Instant start = Instant.now();
+        interpreterFaceTracker.run(byteBuffer.faceTrackerByteBufferStreamInput, byteBuffer.faceTrackerBufferOutput);
+        Instant end = Instant.now();
+        Log.i("TIME:     ", Duration.between(start, end).toString());
+    }
 
+    public void inferencePersonalModel() throws IOException {
 
+        Instant start = Instant.now();
+        interpreterPersonalModel.run(byteBuffer.personalModelByteBufferStreamInput, byteBuffer.personalModelBufferOutput);
+        Instant end = Instant.now();
+        Log.i("TIME:     ", Duration.between(start, end).toString());
+    }
+
+    public void inferenceSpatialEstimation() throws IOException {
+
+        Instant start = Instant.now();
+        interpreterSpatialEstimation.run(byteBuffer.spatialEstimationByteBufferStreamInput, byteBuffer.spatialEstimationBufferOutput);
+        Instant end = Instant.now();
+        Log.i("TIME:     ", Duration.between(start, end).toString());
+    }
+
+    public void inferenceIdentificationFacialPoints() throws IOException {
+
+        Instant start = Instant.now();
+        interpreterIdentificationFacialPoints.run(byteBuffer.identificationFacialPointsByteBufferStreamInput, byteBuffer.identificationFacialPointsBufferOutput);
+        Instant end = Instant.now();
+        Log.i("TIME:     ", Duration.between(start, end).toString());
+    }
 
 
 
