@@ -59,9 +59,6 @@ public class NeuralModels {
         byteBuffer.setSpatialEstimationSizeImageHeight(spatialEstimationSettings.getSpatialEstimationSizeImageHeight());
         byteBuffer.setSpatialEstimationSizeImageWidth(spatialEstimationSettings.getSpatialEstimationSizeImageWidth());
 
-
-
-
     }
     public void createInterpreter(){
 
