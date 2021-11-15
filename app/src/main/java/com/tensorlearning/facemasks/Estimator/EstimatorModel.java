@@ -75,6 +75,17 @@ public class EstimatorModel {
 
     public void generateEstimating(){
 
+        for(int i = 0; i < estimatorNumberPointsPerFace; i++) {
+
+            estimatorBufferFirstFrameSequencesAxisX[i] = estimatorBufferFirstFrameSequencesAxisX[i]*estimatorConstantFirstAcceleration;
+            estimatorBufferFirstFrameSequencesAxisX[i] = estimatorBufferSecondFrameSequencesAxisX[i]*estimatorConstantSecondAcceleration + estimatorBufferFirstFrameSequencesAxisX[i];
+            estimatorBufferFirstFrameSequencesAxisX[i] = estimatorBufferThirdFrameSequencesAxisX[i]*estimatorConstantThirdAcceleration + estimatorBufferFirstFrameSequencesAxisX[i];
+
+            estimatorBufferFirstFrameSequencesAxisY[i] = estimatorBufferFirstFrameSequencesAxisY[i]*estimatorConstantFirstAcceleration;
+            estimatorBufferFirstFrameSequencesAxisY[i] = estimatorBufferSecondFrameSequencesAxisY[i]*estimatorConstantSecondAcceleration + estimatorBufferFirstFrameSequencesAxisY[i];
+            estimatorBufferFirstFrameSequencesAxisY[i] = estimatorBufferThirdFrameSequencesAxisY[i]*estimatorConstantThirdAcceleration + estimatorBufferFirstFrameSequencesAxisY[i];
+
+        }
 
 
     }
