@@ -34,6 +34,7 @@ public final class LoadModelsRendering {
 
     public void readFileObject(int sequenceObjectId){
 
+
         try {
 
             fileInputReference = new InputStreamReader(context.getAssets().open("filename.txt"));
@@ -112,6 +113,7 @@ public final class LoadModelsRendering {
         for(int i=0; i< fileObjectModel.size(); i++){
 
             readFileObject(i);
+            objectModelStruct[i].createBufferObject();
 
         }
 

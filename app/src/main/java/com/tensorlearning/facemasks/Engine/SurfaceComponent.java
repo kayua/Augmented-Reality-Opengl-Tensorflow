@@ -23,7 +23,7 @@ public class SurfaceComponent extends GLSurfaceView {
 
         Interpreter interpreter = null;
 
-        cr = new EngineRenderer(getContext(), interpreter, camera);
+        cr = new EngineRenderer(getContext());
         this.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         this.setRenderer(cr);
         this.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
