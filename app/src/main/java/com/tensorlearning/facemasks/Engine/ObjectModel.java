@@ -17,6 +17,8 @@ public final class ObjectModel {
     private float[] objectModelObjectPositionsFlattenBuffer;
 
 
+
+
     public int getObjectModelNumberFaces() {
 
         return objectModelNumberFaces;
@@ -52,7 +54,8 @@ public final class ObjectModel {
 
     }
 
-    public void getBufferObject(){
+
+    public void createBufferObject(){
 
         objectModelNormalComponentsFlattenBuffer = new float[objectModelNormalComponents.size()];
         objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
@@ -77,10 +80,28 @@ public final class ObjectModel {
         }
 
 
+    }
+
+
+    public float[] getObjectModelNormalComponentsFlattenBuffer() {
+
+        return objectModelNormalComponentsFlattenBuffer;
 
     }
 
 
+    public float[] getObjectModelTextureCoordinatesFlattenBuffer() {
+
+        return objectModelTextureCoordinatesFlattenBuffer;
+
+    }
+
+
+    public float[] getObjectModelObjectPositionsFlattenBuffer() {
+
+        return objectModelObjectPositionsFlattenBuffer;
+
+    }
 
 
 
