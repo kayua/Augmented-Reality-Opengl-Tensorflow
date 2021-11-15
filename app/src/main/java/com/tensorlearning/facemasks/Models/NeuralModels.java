@@ -144,6 +144,7 @@ public class NeuralModels {
     }
 
 
+
     public Interpreter.Options faceTrackerSettings(){
 
         Interpreter.Options modelOptions = new Interpreter.Options();
@@ -185,6 +186,7 @@ public class NeuralModels {
     }
 
 
+
     public void predictFaceTracker(byte[] data, Camera camera){
 
         faceTrackerCameraParameters = camera.getParameters();
@@ -209,7 +211,6 @@ public class NeuralModels {
 
     }
 
-
     public void predictSpatialEstimation(byte[] data, Camera camera){
 
         spatialEstimationCameraParameters = camera.getParameters();
@@ -233,6 +234,7 @@ public class NeuralModels {
         inferenceIdentificationFacialPoints();
 
     }
+
 
 
     public void inferenceFaceTracker(){
