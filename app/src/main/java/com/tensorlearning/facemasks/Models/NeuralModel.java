@@ -160,6 +160,7 @@ public class NeuralModel {
 
     }
 
+
     public Interpreter.Options faceTrackerSettings(){
 
         Interpreter.Options modelOptions = new Interpreter.Options();
@@ -265,7 +266,6 @@ public class NeuralModel {
 
     }
 
-
     public void estimationIdentificationFacialPoints(){
 
         estimatorModel.generateEstimating();
@@ -278,7 +278,6 @@ public class NeuralModel {
         }
 
     }
-
 
 
     public void inferenceFaceTracker(){
