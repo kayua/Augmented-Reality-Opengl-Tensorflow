@@ -9,7 +9,7 @@ public class FaceTrackerSettings {
     private final int faceTrackerSizeImageHeight = 128;
     private final int faceTrackerSizeImageWidth = 256;
     private final int faceTrackerCoordinateMeanImage = 128;
-    private final int faceTrackerFlattenAllocationBuffer = faceTrackerSizeImageHeight * faceTrackerSizeImageWidth;
+    private final int faceTrackerFlattenAllocationBuffer = faceTrackerSizeImageHeight * faceTrackerSizeImageWidth*4;
     private final int faceTrackerBufferOutput = 40;
     private final float faceTrackerCoordinateMeanStandard = 128f;
     private final boolean faceTrackerAllowBufferHandleOutput = true;

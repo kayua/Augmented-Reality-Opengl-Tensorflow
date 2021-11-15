@@ -10,7 +10,7 @@ public class SpatialEstimationSettings {
     private final int spatialEstimationSizeImageHeight = 256;
     private final int spatialEstimationSizeImageWidth = 512;
     private final int spatialEstimationCoordinateMeanImage = 128;
-    private final int spatialEstimationFlattenAllocationBuffer = spatialEstimationSizeImageHeight  * spatialEstimationSizeImageWidth;
+    private final int spatialEstimationFlattenAllocationBuffer = spatialEstimationSizeImageHeight  * spatialEstimationSizeImageWidth*4;
     private final int spatialEstimationBufferOutput = 40;
     private final float spatialEstimationCoordinateMeanStandard = 128f;
     private final boolean spatialEstimationAllowBufferHandleOutput = true;
