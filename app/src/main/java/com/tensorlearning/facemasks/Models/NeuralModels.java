@@ -35,9 +35,13 @@ public class NeuralModels {
     private PersonalModelsSettings personalModelSettings = new PersonalModelsSettings();
     private SpatialEstimationSettings spatialEstimationSettings = new SpatialEstimationSettings();
 
-    private Context context;
+    private final ByteBufferModel byteBuffer;
 
-    private ByteBufferModel byteBuffer = new ByteBufferModel(context);
+    public NeuralModels(Context context) {
+
+        this.byteBuffer = new ByteBufferModel(context);
+
+    }
 
     public void createByteBufferModel(){
 
@@ -70,6 +74,7 @@ public class NeuralModels {
         byteBuffer.setPersonalModelByteBufferStreamInput(ByteBuffer.allocateDirect(personalModelSettings.getPersonalModelsFlattenAllocationBuffer()*4));
         byteBuffer.setPersonalModelFileModelNeural(personalModelSettings.getPersonalModelFileModel());
 
+
         byteBuffer.setSpatialEstimationSizeImageHeight(spatialEstimationSettings.getSpatialEstimationSizeImageHeight());
         byteBuffer.setSpatialEstimationSizeImageWidth(spatialEstimationSettings.getSpatialEstimationSizeImageWidth());
         byteBuffer.setSpatialEstimationCoordinateMeanImage(spatialEstimationSettings.getSpatialEstimationCoordinateMeanImage());
@@ -78,6 +83,7 @@ public class NeuralModels {
         byteBuffer.setSpatialEstimationBufferOutput(new float[1][spatialEstimationSettings.getSpatialEstimationBufferOutput()]);
         byteBuffer.setSpatialEstimationByteBufferStreamInput(ByteBuffer.allocateDirect(spatialEstimationSettings.getSpatialEstimationFlattenAllocationBuffer()*4));
         byteBuffer.setSpatialEstimationFileModelNeural(spatialEstimationSettings.getSpatialEstimationFileModel());
+
 
     }
 

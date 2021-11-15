@@ -367,30 +367,6 @@ public class ByteBufferModel {
 
     }
 
-    public void setFaceTrackerBufferStreamOutput(ByteArrayOutputStream faceTrackerBufferStreamOutput) {
-
-        this.faceTrackerBufferStreamOutput = faceTrackerBufferStreamOutput;
-
-    }
-
-    public void setPersonalModelBufferStreamOutput(ByteArrayOutputStream personalModelBufferStreamOutput) {
-
-        this.personalModelBufferStreamOutput = personalModelBufferStreamOutput;
-
-    }
-
-    public void setSpatialEstimationBufferStreamOutput(ByteArrayOutputStream spatialEstimationBufferStreamOutput) {
-
-        this.spatialEstimationBufferStreamOutput = spatialEstimationBufferStreamOutput;
-
-    }
-
-    public void setIdentificationFacialPointsBufferStreamOutput(ByteArrayOutputStream identificationFacialPointsBufferStreamOutput) {
-
-        this.identificationFacialPointsBufferStreamOutput = identificationFacialPointsBufferStreamOutput;
-
-    }
-
     public void setFaceTrackerFileModelNeural(String faceTrackerFileModel) {
 
         this.faceTrackerFileModel = faceTrackerFileModel;
@@ -414,7 +390,6 @@ public class ByteBufferModel {
         this.identificationFacialFileModel = identificationFacialFileModel;
 
     }
-
 
 
 }
