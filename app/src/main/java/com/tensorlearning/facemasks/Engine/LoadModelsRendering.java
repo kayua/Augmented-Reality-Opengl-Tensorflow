@@ -13,9 +13,16 @@ public final class LoadModelsRendering {
     String fileObjectModel;
     InputStreamReader fileInputReference;
     String stringBufferReadLine;
+    String[] fileTemporaryProcessingLine;
+    ObjectModel objectModelStruct;
 
+    private float modelObjectFloatAxisX;
+    private float modelObjectFloatAxisY;
+    private float modelObjectFloatAxisZ;
 
     public LoadModelsRendering(Context context, String file) {
+
+        this.objectModelStruct = new ObjectModel();
 
     }
 
@@ -36,17 +43,41 @@ public final class LoadModelsRendering {
 
             if (bufferReaderObject != null) {
 
-                try {
-                    bufferReaderObject.close();
-                } catch (IOException e) { }
-
+                try { bufferReaderObject.close(); } catch (IOException ignored) { }
 
             }
         }
 
     }
 
+    public void decomposeFileObject(String stringBufferLine){
 
+
+        fileTemporaryProcessingLine = stringBufferLine.split("\\s");
+
+        if(fileTemporaryProcessingLine[0].equals("#")){ return; }
+
+        if(fileTemporaryProcessingLine[0].equals("v")){
+
+            modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
+            modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
+            modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
+
+            objectModelStruct.addVerticesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+            return;
+
+
+
+        }
+
+
+
+
+
+
+
+
+    }
 
 
 
