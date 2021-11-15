@@ -50,6 +50,7 @@ public class NeuralModels {
     private byte[] faceTrackerImageByte;
     private byte[] personalModelsImageByte;
     private byte[] spatialEstimationImageByte;
+    private byte[] identificationFacialPointsImageByte;
 
 
     public NeuralModels(Context context) {
@@ -221,8 +222,8 @@ public class NeuralModels {
         identificationFacialPointsCameraParameters = camera.getParameters();
         identificationFacialPointsCompressionYuvImage = new YuvImage(data, identificationFacialPointsCameraParameters.getPreviewFormat(), identificationFacialPointsCameraParameters.getPreviewSize().width, identificationFacialPointsCameraParameters.getPreviewSize().height, null);
         identificationFacialPointsCompressionYuvImage.compressToJpeg(new Rect(0, 0,facialPointsSettings.getIdentificationFacialPointsSizeImageHeight(), facialPointsSettings.getIdentificationFacialPointsSizeImageWidth()), 90, byteBuffer.identificationFacialPointsBufferStreamOutput);
-        byte[] imageBytes = byteBuffer.identificationFacialPointsBufferStreamOutput.toByteArray();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        identificationFacialPointsImageByte = byteBuffer.identificationFacialPointsBufferStreamOutput.toByteArray();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(identificationFacialPointsImageByte, 0, identificationFacialPointsImageByte.length);
         byteBuffer.IdentificationFacialPointsCastBitmapToByteBuffer(bitmap);
         inferenceIdentificationFacialPoints();
 
