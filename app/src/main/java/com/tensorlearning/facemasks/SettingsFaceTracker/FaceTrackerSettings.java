@@ -11,6 +11,12 @@ public class FaceTrackerSettings {
     private final int faceTrackerBufferOutput = 40;
     private final float faceTrackerCoordinateMeanStandard = 128f;
 
+    public int getFaceTrackerNumberThreads() {
+        return faceTrackerNumberThreads;
+    }
+
+    private final int faceTrackerNumberThreads = 2;
+
     public int getFaceTrackerSizeImageHeight() {
 
         return faceTrackerSizeImageHeight;

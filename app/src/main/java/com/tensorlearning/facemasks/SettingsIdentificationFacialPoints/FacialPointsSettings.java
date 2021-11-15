@@ -11,6 +11,12 @@ public class FacialPointsSettings {
     private final int identificationFacialPointsBufferOutput = 40;
     private final float identificationFacialPointsCoordinateMeanStandard = 128f;
 
+    public int getIdentificationFacialPointsNumberThreads() {
+        return identificationFacialPointsNumberThreads;
+    }
+
+    private final int identificationFacialPointsNumberThreads = 2;
+
     public int getIdentificationFacialPointsSizeImageHeight() {
 
         return identificationFacialPointsSizeImageHeight;

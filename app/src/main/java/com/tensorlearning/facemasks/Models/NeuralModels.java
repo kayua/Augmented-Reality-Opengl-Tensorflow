@@ -129,7 +129,7 @@ public class NeuralModels {
     public Interpreter.Options faceTrackerSettings(){
 
         Interpreter.Options modelOptions = new Interpreter.Options();
-        modelOptions.setNumThreads(2);
+        modelOptions.setNumThreads(faceTrackerSettings.getFaceTrackerNumberThreads());
         modelOptions.setAllowBufferHandleOutput(true);
         modelOptions.setAllowFp16PrecisionForFp32(true);
         return modelOptions;
@@ -139,7 +139,7 @@ public class NeuralModels {
     public Interpreter.Options personalModelSettings(){
 
         Interpreter.Options modelOptions = new Interpreter.Options();
-        modelOptions.setNumThreads(2);
+        modelOptions.setNumThreads(personalModelSettings.getPersonalModelsNumberThreads());
         modelOptions.setAllowBufferHandleOutput(true);
         modelOptions.setAllowFp16PrecisionForFp32(true);
         return modelOptions;
@@ -149,7 +149,7 @@ public class NeuralModels {
     public Interpreter.Options spatialEstimationModelSettings(){
 
         Interpreter.Options modelsOptions = new Interpreter.Options();
-        modelsOptions.setNumThreads(2);
+        modelsOptions.setNumThreads();
         modelsOptions.setAllowBufferHandleOutput(true);
         modelsOptions.setAllowFp16PrecisionForFp32(true);
         return modelsOptions;
@@ -159,7 +159,7 @@ public class NeuralModels {
     public Interpreter.Options identificationFacialModelSettings(){
 
         Interpreter.Options modelsOptions = new Interpreter.Options();
-        modelsOptions.setNumThreads(2);
+        modelsOptions.setNumThreads(facialPointsSettings.getIdentificationFacialPointsNumberThreads());
         modelsOptions.setAllowBufferHandleOutput(true);
         modelsOptions.setAllowFp16PrecisionForFp32(true);
         return modelsOptions;

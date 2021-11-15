@@ -11,6 +11,12 @@ public class PersonalModelsSettings {
     private final int personalModelsBufferOutput = 40;
     private final float personalModelsCoordinateMeanStandard = 128f;
 
+    public int getPersonalModelsNumberThreads() {
+        return personalModelsNumberThreads;
+    }
+
+    private final int personalModelsNumberThreads = 2;
+
     public int getPersonalModelsSizeImageHeight() {
 
         return personalModelsSizeImageHeight;
