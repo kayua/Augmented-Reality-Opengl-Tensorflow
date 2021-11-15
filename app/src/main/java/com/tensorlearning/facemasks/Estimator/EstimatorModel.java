@@ -77,40 +77,27 @@ public class EstimatorModel {
 
     public void addEstimationBufferPredictions(float[] coordinatesPredicted){
 
-        if(estimatorNumberSequences<= 0){
+        if(estimatorNumberSequences>= 0){
 
             for(int i = 0; i < estimatorNumberPointsPerFace; i++) {
-
-                estimatorBufferThirdFrameSequencesAxisX[i] = coordinatesPredicted[2*i];
-                estimatorBufferThirdFrameSequencesAxisY[i] = coordinatesPredicted[2*i+1];
 
             }
 
         }
 
-        if(estimatorNumberSequences<= 1){
+        if(estimatorNumberSequences>= 1){
 
             for(int i = 0; i < estimatorNumberPointsPerFace; i++) {
 
-                estimatorBufferSecondFrameSequencesAxisX[i] = coordinatesPredicted[2*i];
-                estimatorBufferSecondFrameSequencesAxisY[i] = coordinatesPredicted[2*i+1];
 
             }
         }
 
-        if(estimatorNumberSequences<= 2){
-
-
-            estimatorBufferThirdFrameSequencesAxisX = estimatorBufferSecondFrameSequencesAxisX;
-            estimatorBufferThirdFrameSequencesAxisY = estimatorBufferSecondFrameSequencesAxisY;
-            estimatorBufferSecondFrameSequencesAxisX = estimatorBufferFirstFrameSequencesAxisX;
-            estimatorBufferSecondFrameSequencesAxisY = estimatorBufferFirstFrameSequencesAxisY;
+        if(estimatorNumberSequences>= 2){
 
 
             for(int i = 0; i < estimatorNumberPointsPerFace; i++) {
 
-                estimatorBufferFirstFrameSequencesAxisX[i] = coordinatesPredicted[2*i];
-                estimatorBufferFirstFrameSequencesAxisY[i] = coordinatesPredicted[2*i+1];
 
             }
 

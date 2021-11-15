@@ -242,7 +242,7 @@ public class NeuralModel {
 
             Log.i("CYCLE TESTE --------------------", "---");
 
-            estimationCycle = true;
+            estimationCycle = false;
         }else{
 
             identificationFacialPointsCameraParameters = camera.getParameters();
@@ -253,7 +253,7 @@ public class NeuralModel {
             byteBuffer.IdentificationFacialPointsCastBitmapToByteBuffer(identificationFacialPointsBitmapImage);
             inferenceIdentificationFacialPoints();
             estimatorModel.addEstimationBufferPredictions(byteBuffer.identificationFacialPointsBufferOutput[0]);
-
+            estimationCycle = true;
 
         }
 
