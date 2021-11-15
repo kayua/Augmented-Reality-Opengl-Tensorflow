@@ -11,6 +11,8 @@ public final class ObjectModel {
     private final int objectModelNumberNormals;
     private final int objectModelIdObject;
 
+    private int objectNumberComponentsPerPlane;
+
     private final String  objectModelMaterialReference;
 
     private final Vector<Float> objectModelVerticesComponents;
@@ -104,11 +106,12 @@ public final class ObjectModel {
 
     }
 
-    public void addObjectIndexComponents(float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
+    public void addObjectIndexComponents(int numberComponents, float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
 
         objectModelObjectPositions.add(coordinateAxisX);
         objectModelObjectPositions.add(coordinateAxisY);
         objectModelObjectPositions.add(coordinateAxisZ);
+        objectNumberComponentsPerPlane = numberComponents;
 
     }
 

@@ -8,13 +8,15 @@ import java.io.InputStreamReader;
 
 public final class LoadModelsRendering {
 
-    BufferedReader bufferReaderObject = null;
-    Context context;
-    String fileObjectModel;
-    InputStreamReader fileInputReference;
+
     String stringBufferReadLine;
     String[] fileTemporaryProcessingLine;
+    String fileObjectModel;
+
+    BufferedReader bufferReaderObject = null;
+    InputStreamReader fileInputReference;
     ObjectModel objectModelStruct;
+    Context context;
 
     private float modelObjectFloatAxisX;
     private float modelObjectFloatAxisY;
@@ -34,10 +36,10 @@ public final class LoadModelsRendering {
             bufferReaderObject = new BufferedReader(fileInputReference);
 
             while ((stringBufferReadLine = bufferReaderObject.readLine()) != null) {
-
+                decomposeFileObject(stringBufferReadLine);
             }
 
-        } catch (IOException e) {
+        } catch (IOException ignored) {
 
         } finally {
 
@@ -75,12 +77,13 @@ public final class LoadModelsRendering {
 
         if(fileTemporaryProcessingLine[0].equals("f")){
 
-            for(int i = 0; i<fileTemporaryProcessingLine.length; i++){
+            for (String s : fileTemporaryProcessingLine) {
 
-                modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[i].split("/")[0]);
-                modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[i].split("/")[1]);
-                modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[i].split("/")[2]);
-                objectModelStruct.addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+                modelObjectFloatAxisX = Float.parseFloat(s.split("/")[0]);
+                modelObjectFloatAxisY = Float.parseFloat(s.split("/")[1]);
+                modelObjectFloatAxisZ = Float.parseFloat(s.split("/")[2]);
+
+                objectModelStruct.addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
 
 
             }
@@ -89,12 +92,7 @@ public final class LoadModelsRendering {
 
 
 
-
-
-
-
     }
-
 
 
 }
