@@ -6,7 +6,7 @@ public class PersonalModelsSettings {
 
 
 
-    private final String personalModelFileModel = "lite";
+    private final String personalModelFileModel = "model_face.tflite";
     private final int personalModelsSizeImageHeight = 256;
     private final int personalModelsSizeImageWidth = 512;
     private final int personalModelsCoordinateMeanImage = 128;

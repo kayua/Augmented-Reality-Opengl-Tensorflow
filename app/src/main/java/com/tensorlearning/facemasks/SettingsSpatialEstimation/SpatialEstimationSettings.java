@@ -6,7 +6,7 @@ public class SpatialEstimationSettings {
 
 
 
-    private final String spatialEstimationFileModel = "lite";
+    private final String spatialEstimationFileModel = "model_face.tflite";
     private final int spatialEstimationSizeImageHeight = 256;
     private final int spatialEstimationSizeImageWidth = 512;
     private final int spatialEstimationCoordinateMeanImage = 128;

@@ -30,10 +30,10 @@ public class NeuralModels {
     private Interpreter interpreterSpatialEstimation = null;
     private Interpreter interpreterIdentificationFacialPoints = null;
 
-    private FaceTrackerSettings faceTrackerSettings = new FaceTrackerSettings();
-    private FacialPointsSettings facialPointsSettings = new FacialPointsSettings();
-    private PersonalModelsSettings personalModelSettings = new PersonalModelsSettings();
-    private SpatialEstimationSettings spatialEstimationSettings = new SpatialEstimationSettings();
+    private final FaceTrackerSettings faceTrackerSettings = new FaceTrackerSettings();
+    private final FacialPointsSettings facialPointsSettings = new FacialPointsSettings();
+    private final PersonalModelsSettings personalModelSettings = new PersonalModelsSettings();
+    private final SpatialEstimationSettings spatialEstimationSettings = new SpatialEstimationSettings();
 
     private final ByteBufferModel byteBuffer;
 
@@ -173,16 +173,7 @@ public class NeuralModels {
         byte[] imageBytes = byteBuffer.faceTrackerBufferStreamOutput.toByteArray();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         byteBuffer.FaceTrackerCastBitmapToByteBuffer(bitmap);
-
-        try {
-
-            inferenceFaceTracker();
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
+        inferenceFaceTracker();
 
     }
 
@@ -195,16 +186,7 @@ public class NeuralModels {
         byte[] imageBytes = byteBuffer.personalModelBufferStreamOutput.toByteArray();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         byteBuffer.PersonalModelCastBitmapToByteBuffer(bitmap);
-
-        try {
-
-            inferencePersonalModel();
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
+        inferencePersonalModel();
 
     }
 
@@ -217,16 +199,7 @@ public class NeuralModels {
         byte[] imageBytes = byteBuffer.spatialEstimationBufferStreamOutput.toByteArray();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         byteBuffer.SpatialEstimationCastBitmapToByteBuffer(bitmap);
-
-        try {
-
-            inferenceSpatialEstimation();
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
+        inferenceSpatialEstimation();
 
     }
 
@@ -239,21 +212,12 @@ public class NeuralModels {
         byte[] imageBytes = byteBuffer.identificationFacialPointsBufferStreamOutput.toByteArray();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         byteBuffer.IdentificationFacialPointsCastBitmapToByteBuffer(bitmap);
-
-        try {
-
-            inferenceIdentificationFacialPoints();
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
+        inferenceIdentificationFacialPoints();
 
     }
 
 
-    public void inferenceFaceTracker() throws IOException {
+    public void inferenceFaceTracker(){
 
         Instant start = Instant.now();
         interpreterFaceTracker.run(byteBuffer.faceTrackerByteBufferStreamInput, byteBuffer.faceTrackerBufferOutput);
@@ -261,7 +225,7 @@ public class NeuralModels {
         Log.i("TIME:     ", Duration.between(start, end).toString());
     }
 
-    public void inferencePersonalModel() throws IOException {
+    public void inferencePersonalModel() {
 
         Instant start = Instant.now();
         interpreterPersonalModel.run(byteBuffer.personalModelByteBufferStreamInput, byteBuffer.personalModelBufferOutput);
@@ -269,7 +233,7 @@ public class NeuralModels {
         Log.i("TIME:     ", Duration.between(start, end).toString());
     }
 
-    public void inferenceSpatialEstimation() throws IOException {
+    public void inferenceSpatialEstimation() {
 
         Instant start = Instant.now();
         interpreterSpatialEstimation.run(byteBuffer.spatialEstimationByteBufferStreamInput, byteBuffer.spatialEstimationBufferOutput);
@@ -277,7 +241,7 @@ public class NeuralModels {
         Log.i("TIME:     ", Duration.between(start, end).toString());
     }
 
-    public void inferenceIdentificationFacialPoints() throws IOException {
+    public void inferenceIdentificationFacialPoints() {
 
         Instant start = Instant.now();
         interpreterIdentificationFacialPoints.run(byteBuffer.identificationFacialPointsByteBufferStreamInput, byteBuffer.identificationFacialPointsBufferOutput);

@@ -5,7 +5,7 @@ package com.tensorlearning.facemasks.SettingsIdentificationFacialPoints;
 public class FacialPointsSettings {
 
 
-    private final String identificationFacialPointsFileModel = "lite";
+    private final String identificationFacialPointsFileModel = "model_face.tflite";
     private final int identificationFacialPointsSizeImageHeight = 256;
     private final int identificationFacialPointsSizeImageWidth = 512;
     private final int identificationFacialPointsCoordinateMeanImage = 128;
