@@ -95,6 +95,10 @@ public final class LoadModelsRendering {
                 modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
                 modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
                 objectModelStruct.get(numberSequenceModels).addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+                modelObjectFloatAxisX = Float.parseFloat("0.6");
+                modelObjectFloatAxisY = Float.parseFloat("0.6");
+                modelObjectFloatAxisZ = Float.parseFloat("0.6");
+                objectModelStruct.get(numberSequenceModels).addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
 
 
         }
@@ -119,7 +123,7 @@ public final class LoadModelsRendering {
             objectModelStruct.get(i).bufferedVerticesModel();
             objectModelStruct.get(i).bufferedTextureModel();
             objectModelStruct.get(i).bufferedIndexModel();
-            Log.i("******************************************", "*******************************");
+
 
         }
 
@@ -139,12 +143,12 @@ public final class LoadModelsRendering {
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
-        if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==3){
+        if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==4){
 
             gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
         }
 
-        if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==4){
+        if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==5){
 
                 gl.glDrawElements(GL10.GL_TRIANGLE_FAN, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
             }
