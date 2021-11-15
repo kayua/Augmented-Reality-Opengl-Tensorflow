@@ -8,7 +8,7 @@ import java.util.Vector;
 public final class ObjectModel {
 
     private final int objectModelNumberFaces;
-    private int objectModelNumberNormals;
+    private final int objectModelNumberNormals;
     private final int objectModelIdObject;
 
     private final String  objectModelMaterialReference;
@@ -94,7 +94,6 @@ public final class ObjectModel {
         objectModelVerticesComponents.add(coordinateAxisX);
         objectModelVerticesComponents.add(coordinateAxisY);
         objectModelVerticesComponents.add(coordinateAxisZ);
-        objectModelNumberNormals = objectModelNumberNormals + 1;
 
     }
 
@@ -144,6 +143,7 @@ public final class ObjectModel {
         floatBufferIndexComponents.position(0);
 
     }
+
 
 
 }
