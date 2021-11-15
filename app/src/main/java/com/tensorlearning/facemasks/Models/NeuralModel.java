@@ -156,6 +156,7 @@ public class NeuralModel {
         estimatorModel.setEstimatorConstantThirdAcceleration(estimatorSettings.getEstimatorConstantThirdAcceleration());
         estimatorModel.setEstimatorNumberMaxSimultaneousFace(estimatorSettings.getEstimatorNumberMaxSimultaneousFace());
         estimatorModel.setEstimatorNumberPointsPerFace(estimatorSettings.getEstimatorNumberPointsPerFace());
+        estimatorModel.estimatorAllocationBuffer();
 
     }
 
@@ -239,10 +240,9 @@ public class NeuralModel {
     public void predictIdentificationFacialPoints(byte[] data, Camera camera){
 
         if( estimationCycle && estimatorModel.estimatorBufferLoaded){
-
-            Log.i("CYCLE TESTE --------------------", "---");
-
+            estimationIdentificationFacialPoints();
             estimationCycle = false;
+
         }else{
 
             identificationFacialPointsCameraParameters = camera.getParameters();
