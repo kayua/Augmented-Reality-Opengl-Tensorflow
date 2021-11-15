@@ -114,6 +114,9 @@ public final class LoadModelsRendering {
 
             readFileObject(i);
             objectModelStruct[i].createBufferObject();
+            objectModelStruct[i].bufferedVerticesModel();
+            objectModelStruct[i].bufferedTextureModel();
+            objectModelStruct[i].bufferedIndexModel();
 
         }
 

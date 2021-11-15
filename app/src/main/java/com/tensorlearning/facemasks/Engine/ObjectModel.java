@@ -1,5 +1,7 @@
 package com.tensorlearning.facemasks.Engine;
 
+import android.util.Log;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -71,27 +73,9 @@ public final class ObjectModel {
 
     }
 
-    public int getObjectModelNumberFaces() {
-
-        return objectModelNumberFaces;
-
-    }
-
-    public int getObjectModelIdObject() {
-
-        return objectModelIdObject;
-
-    }
-
     public int getObjectNumberComponentsPerPlane() {
 
         return objectNumberComponentsPerPlane;
-
-    }
-
-    public String getObjectModelMaterialReference() {
-
-        return objectModelMaterialReference;
 
     }
 
