@@ -11,6 +11,7 @@ public class FaceTrackerSettings {
     private final int faceTrackerBufferOutput = 40;
     private final float faceTrackerCoordinateMeanStandard = 128f;
     private final boolean faceTrackerAllowBufferHandleOutput = true;
+    private final boolean faceTrackerAllowFp16PrecisionForFp32 = true;
     private final int faceTrackerNumberThreads = 2;
 
 
@@ -62,6 +63,11 @@ public class FaceTrackerSettings {
 
     }
 
+    public boolean getFaceTrackerAllowFp16PrecisionForFp32() {
+
+        return faceTrackerAllowFp16PrecisionForFp32;
+
+    }
 
 }
 

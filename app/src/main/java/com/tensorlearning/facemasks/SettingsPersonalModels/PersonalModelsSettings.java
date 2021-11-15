@@ -12,7 +12,13 @@ public class PersonalModelsSettings {
     private final float personalModelsCoordinateMeanStandard = 128f;
     private final boolean personalModelsAllowBufferHandleOutput = true;
     private final int personalModelsNumberThreads = 2;
+    private final boolean personalModelsAllowFp16PrecisionForFp32 = true;
 
+    public boolean getPersonalModelsAllowFp16PrecisionForFp32() {
+
+        return personalModelsAllowFp16PrecisionForFp32;
+
+    }
 
     public boolean getPersonalModelsAllowBufferHandleOutput() {
 

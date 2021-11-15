@@ -12,6 +12,13 @@ public class SpatialEstimationSettings {
     private final float spatialEstimationCoordinateMeanStandard = 128f;
     private final boolean spatialEstimationAllowBufferHandleOutput = true;
     private final int spatialEstimationNumberThreads = 2;
+    private final boolean spatialEstimationAllowFp16PrecisionForFp32 = true;
+
+    public boolean getSpatialEstimationAllowFp16PrecisionForFp32() {
+
+        return spatialEstimationAllowFp16PrecisionForFp32;
+
+    }
 
     public boolean getSpatialEstimationAllowBufferHandleOutput() {
 
