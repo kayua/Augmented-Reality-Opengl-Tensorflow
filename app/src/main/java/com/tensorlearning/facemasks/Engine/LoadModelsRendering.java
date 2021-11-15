@@ -139,7 +139,7 @@ public final class LoadModelsRendering {
 
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferVertices);
         gl.glColorPointer(4, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferTexture);
-
+        Log.i("GL ES", String.valueOf(objectModelStruct.get(i).byteBufferTexture.toString().length()));
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
