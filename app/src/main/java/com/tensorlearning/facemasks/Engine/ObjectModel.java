@@ -69,7 +69,6 @@ public final class ObjectModel {
 
     }
 
-
     public int getObjectModelNumberFaces() {
 
         return objectModelNumberFaces;

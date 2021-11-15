@@ -73,6 +73,20 @@ public final class LoadModelsRendering {
 
         }
 
+        if(fileTemporaryProcessingLine[0].equals("f")){
+
+            for(int i = 0; i<fileTemporaryProcessingLine.length; i++){
+
+                modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[i].split("/")[0]);
+                modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[i].split("/")[1]);
+                modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[i].split("/")[2]);
+                objectModelStruct.addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+
+
+            }
+
+        }
+
 
 
 
