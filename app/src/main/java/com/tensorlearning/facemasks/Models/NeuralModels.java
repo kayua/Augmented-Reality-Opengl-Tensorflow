@@ -149,7 +149,7 @@ public class NeuralModels {
     public Interpreter.Options spatialEstimationModelSettings(){
 
         Interpreter.Options modelsOptions = new Interpreter.Options();
-        modelsOptions.setNumThreads();
+        modelsOptions.setNumThreads(spatialEstimationSettings.getSpatialEstimationNumberThreads());
         modelsOptions.setAllowBufferHandleOutput(true);
         modelsOptions.setAllowFp16PrecisionForFp32(true);
         return modelsOptions;

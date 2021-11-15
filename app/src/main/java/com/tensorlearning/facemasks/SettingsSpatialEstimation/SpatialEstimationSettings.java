@@ -11,6 +11,12 @@ public class SpatialEstimationSettings {
     private final int spatialEstimationBufferOutput = 40;
     private final float spatialEstimationCoordinateMeanStandard = 128f;
 
+    public int getSpatialEstimationNumberThreads() {
+        return spatialEstimationNumberThreads;
+    }
+
+    private final int spatialEstimationNumberThreads = 2;
+
     public int getSpatialEstimationSizeImageHeight() {
 
         return spatialEstimationSizeImageHeight;
