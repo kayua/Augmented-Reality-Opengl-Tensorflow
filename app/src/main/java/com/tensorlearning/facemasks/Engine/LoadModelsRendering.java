@@ -1,6 +1,7 @@
 package com.tensorlearning.facemasks.Engine;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +19,7 @@ public final class LoadModelsRendering {
     private BufferedReader bufferReaderObject = null;
     private InputStreamReader fileInputReference;
     private int numberObjectsRendered=0;
-    private ObjectModel[] objectModelStruct = new ObjectModel[10];
+    public ArrayList<ObjectModel> objectModelStruct;
     private Context context;
 
     private float modelObjectFloatAxisX;
@@ -29,6 +30,12 @@ public final class LoadModelsRendering {
     public LoadModelsRendering(Context context) {
 
         this.context = context;
+        this.objectModelStruct= new ArrayList<>(0);
+        this.objectModelStruct.add(new ObjectModel());
+        this.objectModelStruct.add(new ObjectModel());
+        this.objectModelStruct.add(new ObjectModel());
+        this.objectModelStruct.add(new ObjectModel());
+
 
     }
 
@@ -37,7 +44,7 @@ public final class LoadModelsRendering {
 
         try {
 
-            fileInputReference = new InputStreamReader(context.getAssets().open("filename.txt"));
+            fileInputReference = new InputStreamReader(context.getAssets().open("male.obj"));
             bufferReaderObject = new BufferedReader(fileInputReference);
 
             while ((stringBufferReadLine = bufferReaderObject.readLine()) != null) {
@@ -69,8 +76,8 @@ public final class LoadModelsRendering {
             modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
             modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
             modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
-            objectModelStruct[numberSequenceModels].addVerticesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
-
+            objectModelStruct.get(numberSequenceModels).addVerticesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+            Log.i(String.valueOf(objectModelStruct.get(numberSequenceModels).objectModelVerticesComponents.size()), "---<><><><>---");
         }
 
         if(fileTemporaryProcessingLine[0].equals("vt")){
@@ -78,7 +85,7 @@ public final class LoadModelsRendering {
             modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
             modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
             modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
-            objectModelStruct[numberSequenceModels].addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+            objectModelStruct.get(numberSequenceModels).addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
 
         }
 
@@ -86,11 +93,11 @@ public final class LoadModelsRendering {
 
             for (String s : fileTemporaryProcessingLine) {
 
-                modelObjectFloatAxisX = Float.parseFloat(s.split("/")[0]);
-                modelObjectFloatAxisY = Float.parseFloat(s.split("/")[1]);
-                modelObjectFloatAxisZ = Float.parseFloat(s.split("/")[2]);
+                modelObjectFloatAxisX = Float.parseFloat(s.split("/")[1]);
+                modelObjectFloatAxisY = Float.parseFloat(s.split("/")[2]);
+                modelObjectFloatAxisZ = Float.parseFloat(s.split("/")[3]);
 
-                objectModelStruct[numberSequenceModels].addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+                objectModelStruct.get(numberSequenceModels).addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
 
 
             }
@@ -113,10 +120,10 @@ public final class LoadModelsRendering {
         for(int i=0; i< fileObjectModel.size(); i++){
 
             readFileObject(i);
-            objectModelStruct[i].createBufferObject();
-            objectModelStruct[i].bufferedVerticesModel();
-            objectModelStruct[i].bufferedTextureModel();
-            objectModelStruct[i].bufferedIndexModel();
+            objectModelStruct.get(i).createBufferObject();
+            objectModelStruct.get(i).bufferedVerticesModel();
+            objectModelStruct.get(i).bufferedTextureModel();
+            objectModelStruct.get(i).bufferedIndexModel();
 
         }
 
@@ -130,20 +137,20 @@ public final class LoadModelsRendering {
 
         for(int i = 0; i < this.numberObjectsRendered; i++){
 
-        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, objectModelStruct[i].byteBufferVertices);
-        gl.glColorPointer(4, GL10.GL_FLOAT, 0, objectModelStruct[i].byteBufferTexture);
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferVertices);
+        gl.glColorPointer(4, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferTexture);
 
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
-        if(objectModelStruct[i].getObjectNumberComponentsPerPlane()==3){
+        if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==3){
 
-            gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct[i].byteBufferIndex);
+            gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
         }
 
-        if(objectModelStruct[i].getObjectNumberComponentsPerPlane()==4){
+        if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==4){
 
-                gl.glDrawElements(GL10.GL_TRIANGLE_FAN, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct[i].byteBufferIndex);
+                gl.glDrawElements(GL10.GL_TRIANGLE_FAN, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
             }
 
 

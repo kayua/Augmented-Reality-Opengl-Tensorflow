@@ -25,6 +25,7 @@ class EngineRenderer implements GLSurfaceView.Renderer {
         mCube = new ModelRendering();
         this.context = context;
         this.renderModels = new LoadModelsRendering(context);
+
         loadModels();
 
 

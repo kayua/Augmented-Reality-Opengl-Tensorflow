@@ -7,7 +7,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.Vector;
 
-public final class ObjectModel {
+public class ObjectModel {
 
     private final int objectModelNumberFaces;
     private final int objectModelNumberNormals;
@@ -15,11 +15,11 @@ public final class ObjectModel {
 
     private int objectNumberComponentsPerPlane;
 
-    private final String  objectModelMaterialReference;
+    private String  objectModelMaterialReference;
 
-    private final Vector<Float> objectModelVerticesComponents;
-    private final Vector<Float> objectModelTextureCoordinates;
-    private final Vector<Float> objectModelObjectPositions;
+    public Vector<Float> objectModelVerticesComponents;
+    private Vector<Float> objectModelTextureCoordinates;
+    private Vector<Float> objectModelObjectPositions;
 
     private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
@@ -35,14 +35,14 @@ public final class ObjectModel {
 
 
     public ObjectModel() {
-
+        Log.i("ALOCANDO", "---------------------");
         objectModelNumberFaces = 0;
         objectModelNumberNormals = 0;
         objectModelIdObject = 0;
         objectModelMaterialReference = "";
-        objectModelVerticesComponents = new Vector<>();
-        objectModelTextureCoordinates = new Vector<>();
-        objectModelObjectPositions = new Vector<>();
+        objectModelVerticesComponents = new Vector<>(0);
+        objectModelTextureCoordinates = new Vector<>(0);
+        objectModelObjectPositions = new Vector<>(0);
 
     }
 
