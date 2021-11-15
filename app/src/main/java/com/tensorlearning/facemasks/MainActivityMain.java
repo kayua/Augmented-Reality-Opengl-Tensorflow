@@ -11,7 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.tensorlearning.facemasks.Engine.SurfaceComponent;
-import com.tensorlearning.facemasks.Models.NeuralModels;
+import com.tensorlearning.facemasks.Models.NeuralModel;
 
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ public class MainActivityMain extends Activity implements SurfaceHolder.Callback
     private SurfaceView mSurfaceView;
     private SurfaceHolder mSurfaceHolder;
     private SurfaceComponent mGLSurfaceView;
-    private NeuralModels model = null;
+    private NeuralModel model = null;
 
 
     @Override
@@ -32,7 +32,7 @@ public class MainActivityMain extends Activity implements SurfaceHolder.Callback
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.tests);
 
-        model = new NeuralModels(getApplicationContext());
+        model = new NeuralModel(getApplicationContext());
         model.createByteBufferModel();
         model.createInterpreter();
 

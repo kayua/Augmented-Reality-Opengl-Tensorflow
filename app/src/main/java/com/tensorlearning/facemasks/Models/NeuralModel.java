@@ -23,7 +23,7 @@ import java.nio.ByteOrder;
 import java.time.Duration;
 import java.time.Instant;
 
-public class NeuralModels {
+public class NeuralModel {
 
     private Interpreter interpreterFaceTracker = null;
     private Interpreter interpreterPersonalModel = null;
@@ -58,7 +58,7 @@ public class NeuralModels {
     private Bitmap identificationFacialPointsBitmapImage;
 
 
-    public NeuralModels(Context context) {
+    public NeuralModel(Context context) {
 
         this.byteBuffer = new ByteBufferModel(context);
 
