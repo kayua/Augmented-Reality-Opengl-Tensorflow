@@ -52,6 +52,9 @@ public class NeuralModels {
     private byte[] spatialEstimationImageByte;
     private byte[] identificationFacialPointsImageByte;
 
+    private Bitmap faceTrackerBitmapImage;
+    private Bitmap personalModelBitmapImage;
+
 
     public NeuralModels(Context context) {
 
@@ -186,8 +189,8 @@ public class NeuralModels {
         faceTrackerCompressionYuvImage = new YuvImage(data, faceTrackerCameraParameters.getPreviewFormat(), faceTrackerCameraParameters.getPreviewSize().width, faceTrackerCameraParameters.getPreviewSize().height, null);
         faceTrackerCompressionYuvImage.compressToJpeg(new Rect(0, 0, faceTrackerSettings.getFaceTrackerSizeImageHeight(), faceTrackerSettings.getFaceTrackerSizeImageWidth()), 90, byteBuffer.faceTrackerBufferStreamOutput);
         faceTrackerImageByte = byteBuffer.faceTrackerBufferStreamOutput.toByteArray();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(faceTrackerImageByte, 0, faceTrackerImageByte.length);
-        byteBuffer.FaceTrackerCastBitmapToByteBuffer(bitmap);
+        faceTrackerBitmapImage = BitmapFactory.decodeByteArray(faceTrackerImageByte, 0, faceTrackerImageByte.length);
+        byteBuffer.FaceTrackerCastBitmapToByteBuffer(faceTrackerBitmapImage);
         inferenceFaceTracker();
 
     }
@@ -198,8 +201,8 @@ public class NeuralModels {
         personalModelsCompressionYuvImage = new YuvImage(data, personalModelsCameraParameters.getPreviewFormat(), personalModelsCameraParameters.getPreviewSize().width, personalModelsCameraParameters.getPreviewSize().height, null);
         personalModelsCompressionYuvImage.compressToJpeg(new Rect(0, 0, personalModelSettings.getPersonalModelsSizeImageHeight(), personalModelSettings.getPersonalModelsSizeImageWidth()), 90, byteBuffer.personalModelBufferStreamOutput);
         personalModelsImageByte = byteBuffer.personalModelBufferStreamOutput.toByteArray();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(personalModelsImageByte, 0, personalModelsImageByte.length);
-        byteBuffer.PersonalModelCastBitmapToByteBuffer(bitmap);
+        personalModelBitmapImage = BitmapFactory.decodeByteArray(personalModelsImageByte, 0, personalModelsImageByte.length);
+        byteBuffer.PersonalModelCastBitmapToByteBuffer(personalModelBitmapImage);
         inferencePersonalModel();
 
     }
