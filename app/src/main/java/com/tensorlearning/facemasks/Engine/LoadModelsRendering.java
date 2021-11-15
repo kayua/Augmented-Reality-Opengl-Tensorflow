@@ -55,21 +55,23 @@ public final class LoadModelsRendering {
 
         fileTemporaryProcessingLine = stringBufferLine.split("\\s");
 
-        if(fileTemporaryProcessingLine[0].equals("#")){ return; }
-
         if(fileTemporaryProcessingLine[0].equals("v")){
 
             modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
             modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
             modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
-
             objectModelStruct.addVerticesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
-            return;
-
-
 
         }
 
+        if(fileTemporaryProcessingLine[0].equals("vt")){
+
+            modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
+            modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
+            modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
+            objectModelStruct.addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+
+        }
 
 
 
