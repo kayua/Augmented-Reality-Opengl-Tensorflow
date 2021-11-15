@@ -46,7 +46,7 @@ public class ByteBufferModel {
     public int[] identificationFacialPointsFlattenAllocationBuffer = null;
 
 
-    public float [][] faceTrackerBufferOutput = new float[1][40];;
+    public float [][] faceTrackerBufferOutput;
     public float [][] personalModelBufferOutput;
     public float [][] spatialEstimationBufferOutput;
     public float [][] identificationFacialPointsBufferOutput;
@@ -414,6 +414,7 @@ public class ByteBufferModel {
         this.identificationFacialFileModel = identificationFacialFileModel;
 
     }
+
 
 
 }

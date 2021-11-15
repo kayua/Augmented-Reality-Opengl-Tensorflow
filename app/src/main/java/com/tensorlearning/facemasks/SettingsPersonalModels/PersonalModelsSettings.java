@@ -8,7 +8,7 @@ public class PersonalModelsSettings {
     private final int personalModelsSizeImageWidth = 512;
     private final int personalModelsCoordinateMeanImage = 128;
     private final int personalModelsFlattenAllocationBuffer = personalModelsSizeImageHeight * personalModelsSizeImageWidth;
-    private final float personalModelsBufferOutput = 40;
+    private final int personalModelsBufferOutput = 40;
     private final float personalModelsCoordinateMeanStandard = 128f;
 
     public int getPersonalModelsSizeImageHeight() {
@@ -35,7 +35,7 @@ public class PersonalModelsSettings {
 
     }
 
-    public float getPersonalModelsBufferOutput() {
+    public int getPersonalModelsBufferOutput() {
 
         return personalModelsBufferOutput;
 

@@ -8,7 +8,7 @@ public class FaceTrackerSettings {
     private final int faceTrackerSizeImageWidth = 512;
     private final int faceTrackerCoordinateMeanImage = 128;
     private final int faceTrackerFlattenAllocationBuffer = faceTrackerSizeImageHeight * faceTrackerSizeImageWidth;
-    private final float faceTrackerBufferOutput = 40;
+    private final int faceTrackerBufferOutput = 40;
     private final float faceTrackerCoordinateMeanStandard = 128f;
 
     public int getFaceTrackerSizeImageHeight() {
@@ -35,7 +35,7 @@ public class FaceTrackerSettings {
 
     }
 
-    public float getFaceTrackerBufferOutput() {
+    public int getFaceTrackerBufferOutput() {
 
         return faceTrackerBufferOutput;
 

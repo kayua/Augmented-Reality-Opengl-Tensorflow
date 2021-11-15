@@ -8,7 +8,7 @@ public class FacialPointsSettings {
     private final int identificationFacialPointsSizeImageWidth = 512;
     private final int identificationFacialPointsCoordinateMeanImage = 128;
     private final int identificationFacialPointsFlattenAllocationBuffer = identificationFacialPointsSizeImageHeight * identificationFacialPointsSizeImageWidth;
-    private final float identificationFacialPointsBufferOutput = 40;
+    private final int identificationFacialPointsBufferOutput = 40;
     private final float identificationFacialPointsCoordinateMeanStandard = 128f;
 
     public int getIdentificationFacialPointsSizeImageHeight() {
@@ -35,7 +35,7 @@ public class FacialPointsSettings {
 
     }
 
-    public float getIdentificationFacialPointsBufferOutput() {
+    public int getIdentificationFacialPointsBufferOutput() {
 
         return identificationFacialPointsBufferOutput;
 
