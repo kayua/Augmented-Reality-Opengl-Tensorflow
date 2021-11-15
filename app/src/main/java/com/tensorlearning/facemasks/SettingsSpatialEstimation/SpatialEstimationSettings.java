@@ -10,12 +10,20 @@ public class SpatialEstimationSettings {
     private final int spatialEstimationFlattenAllocationBuffer = spatialEstimationSizeImageHeight  * spatialEstimationSizeImageWidth;
     private final int spatialEstimationBufferOutput = 40;
     private final float spatialEstimationCoordinateMeanStandard = 128f;
+    private final boolean spatialEstimationAllowBufferHandleOutput = true;
+    private final int spatialEstimationNumberThreads = 2;
 
-    public int getSpatialEstimationNumberThreads() {
-        return spatialEstimationNumberThreads;
+    public boolean getSpatialEstimationAllowBufferHandleOutput() {
+
+        return spatialEstimationAllowBufferHandleOutput;
+
     }
 
-    private final int spatialEstimationNumberThreads = 2;
+    public int getSpatialEstimationNumberThreads() {
+
+        return spatialEstimationNumberThreads;
+
+    }
 
     public int getSpatialEstimationSizeImageHeight() {
 

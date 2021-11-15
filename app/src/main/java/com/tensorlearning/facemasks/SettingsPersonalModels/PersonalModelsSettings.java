@@ -10,12 +10,21 @@ public class PersonalModelsSettings {
     private final int personalModelsFlattenAllocationBuffer = personalModelsSizeImageHeight * personalModelsSizeImageWidth;
     private final int personalModelsBufferOutput = 40;
     private final float personalModelsCoordinateMeanStandard = 128f;
+    private final boolean personalModelsAllowBufferHandleOutput = true;
+    private final int personalModelsNumberThreads = 2;
 
-    public int getPersonalModelsNumberThreads() {
-        return personalModelsNumberThreads;
+
+    public boolean getPersonalModelsAllowBufferHandleOutput() {
+
+        return personalModelsAllowBufferHandleOutput;
+
     }
 
-    private final int personalModelsNumberThreads = 2;
+    public int getPersonalModelsNumberThreads() {
+
+        return personalModelsNumberThreads;
+
+    }
 
     public int getPersonalModelsSizeImageHeight() {
 

@@ -88,7 +88,6 @@ public class NeuralModels {
 
     public void createInterpreter(){
 
-
         try {
 
             interpreterFaceTracker = new Interpreter(byteBuffer.FaceTrackerLoadModelFile(), faceTrackerSettings());
@@ -120,9 +119,6 @@ public class NeuralModels {
 
         }
 
-
-
-
     }
 
 
@@ -130,7 +126,7 @@ public class NeuralModels {
 
         Interpreter.Options modelOptions = new Interpreter.Options();
         modelOptions.setNumThreads(faceTrackerSettings.getFaceTrackerNumberThreads());
-        modelOptions.setAllowBufferHandleOutput(true);
+        modelOptions.setAllowBufferHandleOutput(faceTrackerSettings.getFaceTrackerAllowBufferHandleOutput());
         modelOptions.setAllowFp16PrecisionForFp32(true);
         return modelOptions;
 
@@ -140,7 +136,7 @@ public class NeuralModels {
 
         Interpreter.Options modelOptions = new Interpreter.Options();
         modelOptions.setNumThreads(personalModelSettings.getPersonalModelsNumberThreads());
-        modelOptions.setAllowBufferHandleOutput(true);
+        modelOptions.setAllowBufferHandleOutput(personalModelSettings.getPersonalModelsAllowBufferHandleOutput());
         modelOptions.setAllowFp16PrecisionForFp32(true);
         return modelOptions;
 
@@ -150,7 +146,7 @@ public class NeuralModels {
 
         Interpreter.Options modelsOptions = new Interpreter.Options();
         modelsOptions.setNumThreads(spatialEstimationSettings.getSpatialEstimationNumberThreads());
-        modelsOptions.setAllowBufferHandleOutput(true);
+        modelsOptions.setAllowBufferHandleOutput(spatialEstimationSettings.getSpatialEstimationAllowBufferHandleOutput());
         modelsOptions.setAllowFp16PrecisionForFp32(true);
         return modelsOptions;
 
@@ -160,7 +156,7 @@ public class NeuralModels {
 
         Interpreter.Options modelsOptions = new Interpreter.Options();
         modelsOptions.setNumThreads(facialPointsSettings.getIdentificationFacialPointsNumberThreads());
-        modelsOptions.setAllowBufferHandleOutput(true);
+        modelsOptions.setAllowBufferHandleOutput(facialPointsSettings.getIdentificationFacialPointsAllowBufferHandleOutput());
         modelsOptions.setAllowFp16PrecisionForFp32(true);
         return modelsOptions;
 

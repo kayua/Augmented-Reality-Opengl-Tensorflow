@@ -10,9 +10,19 @@ public class FacialPointsSettings {
     private final int identificationFacialPointsFlattenAllocationBuffer = identificationFacialPointsSizeImageHeight * identificationFacialPointsSizeImageWidth;
     private final int identificationFacialPointsBufferOutput = 40;
     private final float identificationFacialPointsCoordinateMeanStandard = 128f;
+    private final boolean identificationFacialPointsAllowBufferHandleOutput = true;
+
+
+    public boolean getIdentificationFacialPointsAllowBufferHandleOutput() {
+
+        return identificationFacialPointsAllowBufferHandleOutput;
+
+    }
 
     public int getIdentificationFacialPointsNumberThreads() {
+
         return identificationFacialPointsNumberThreads;
+
     }
 
     private final int identificationFacialPointsNumberThreads = 2;
