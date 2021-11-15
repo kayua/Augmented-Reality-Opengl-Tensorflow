@@ -35,6 +35,7 @@ public class MainActivityMain extends Activity implements SurfaceHolder.Callback
         model = new NeuralModel(getApplicationContext());
         model.createByteBufferModel();
         model.createInterpreter();
+        model.createEstimator();
 
         mSurfaceView = findViewById(R.id.surfaceView);
         mSurfaceHolder = mSurfaceView.getHolder();
@@ -78,7 +79,7 @@ public class MainActivityMain extends Activity implements SurfaceHolder.Callback
         Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
             @Override
             public void onPreviewFrame(byte[] data, Camera camera) {
-                model.predictFaceTracker(data, camera);
+                model.predictIdentificationFacialPoints(data, camera);
             }
 
 

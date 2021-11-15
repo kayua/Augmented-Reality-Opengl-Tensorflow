@@ -9,7 +9,7 @@ import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.util.Log;
 
-import com.tensorlearning.facemasks.Buffering.ByteBufferModel;
+import com.tensorlearning.facemasks.Buffering.MemoryAllocationBuffer;
 import com.tensorlearning.facemasks.Estimator.EstimatorModel;
 import com.tensorlearning.facemasks.Settings.EstimatorSettings.EstimatorSettings;
 import com.tensorlearning.facemasks.Settings.SettingsFaceTracker.FaceTrackerSettings;
@@ -38,8 +38,9 @@ public class NeuralModel {
     private final SpatialEstimationSettings spatialEstimationSettings = new SpatialEstimationSettings();
     private final EstimatorSettings estimatorSettings = new EstimatorSettings();
 
-    private final ByteBufferModel byteBuffer;
+    private final MemoryAllocationBuffer byteBuffer;
     private final EstimatorModel estimatorModel;
+    private boolean estimationCycle =true;
 
     private Camera.Parameters faceTrackerCameraParameters = null;
     private Camera.Parameters personalModelsCameraParameters = null;
@@ -64,7 +65,7 @@ public class NeuralModel {
 
     public NeuralModel(Context context) {
 
-        this.byteBuffer = new ByteBufferModel(context);
+        this.byteBuffer = new MemoryAllocationBuffer(context);
         this.estimatorModel = new EstimatorModel();
 
     }
@@ -156,8 +157,6 @@ public class NeuralModel {
         estimatorModel.setEstimatorNumberMaxSimultaneousFace(estimatorSettings.getEstimatorNumberMaxSimultaneousFace());
         estimatorModel.setEstimatorNumberPointsPerFace(estimatorSettings.getEstimatorNumberPointsPerFace());
 
-        
-        
     }
 
     public Interpreter.Options faceTrackerSettings(){
@@ -239,13 +238,39 @@ public class NeuralModel {
 
     public void predictIdentificationFacialPoints(byte[] data, Camera camera){
 
-        identificationFacialPointsCameraParameters = camera.getParameters();
-        identificationFacialPointsCompressionYuvImage = new YuvImage(data, identificationFacialPointsCameraParameters.getPreviewFormat(), identificationFacialPointsCameraParameters.getPreviewSize().width, identificationFacialPointsCameraParameters.getPreviewSize().height, null);
-        identificationFacialPointsCompressionYuvImage.compressToJpeg(new Rect(0, 0,facialPointsSettings.getIdentificationFacialPointsSizeImageHeight(), facialPointsSettings.getIdentificationFacialPointsSizeImageWidth()), 90, byteBuffer.identificationFacialPointsBufferStreamOutput);
-        identificationFacialPointsImageByte = byteBuffer.identificationFacialPointsBufferStreamOutput.toByteArray();
-        identificationFacialPointsBitmapImage = BitmapFactory.decodeByteArray(identificationFacialPointsImageByte, 0, identificationFacialPointsImageByte.length);
-        byteBuffer.IdentificationFacialPointsCastBitmapToByteBuffer(identificationFacialPointsBitmapImage);
-        inferenceIdentificationFacialPoints();
+        if( estimationCycle && estimatorModel.estimatorBufferLoaded){
+
+            Log.i("CYCLE TESTE --------------------", "---");
+
+            estimationCycle = true;
+        }else{
+
+            identificationFacialPointsCameraParameters = camera.getParameters();
+            identificationFacialPointsCompressionYuvImage = new YuvImage(data, identificationFacialPointsCameraParameters.getPreviewFormat(), identificationFacialPointsCameraParameters.getPreviewSize().width, identificationFacialPointsCameraParameters.getPreviewSize().height, null);
+            identificationFacialPointsCompressionYuvImage.compressToJpeg(new Rect(0, 0,facialPointsSettings.getIdentificationFacialPointsSizeImageHeight(), facialPointsSettings.getIdentificationFacialPointsSizeImageWidth()), 90, byteBuffer.identificationFacialPointsBufferStreamOutput);
+            identificationFacialPointsImageByte = byteBuffer.identificationFacialPointsBufferStreamOutput.toByteArray();
+            identificationFacialPointsBitmapImage = BitmapFactory.decodeByteArray(identificationFacialPointsImageByte, 0, identificationFacialPointsImageByte.length);
+            byteBuffer.IdentificationFacialPointsCastBitmapToByteBuffer(identificationFacialPointsBitmapImage);
+            inferenceIdentificationFacialPoints();
+            estimatorModel.addEstimationBufferPredictions(byteBuffer.identificationFacialPointsBufferOutput[0]);
+
+
+        }
+
+
+    }
+
+
+    public void estimationIdentificationFacialPoints(){
+
+        estimatorModel.generateEstimating();
+
+        for(int i = 0; i < estimatorSettings.getEstimatorNumberPointsPerFace(); i++) {
+
+            byteBuffer.faceTrackerBufferOutput[0][2*i] = estimatorModel.estimatorBufferPredictionFrameSequencesAxisX[i];
+            byteBuffer.faceTrackerBufferOutput[0][2*i+1] = estimatorModel.estimatorBufferPredictionFrameSequencesAxisY[i];
+
+        }
 
     }
 

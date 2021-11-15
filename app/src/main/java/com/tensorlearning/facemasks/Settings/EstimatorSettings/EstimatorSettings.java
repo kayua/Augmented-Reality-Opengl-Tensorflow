@@ -9,8 +9,8 @@ public class EstimatorSettings {
     private float estimatorConstantSecondAcceleration = 0.25f;
     private float estimatorConstantThirdAcceleration = 0.25f;
 
-    private int estimatorNumberPointsPerFace = 40;
-    private int estimatorNumberMaxSimultaneousFace = 40;
+    private int estimatorNumberPointsPerFace = 20;
+    private int estimatorNumberMaxSimultaneousFace = 3;
 
     public float getEstimatorConstantFirstAcceleration() {
 
@@ -41,7 +41,6 @@ public class EstimatorSettings {
         return estimatorNumberMaxSimultaneousFace;
 
     }
-
 
 
 }

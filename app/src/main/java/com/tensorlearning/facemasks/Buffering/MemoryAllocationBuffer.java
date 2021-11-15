@@ -14,7 +14,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
 
-public class ByteBufferModel {
+public class MemoryAllocationBuffer {
 
 
     private int faceTrackerSizeImageHeight;
@@ -70,7 +70,7 @@ public class ByteBufferModel {
     Context foreignContext;
 
 
-    public ByteBufferModel(Context context) {
+    public MemoryAllocationBuffer(Context context) {
 
         this.foreignContext = context;
 

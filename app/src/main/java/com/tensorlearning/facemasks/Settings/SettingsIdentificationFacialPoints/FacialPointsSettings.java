@@ -6,8 +6,8 @@ public class FacialPointsSettings {
 
 
     private final String identificationFacialPointsFileModel = "model_face.tflite";
-    private final int identificationFacialPointsSizeImageHeight = 256;
-    private final int identificationFacialPointsSizeImageWidth = 512;
+    private final int identificationFacialPointsSizeImageHeight = 128;
+    private final int identificationFacialPointsSizeImageWidth = 256;
     private final int identificationFacialPointsCoordinateMeanImage = 128;
     private final int identificationFacialPointsFlattenAllocationBuffer = identificationFacialPointsSizeImageHeight * identificationFacialPointsSizeImageWidth*4;
     private final int identificationFacialPointsBufferOutput = 40;

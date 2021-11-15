@@ -7,8 +7,8 @@ public class PersonalModelsSettings {
 
 
     private final String personalModelFileModel = "model_face.tflite";
-    private final int personalModelsSizeImageHeight = 256;
-    private final int personalModelsSizeImageWidth = 512;
+    private final int personalModelsSizeImageHeight = 128;
+    private final int personalModelsSizeImageWidth = 256;
     private final int personalModelsCoordinateMeanImage = 128;
     private final int personalModelsFlattenAllocationBuffer = personalModelsSizeImageHeight * personalModelsSizeImageWidth*4;
     private final int personalModelsBufferOutput = 40;

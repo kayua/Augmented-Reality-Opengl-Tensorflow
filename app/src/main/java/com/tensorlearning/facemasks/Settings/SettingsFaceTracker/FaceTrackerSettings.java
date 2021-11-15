@@ -5,7 +5,7 @@ package com.tensorlearning.facemasks.Settings.SettingsFaceTracker;
 public class FaceTrackerSettings {
 
 
-    private final String faceTrackerFileModel = "model_face.tflite";
+    private final String faceTrackerFileModel = "model_face_tracker.tflite";
     private final int faceTrackerSizeImageHeight = 128;
     private final int faceTrackerSizeImageWidth = 256;
     private final int faceTrackerCoordinateMeanImage = 128;
