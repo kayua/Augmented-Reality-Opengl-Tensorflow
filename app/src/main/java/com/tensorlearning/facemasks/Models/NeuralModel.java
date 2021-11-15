@@ -241,7 +241,7 @@ public class NeuralModel {
         Instant start = Instant.now();
         interpreterFaceTracker.run(byteBuffer.faceTrackerByteBufferStreamInput, byteBuffer.faceTrackerBufferOutput);
         Instant end = Instant.now();
-        Log.i("TIME:     ", Duration.between(start, end).toString());
+        Log.i("------- TIME:     ", Duration.between(start, end).toString());
     }
 
     public void inferencePersonalModel() {
@@ -249,7 +249,7 @@ public class NeuralModel {
         Instant start = Instant.now();
         interpreterPersonalModel.run(byteBuffer.personalModelByteBufferStreamInput, byteBuffer.personalModelBufferOutput);
         Instant end = Instant.now();
-        Log.i("TIME:     ", Duration.between(start, end).toString());
+        Log.i("------- TIME:     ", Duration.between(start, end).toString());
     }
 
     public void inferenceSpatialEstimation() {
@@ -257,7 +257,7 @@ public class NeuralModel {
         Instant start = Instant.now();
         interpreterSpatialEstimation.run(byteBuffer.spatialEstimationByteBufferStreamInput, byteBuffer.spatialEstimationBufferOutput);
         Instant end = Instant.now();
-        Log.i("TIME:     ", Duration.between(start, end).toString());
+        Log.i("------- TIME:     ", Duration.between(start, end).toString());
     }
 
     public void inferenceIdentificationFacialPoints() {
@@ -265,7 +265,7 @@ public class NeuralModel {
         Instant start = Instant.now();
         interpreterIdentificationFacialPoints.run(byteBuffer.identificationFacialPointsByteBufferStreamInput, byteBuffer.identificationFacialPointsBufferOutput);
         Instant end = Instant.now();
-        Log.i("TIME:     ", Duration.between(start, end).toString());
+        Log.i("------- TIME:     ", Duration.between(start, end).toString());
     }
 
 

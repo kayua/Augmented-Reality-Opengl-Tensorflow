@@ -112,7 +112,7 @@ public class ByteBufferModel {
             }
         }
         long endTime = SystemClock.uptimeMillis();
-        Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
+        Log.d("1", "Timecost  ByteBuffer: " + Long.toString(endTime - startTime));
     }
 
     public void IdentificationFacialPointsCastBitmapToByteBuffer(Bitmap bitmap) {
@@ -131,7 +131,7 @@ public class ByteBufferModel {
             }
         }
         long endTime = SystemClock.uptimeMillis();
-        Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
+        Log.d("1", "Timecost ByteBuffer: " + Long.toString(endTime - startTime));
     }
 
     public void SpatialEstimationCastBitmapToByteBuffer(Bitmap bitmap) {
@@ -150,7 +150,7 @@ public class ByteBufferModel {
             }
         }
         long endTime = SystemClock.uptimeMillis();
-        Log.d("1", "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
+        Log.d("1", "Timecost  ByteBuffer: " + Long.toString(endTime - startTime));
     }
 
 
