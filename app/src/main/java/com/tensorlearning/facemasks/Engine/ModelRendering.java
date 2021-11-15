@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.GraphicEngine;
+package com.tensorlearning.facemasks.Engine;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

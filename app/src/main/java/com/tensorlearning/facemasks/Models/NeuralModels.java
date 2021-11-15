@@ -10,10 +10,10 @@ import android.hardware.Camera;
 import android.util.Log;
 
 import com.tensorlearning.facemasks.Buffering.ByteBufferModel;
-import com.tensorlearning.facemasks.SettingsFaceTracker.FaceTrackerSettings;
-import com.tensorlearning.facemasks.SettingsIdentificationFacialPoints.FacialPointsSettings;
-import com.tensorlearning.facemasks.SettingsPersonalModels.PersonalModelsSettings;
-import com.tensorlearning.facemasks.SettingsSpatialEstimation.SpatialEstimationSettings;
+import com.tensorlearning.facemasks.Settings.SettingsFaceTracker.FaceTrackerSettings;
+import com.tensorlearning.facemasks.Settings.SettingsIdentificationFacialPoints.FacialPointsSettings;
+import com.tensorlearning.facemasks.Settings.SettingsPersonalModels.PersonalModelsSettings;
+import com.tensorlearning.facemasks.Settings.SettingsSpatialEstimation.SpatialEstimationSettings;
 
 import org.tensorflow.lite.Interpreter;
 
@@ -72,7 +72,7 @@ public class NeuralModels {
         byteBuffer.setFaceTrackerCoordinateMeanStandard(faceTrackerSettings.getFaceTrackerCoordinateMeanStandard());
         byteBuffer.setFaceTrackerFlattenAllocationBuffer(new int[faceTrackerSettings.getFaceTrackerFlattenAllocationBuffer()]);
         byteBuffer.setFaceTrackerBufferOutput(new float[1][faceTrackerSettings.getFaceTrackerBufferOutput()]);
-        byteBuffer.setFaceTrackerByteBufferStreamInput(ByteBuffer.allocateDirect(131072));
+        byteBuffer.setFaceTrackerByteBufferStreamInput(ByteBuffer.allocateDirect(faceTrackerSettings.getFaceTrackerFlattenAllocationBuffer()));
         byteBuffer.setFaceTrackerFileModelNeural(faceTrackerSettings.getFaceTrackerFileModel());
 
 
@@ -184,7 +184,6 @@ public class NeuralModels {
         return modelsOptions;
 
     }
-
 
 
     public void predictFaceTracker(byte[] data, Camera camera){

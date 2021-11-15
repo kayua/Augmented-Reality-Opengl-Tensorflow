@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.SettingsPersonalModels;
+package com.tensorlearning.facemasks.Settings.SettingsPersonalModels;
 
 
 

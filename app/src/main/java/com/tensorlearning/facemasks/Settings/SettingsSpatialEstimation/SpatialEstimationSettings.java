@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.SettingsSpatialEstimation;
+package com.tensorlearning.facemasks.Settings.SettingsSpatialEstimation;
 
 
 

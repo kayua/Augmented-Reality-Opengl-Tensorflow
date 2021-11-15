@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.SettingsFaceTracker;
+package com.tensorlearning.facemasks.Settings.SettingsFaceTracker;
 
 
 

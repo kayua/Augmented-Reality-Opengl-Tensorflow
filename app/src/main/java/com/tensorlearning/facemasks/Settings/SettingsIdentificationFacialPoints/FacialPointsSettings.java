@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.SettingsIdentificationFacialPoints;
+package com.tensorlearning.facemasks.Settings.SettingsIdentificationFacialPoints;
 
 
 

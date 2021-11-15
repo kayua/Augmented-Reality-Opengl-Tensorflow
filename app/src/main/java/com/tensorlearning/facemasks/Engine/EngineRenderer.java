@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.GraphicEngine;
+package com.tensorlearning.facemasks.Engine;
 
 import android.content.Context;
 import android.hardware.Camera;
@@ -14,18 +14,14 @@ import javax.microedition.khronos.opengles.GL10;
 class EngineRenderer implements GLSurfaceView.Renderer {
 
     private ModelRendering mCube;
-    Interpreter interpreter = null;
     Camera camera;
     private float mCubeRotation;
-    private Context context;
 
     public EngineRenderer(Context context,  Interpreter interpreter, Camera camera) {
         mCube = new ModelRendering();
-        this.context=context;
         this.camera = camera;
 
     }
-
 
 
     @Override

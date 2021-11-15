@@ -1,36 +1,19 @@
 package com.tensorlearning.facemasks;
 
 import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
-import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.tensorlearning.facemasks.GraphicEngine.SurfaceComponent;
+import com.tensorlearning.facemasks.Engine.SurfaceComponent;
 import com.tensorlearning.facemasks.Models.NeuralModels;
 
-import org.tensorflow.lite.Interpreter;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.time.Duration;
-import java.time.Instant;
 
 
 public class MainActivityMain extends Activity implements SurfaceHolder.Callback {
