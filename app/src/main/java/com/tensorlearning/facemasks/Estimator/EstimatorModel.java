@@ -45,6 +45,7 @@ public class EstimatorModel {
 
 
     }
+
     public void setEstimatorConstantFirstAcceleration(float estimatorConstantFirstAcceleration) {
 
         this.estimatorConstantFirstAcceleration = estimatorConstantFirstAcceleration;

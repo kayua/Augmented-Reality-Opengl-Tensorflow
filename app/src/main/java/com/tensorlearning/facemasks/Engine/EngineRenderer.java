@@ -16,10 +16,12 @@ class EngineRenderer implements GLSurfaceView.Renderer {
     private ModelRendering mCube;
     Camera camera;
     private float mCubeRotation;
+    Context context;
 
     public EngineRenderer(Context context,  Interpreter interpreter, Camera camera) {
         mCube = new ModelRendering();
         this.camera = camera;
+        this.context = context;
 
     }
 
@@ -54,7 +56,7 @@ class EngineRenderer implements GLSurfaceView.Renderer {
         mCubeRotation -= 2.90f;
 
 
-
+        LoadModelsRendering objLoader = new LoadModelsRendering(this.context, "Mug.obj");
 
     }
 
