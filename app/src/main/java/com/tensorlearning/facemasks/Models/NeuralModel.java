@@ -239,6 +239,9 @@ public class NeuralModel {
 
     public void predictIdentificationFacialPoints(byte[] data, Camera camera){
 
+        Instant start = Instant.now();
+
+
         if( estimationCycle && estimatorModel.estimatorBufferLoaded){
             estimationIdentificationFacialPoints();
             estimationCycle = false;
@@ -257,6 +260,8 @@ public class NeuralModel {
 
         }
 
+        Instant end = Instant.now();
+        Log.i("------- TIME:     ", Duration.between(start, end).toString());
 
     }
 
@@ -302,10 +307,8 @@ public class NeuralModel {
 
     public void inferenceIdentificationFacialPoints() {
 
-        Instant start = Instant.now();
         interpreterIdentificationFacialPoints.run(byteBuffer.identificationFacialPointsByteBufferStreamInput, byteBuffer.identificationFacialPointsBufferOutput);
-        Instant end = Instant.now();
-        Log.i("------- TIME:     ", Duration.between(start, end).toString());
+
     }
 
 

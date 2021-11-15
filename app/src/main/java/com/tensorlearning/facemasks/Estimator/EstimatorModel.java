@@ -34,14 +34,14 @@ public class EstimatorModel {
     public void estimatorAllocationBuffer(){
 
 
-        this.estimatorBufferFirstFrameSequencesAxisX = new float[estimatorNumberPointsPerFace*4];
-        this.estimatorBufferFirstFrameSequencesAxisY = new float[estimatorNumberPointsPerFace*4];
-        this.estimatorBufferSecondFrameSequencesAxisX = new float[estimatorNumberPointsPerFace*4];
-        this.estimatorBufferSecondFrameSequencesAxisY = new float[estimatorNumberPointsPerFace*4];
-        this.estimatorBufferThirdFrameSequencesAxisX = new float[estimatorNumberPointsPerFace*4];
-        this.estimatorBufferThirdFrameSequencesAxisY = new float[estimatorNumberPointsPerFace*4];
-        this.estimatorBufferPredictionFrameSequencesAxisX = new float[estimatorNumberPointsPerFace*4];
-        this.estimatorBufferPredictionFrameSequencesAxisY = new float[estimatorNumberPointsPerFace*4];
+        this.estimatorBufferFirstFrameSequencesAxisX = new float[estimatorNumberPointsPerFace];
+        this.estimatorBufferFirstFrameSequencesAxisY = new float[estimatorNumberPointsPerFace];
+        this.estimatorBufferSecondFrameSequencesAxisX = new float[estimatorNumberPointsPerFace];
+        this.estimatorBufferSecondFrameSequencesAxisY = new float[estimatorNumberPointsPerFace];
+        this.estimatorBufferThirdFrameSequencesAxisX = new float[estimatorNumberPointsPerFace];
+        this.estimatorBufferThirdFrameSequencesAxisY = new float[estimatorNumberPointsPerFace];
+        this.estimatorBufferPredictionFrameSequencesAxisX = new float[estimatorNumberPointsPerFace];
+        this.estimatorBufferPredictionFrameSequencesAxisY = new float[estimatorNumberPointsPerFace];
 
 
     }
@@ -85,8 +85,8 @@ public class EstimatorModel {
 
             for(int i = 0; i < estimatorNumberPointsPerFace; i++) {
 
-                float s = coordinatesPredicted[2*i];
-                float f =  coordinatesPredicted[2*i+1];
+                estimatorBufferFirstFrameSequencesAxisX[i] = coordinatesPredicted[2*i];
+                estimatorBufferFirstFrameSequencesAxisX[i] =  coordinatesPredicted[2*i+1];
 
             }
 
