@@ -1,23 +1,72 @@
 package com.tensorlearning.facemasks.Engine;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.util.Vector;
 
 public final class ObjectModel {
 
-    private int objectModelNumberFaces;
-    private int objectModelNumberNormal;
-    private int objectModelIdObject;
-    private String  objectModelMaterialReference;
+    private final int objectModelNumberFaces;
+    private int objectModelNumberNormals;
+    private final int objectModelIdObject;
 
-    private Vector<Float> objectModelNormalComponents;
-    private Vector<Float> objectModelTextureCoordinates;
-    private Vector<Float> objectModelObjectPositions;
+    private final String  objectModelMaterialReference;
 
-    private float[] objectModelNormalComponentsFlattenBuffer;
+    private final Vector<Float> objectModelVerticesComponents;
+    private final Vector<Float> objectModelTextureCoordinates;
+    private final Vector<Float> objectModelObjectPositions;
+
+    private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
-    private float[] objectModelObjectPositionsFlattenBuffer;
+    private float[] objectModelIndexFlattenBuffer;
+
+    public FloatBuffer floatBufferVerticesComponents;
+    public FloatBuffer floatBufferTextureComponents;
+
+    public ByteBuffer byteBufferVertices;
+    public ByteBuffer byteBufferTexture;
+    public ByteBuffer byteBufferIndex;
 
 
+    public ObjectModel() {
+
+        objectModelNumberFaces = 0;
+        objectModelNumberNormals = 0;
+        objectModelIdObject = 0;
+        objectModelMaterialReference = "";
+        objectModelVerticesComponents = new Vector<>();
+        objectModelTextureCoordinates = new Vector<>();
+        objectModelObjectPositions = new Vector<>();
+
+    }
+
+    public void createBufferObject(){
+
+        objectModelVerticesComponentsFlattenBuffer = new float[objectModelVerticesComponents.size()];
+        objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
+        objectModelIndexFlattenBuffer = new  float[objectModelObjectPositions.size()];
+
+        for(int i = 0; i < objectModelVerticesComponents.size(); i++){
+
+            objectModelVerticesComponentsFlattenBuffer[i] = objectModelVerticesComponents.get(i);
+
+        }
+
+        for(int i = 0; i < objectModelVerticesComponents.size(); i++){
+
+            objectModelTextureCoordinatesFlattenBuffer[i] = objectModelTextureCoordinates.get(i);
+
+        }
+
+        for(int i = 0; i < objectModelObjectPositions.size(); i++){
+
+            objectModelIndexFlattenBuffer[i] = objectModelObjectPositions.get(i);
+
+        }
+
+
+    }
 
 
     public int getObjectModelNumberFaces() {
@@ -39,97 +88,51 @@ public final class ObjectModel {
     }
 
 
-    public void addNormalComponents(float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
+    public void addVerticesComponents(float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
 
-        objectModelNormalComponents.add(coordinateAxisX);
-        objectModelNormalComponents.add(coordinateAxisY);
-        objectModelNormalComponents.add(coordinateAxisZ);
-        objectModelNumberNormal = objectModelNumberNormal + 1;
+        objectModelVerticesComponents.add(coordinateAxisX);
+        objectModelVerticesComponents.add(coordinateAxisY);
+        objectModelVerticesComponents.add(coordinateAxisZ);
+        objectModelNumberNormals = objectModelNumberNormals + 1;
 
     }
 
-    public void addTextureComponents(float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
+    public void addTexturesComponents(float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
 
         objectModelTextureCoordinates.add(coordinateAxisX);
         objectModelTextureCoordinates.add(coordinateAxisY);
         objectModelTextureCoordinates.add(coordinateAxisZ);
-        objectModelNumberNormal = objectModelNumberNormal + 1;
 
     }
 
-    public void addObjectPositionsComponents(float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
+    public void addObjectIndexComponents(float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
 
         objectModelObjectPositions.add(coordinateAxisX);
         objectModelObjectPositions.add(coordinateAxisY);
         objectModelObjectPositions.add(coordinateAxisZ);
-        objectModelNumberNormal = objectModelNumberNormal + 1;
 
     }
 
 
+    public void bufferedVerticesModel() {
 
-
-    public ObjectModel() {
-
-        objectModelNumberFaces = 0;
-        objectModelNumberNormal = 0;
-        objectModelIdObject = 0;
-        objectModelMaterialReference = "";
-        objectModelNormalComponents = new Vector<>();
-        objectModelTextureCoordinates = new Vector<>();
-        objectModelObjectPositions = new Vector<>();
+        byteBufferVertices = ByteBuffer.allocateDirect(objectModelVerticesComponentsFlattenBuffer.length * 4);
+        byteBufferVertices.order(ByteOrder.nativeOrder());
+        floatBufferVerticesComponents = byteBufferVertices.asFloatBuffer();
+        floatBufferVerticesComponents.put(objectModelVerticesComponentsFlattenBuffer);
+        floatBufferVerticesComponents.position(0);
 
     }
 
+    public void bufferedTextureModel() {
 
-    public void createBufferObject(){
-
-        objectModelNormalComponentsFlattenBuffer = new float[objectModelNormalComponents.size()];
-        objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
-        objectModelObjectPositionsFlattenBuffer  = new  float[objectModelObjectPositions.size()];
-
-        for(int i = 0; i < objectModelNormalComponents.size(); i++){
-
-            objectModelNormalComponentsFlattenBuffer[i] = objectModelNormalComponents.get(i);
-
-        }
-
-        for(int i = 0; i < objectModelNormalComponents.size(); i++){
-
-            objectModelTextureCoordinatesFlattenBuffer[i] = objectModelTextureCoordinates.get(i);
-
-        }
-
-        for(int i = 0; i < objectModelObjectPositions.size(); i++){
-
-            objectModelObjectPositionsFlattenBuffer[i] = objectModelObjectPositions.get(i);
-
-        }
-
+        byteBufferTexture = ByteBuffer.allocateDirect(objectModelTextureCoordinatesFlattenBuffer.length * 4);
+        byteBufferTexture.order(ByteOrder.nativeOrder());
+        floatBufferTextureComponents = byteBufferTexture.asFloatBuffer();
+        floatBufferTextureComponents.put(objectModelTextureCoordinatesFlattenBuffer);
+        floatBufferTextureComponents.position(0);
 
     }
-
-
-    public float[] getObjectModelNormalComponentsFlattenBuffer() {
-
-        return objectModelNormalComponentsFlattenBuffer;
-
-    }
-
-
-    public float[] getObjectModelTextureCoordinatesFlattenBuffer() {
-
-        return objectModelTextureCoordinatesFlattenBuffer;
-
-    }
-
-
-    public float[] getObjectModelObjectPositionsFlattenBuffer() {
-
-        return objectModelObjectPositionsFlattenBuffer;
-
-    }
-
 
 
 }
