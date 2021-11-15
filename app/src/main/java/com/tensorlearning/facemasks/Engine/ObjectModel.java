@@ -23,6 +23,7 @@ public final class ObjectModel {
 
     public FloatBuffer floatBufferVerticesComponents;
     public FloatBuffer floatBufferTextureComponents;
+    public FloatBuffer floatBufferIndexComponents;
 
     public ByteBuffer byteBufferVertices;
     public ByteBuffer byteBufferTexture;
@@ -131,6 +132,16 @@ public final class ObjectModel {
         floatBufferTextureComponents = byteBufferTexture.asFloatBuffer();
         floatBufferTextureComponents.put(objectModelTextureCoordinatesFlattenBuffer);
         floatBufferTextureComponents.position(0);
+
+    }
+
+    public void bufferedIndexModel() {
+
+        byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexFlattenBuffer.length * 4);
+        byteBufferIndex.order(ByteOrder.nativeOrder());
+        floatBufferIndexComponents = byteBufferIndex.asFloatBuffer();
+        floatBufferIndexComponents.put(objectModelIndexFlattenBuffer);
+        floatBufferIndexComponents.position(0);
 
     }
 
