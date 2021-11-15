@@ -54,6 +54,8 @@ public class NeuralModels {
 
     private Bitmap faceTrackerBitmapImage;
     private Bitmap personalModelBitmapImage;
+    private Bitmap spatialEstimationBitmapImage;
+    private Bitmap identificationFacialPointsBitmapImage;
 
 
     public NeuralModels(Context context) {
@@ -214,8 +216,8 @@ public class NeuralModels {
         spatialEstimationCompressionYuvImage = new YuvImage(data, spatialEstimationCameraParameters.getPreviewFormat(), spatialEstimationCameraParameters.getPreviewSize().width, spatialEstimationCameraParameters.getPreviewSize().height, null);
         spatialEstimationCompressionYuvImage.compressToJpeg(new Rect(0, 0, spatialEstimationSettings.getSpatialEstimationSizeImageHeight(), spatialEstimationSettings.getSpatialEstimationSizeImageWidth()), 90, byteBuffer.spatialEstimationBufferStreamOutput);
         spatialEstimationImageByte = byteBuffer.spatialEstimationBufferStreamOutput.toByteArray();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(spatialEstimationImageByte, 0, spatialEstimationImageByte.length);
-        byteBuffer.SpatialEstimationCastBitmapToByteBuffer(bitmap);
+        spatialEstimationBitmapImage = BitmapFactory.decodeByteArray(spatialEstimationImageByte, 0, spatialEstimationImageByte.length);
+        byteBuffer.SpatialEstimationCastBitmapToByteBuffer(spatialEstimationBitmapImage);
         inferenceSpatialEstimation();
 
     }
@@ -226,8 +228,8 @@ public class NeuralModels {
         identificationFacialPointsCompressionYuvImage = new YuvImage(data, identificationFacialPointsCameraParameters.getPreviewFormat(), identificationFacialPointsCameraParameters.getPreviewSize().width, identificationFacialPointsCameraParameters.getPreviewSize().height, null);
         identificationFacialPointsCompressionYuvImage.compressToJpeg(new Rect(0, 0,facialPointsSettings.getIdentificationFacialPointsSizeImageHeight(), facialPointsSettings.getIdentificationFacialPointsSizeImageWidth()), 90, byteBuffer.identificationFacialPointsBufferStreamOutput);
         identificationFacialPointsImageByte = byteBuffer.identificationFacialPointsBufferStreamOutput.toByteArray();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(identificationFacialPointsImageByte, 0, identificationFacialPointsImageByte.length);
-        byteBuffer.IdentificationFacialPointsCastBitmapToByteBuffer(bitmap);
+        identificationFacialPointsBitmapImage = BitmapFactory.decodeByteArray(identificationFacialPointsImageByte, 0, identificationFacialPointsImageByte.length);
+        byteBuffer.IdentificationFacialPointsCastBitmapToByteBuffer(identificationFacialPointsBitmapImage);
         inferenceIdentificationFacialPoints();
 
     }
