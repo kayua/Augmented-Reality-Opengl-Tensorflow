@@ -8,11 +8,11 @@ import java.io.InputStreamReader;
 
 public final class LoadModelsRendering {
 
-    BufferedReader reader = null;
+    BufferedReader bufferReaderObject = null;
     Context context;
     String fileObjectModel;
     InputStreamReader fileInputReference;
-    String bufferReadLine;
+    String stringBufferReadLine;
 
 
     public LoadModelsRendering(Context context, String file) {
@@ -24,9 +24,9 @@ public final class LoadModelsRendering {
         try {
 
             fileInputReference = new InputStreamReader(context.getAssets().open("filename.txt"));
-            reader = new BufferedReader(fileInputReference);
+            bufferReaderObject = new BufferedReader(fileInputReference);
 
-            while ((bufferReadLine = reader.readLine()) != null) {
+            while ((stringBufferReadLine = bufferReaderObject.readLine()) != null) {
 
             }
 
@@ -34,10 +34,10 @@ public final class LoadModelsRendering {
 
         } finally {
 
-            if (reader != null) {
+            if (bufferReaderObject != null) {
 
                 try {
-                    reader.close();
+                    bufferReaderObject.close();
                 } catch (IOException e) { }
 
 
