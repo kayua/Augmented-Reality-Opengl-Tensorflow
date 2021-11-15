@@ -391,25 +391,25 @@ public class ByteBufferModel {
 
     }
 
-    public void setFaceTrackerFileModel(String faceTrackerFileModel) {
+    public void setFaceTrackerFileModelNeural(String faceTrackerFileModel) {
 
         this.faceTrackerFileModel = faceTrackerFileModel;
 
     }
 
-    public void setPersonalModelFileModel(String personalModelFileModel) {
+    public void setPersonalModelFileModelNeural(String personalModelFileModel) {
 
         this.personalModelFileModel = personalModelFileModel;
 
     }
 
-    public void setSpatialEstimationFileModel(String spatialEstimationFileModel) {
+    public void setSpatialEstimationFileModelNeural(String spatialEstimationFileModel) {
 
         this.spatialEstimationFileModel = spatialEstimationFileModel;
 
     }
 
-    public void setIdentificationFacialFileModel(String identificationFacialFileModel) {
+    public void setIdentificationFacialPointsFileModelNeural(String identificationFacialFileModel) {
 
         this.identificationFacialFileModel = identificationFacialFileModel;
 
