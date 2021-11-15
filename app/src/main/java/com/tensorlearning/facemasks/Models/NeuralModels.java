@@ -25,12 +25,6 @@ import java.time.Instant;
 
 public class NeuralModels {
 
-
-    private String faceTrackerFileModel;
-    private String personalModelFileModel;
-    private String spatialEstimationFileModel;
-    private String identificationFacialFileModel;
-
     private Interpreter interpreterFaceTracker = null;
     private Interpreter interpreterPersonalModel = null;
     private Interpreter interpreterSpatialEstimation = null;
@@ -83,7 +77,6 @@ public class NeuralModels {
         byteBuffer.setSpatialEstimationByteBufferStreamInput(ByteBuffer.allocateDirect(spatialEstimationSettings.getSpatialEstimationFlattenAllocationBuffer()*4));
 
 
-
     }
 
     public void createInterpreter(){
@@ -127,7 +120,7 @@ public class NeuralModels {
         Interpreter.Options modelOptions = new Interpreter.Options();
         modelOptions.setNumThreads(faceTrackerSettings.getFaceTrackerNumberThreads());
         modelOptions.setAllowBufferHandleOutput(faceTrackerSettings.getFaceTrackerAllowBufferHandleOutput());
-        modelOptions.setAllowFp16PrecisionForFp32(true);
+        modelOptions.setAllowFp16PrecisionForFp32(faceTrackerSettings.getFaceTrackerAllowFp16PrecisionForFp32());
         return modelOptions;
 
     }
@@ -137,7 +130,7 @@ public class NeuralModels {
         Interpreter.Options modelOptions = new Interpreter.Options();
         modelOptions.setNumThreads(personalModelSettings.getPersonalModelsNumberThreads());
         modelOptions.setAllowBufferHandleOutput(personalModelSettings.getPersonalModelsAllowBufferHandleOutput());
-        modelOptions.setAllowFp16PrecisionForFp32(true);
+        modelOptions.setAllowFp16PrecisionForFp32(personalModelSettings.getPersonalModelsAllowFp16PrecisionForFp32());
         return modelOptions;
 
     }
@@ -147,7 +140,7 @@ public class NeuralModels {
         Interpreter.Options modelsOptions = new Interpreter.Options();
         modelsOptions.setNumThreads(spatialEstimationSettings.getSpatialEstimationNumberThreads());
         modelsOptions.setAllowBufferHandleOutput(spatialEstimationSettings.getSpatialEstimationAllowBufferHandleOutput());
-        modelsOptions.setAllowFp16PrecisionForFp32(true);
+        modelsOptions.setAllowFp16PrecisionForFp32(spatialEstimationSettings.getSpatialEstimationAllowFp16PrecisionForFp32());
         return modelsOptions;
 
     }
@@ -157,7 +150,7 @@ public class NeuralModels {
         Interpreter.Options modelsOptions = new Interpreter.Options();
         modelsOptions.setNumThreads(facialPointsSettings.getIdentificationFacialPointsNumberThreads());
         modelsOptions.setAllowBufferHandleOutput(facialPointsSettings.getIdentificationFacialPointsAllowBufferHandleOutput());
-        modelsOptions.setAllowFp16PrecisionForFp32(true);
+        modelsOptions.setAllowFp16PrecisionForFp32(facialPointsSettings.getIdentificationFacialPointsAllowFp16PrecisionForFp32());
         return modelsOptions;
 
     }

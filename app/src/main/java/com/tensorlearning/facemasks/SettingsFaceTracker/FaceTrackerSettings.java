@@ -4,6 +4,8 @@ package com.tensorlearning.facemasks.SettingsFaceTracker;
 
 public class FaceTrackerSettings {
 
+
+    private final String faceTrackerFileModel = "lite";
     private final int faceTrackerSizeImageHeight = 256;
     private final int faceTrackerSizeImageWidth = 512;
     private final int faceTrackerCoordinateMeanImage = 128;
@@ -68,6 +70,13 @@ public class FaceTrackerSettings {
         return faceTrackerAllowFp16PrecisionForFp32;
 
     }
+
+    public String getFaceTrackerFileModel() {
+
+        return faceTrackerFileModel;
+
+    }
+
 
 }
 

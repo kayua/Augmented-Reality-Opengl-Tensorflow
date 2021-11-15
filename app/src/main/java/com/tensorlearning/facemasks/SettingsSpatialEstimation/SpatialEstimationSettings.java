@@ -4,6 +4,9 @@ package com.tensorlearning.facemasks.SettingsSpatialEstimation;
 
 public class SpatialEstimationSettings {
 
+
+
+    private final String spatialEstimationFileModel = "lite";
     private final int spatialEstimationSizeImageHeight = 256;
     private final int spatialEstimationSizeImageWidth = 512;
     private final int spatialEstimationCoordinateMeanImage = 128;
@@ -13,6 +16,8 @@ public class SpatialEstimationSettings {
     private final boolean spatialEstimationAllowBufferHandleOutput = true;
     private final int spatialEstimationNumberThreads = 2;
     private final boolean spatialEstimationAllowFp16PrecisionForFp32 = true;
+
+
 
     public boolean getSpatialEstimationAllowFp16PrecisionForFp32() {
 
@@ -68,6 +73,11 @@ public class SpatialEstimationSettings {
 
     }
 
+    public String getSpatialEstimationFileModel() {
+
+        return spatialEstimationFileModel;
+
+    }
 
 }
 

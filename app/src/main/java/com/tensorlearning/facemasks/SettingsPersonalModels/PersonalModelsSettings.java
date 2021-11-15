@@ -4,6 +4,9 @@ package com.tensorlearning.facemasks.SettingsPersonalModels;
 
 public class PersonalModelsSettings {
 
+
+
+    private final String personalModelFileModel = "lite";
     private final int personalModelsSizeImageHeight = 256;
     private final int personalModelsSizeImageWidth = 512;
     private final int personalModelsCoordinateMeanImage = 128;
@@ -13,6 +16,7 @@ public class PersonalModelsSettings {
     private final boolean personalModelsAllowBufferHandleOutput = true;
     private final int personalModelsNumberThreads = 2;
     private final boolean personalModelsAllowFp16PrecisionForFp32 = true;
+
 
     public boolean getPersonalModelsAllowFp16PrecisionForFp32() {
 
@@ -68,6 +72,11 @@ public class PersonalModelsSettings {
 
     }
 
+    public String getPersonalModelFileModel() {
+
+        return personalModelFileModel;
+
+    }
 
 }
 

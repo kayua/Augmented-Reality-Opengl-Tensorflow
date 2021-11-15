@@ -4,6 +4,8 @@ package com.tensorlearning.facemasks.SettingsIdentificationFacialPoints;
 
 public class FacialPointsSettings {
 
+
+    private final String identificationFacialPointsFileModel = "lite";
     private final int identificationFacialPointsSizeImageHeight = 256;
     private final int identificationFacialPointsSizeImageWidth = 512;
     private final int identificationFacialPointsCoordinateMeanImage = 128;
@@ -12,6 +14,8 @@ public class FacialPointsSettings {
     private final float identificationFacialPointsCoordinateMeanStandard = 128f;
     private final boolean identificationFacialPointsAllowBufferHandleOutput = true;
     private final boolean identificationFacialPointsAllowFp16PrecisionForFp32 = true;
+    private final int identificationFacialPointsNumberThreads = 2;
+
 
 
     public boolean getIdentificationFacialPointsAllowFp16PrecisionForFp32() {
@@ -31,8 +35,6 @@ public class FacialPointsSettings {
         return identificationFacialPointsNumberThreads;
 
     }
-
-    private final int identificationFacialPointsNumberThreads = 2;
 
     public int getIdentificationFacialPointsSizeImageHeight() {
 
@@ -67,6 +69,12 @@ public class FacialPointsSettings {
     public float getIdentificationFacialPointsCoordinateMeanStandard() {
 
         return identificationFacialPointsCoordinateMeanStandard;
+
+    }
+
+    public String getIdentificationFacialPointsFileModel() {
+
+        return identificationFacialPointsFileModel;
 
     }
 
