@@ -10,6 +10,7 @@ import android.hardware.Camera;
 import android.util.Log;
 
 import com.tensorlearning.facemasks.Buffering.ByteBufferModel;
+import com.tensorlearning.facemasks.Settings.EstimatorSettings.EstimatorSettings;
 import com.tensorlearning.facemasks.Settings.SettingsFaceTracker.FaceTrackerSettings;
 import com.tensorlearning.facemasks.Settings.SettingsIdentificationFacialPoints.FacialPointsSettings;
 import com.tensorlearning.facemasks.Settings.SettingsPersonalModels.PersonalModelsSettings;
@@ -34,6 +35,7 @@ public class NeuralModel {
     private final FacialPointsSettings facialPointsSettings = new FacialPointsSettings();
     private final PersonalModelsSettings personalModelSettings = new PersonalModelsSettings();
     private final SpatialEstimationSettings spatialEstimationSettings = new SpatialEstimationSettings();
+    private final EstimatorSettings estimatorSettings = new EstimatorSettings();
 
     private final ByteBufferModel byteBuffer;
 
