@@ -37,6 +37,14 @@ public class NeuralModels {
 
     private final ByteBufferModel byteBuffer;
 
+    private Camera.Parameters faceTrackerCameraParameters = null;
+    private Camera.Parameters personalModelsCameraParameters = null;
+    private Camera.Parameters spatialEstimationCameraParameters = null;
+    private Camera.Parameters identificationFacialPointsCameraParameters = null;
+
+
+
+
     public NeuralModels(Context context) {
 
         this.byteBuffer = new ByteBufferModel(context);
@@ -166,9 +174,9 @@ public class NeuralModels {
 
     public void predictFaceTracker(byte[] data, Camera camera){
 
-        Camera.Parameters parameters = camera.getParameters();
+        faceTrackerCameraParameters = camera.getParameters();
 
-        YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
+        YuvImage yuvImage = new YuvImage(data, faceTrackerCameraParameters.getPreviewFormat(), faceTrackerCameraParameters.getPreviewSize().width, faceTrackerCameraParameters.getPreviewSize().height, null);
         yuvImage.compressToJpeg(new Rect(0, 0, faceTrackerSettings.getFaceTrackerSizeImageHeight(), faceTrackerSettings.getFaceTrackerSizeImageWidth()), 90, byteBuffer.faceTrackerBufferStreamOutput);
         byte[] imageBytes = byteBuffer.faceTrackerBufferStreamOutput.toByteArray();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
@@ -179,9 +187,9 @@ public class NeuralModels {
 
     public void predictPersonalModel(byte[] data, Camera camera){
 
-        Camera.Parameters parameters = camera.getParameters();
+        personalModelsCameraParameters = camera.getParameters();
 
-        YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
+        YuvImage yuvImage = new YuvImage(data, personalModelsCameraParameters.getPreviewFormat(), personalModelsCameraParameters.getPreviewSize().width, personalModelsCameraParameters.getPreviewSize().height, null);
         yuvImage.compressToJpeg(new Rect(0, 0, personalModelSettings.getPersonalModelsSizeImageHeight(), personalModelSettings.getPersonalModelsSizeImageWidth()), 90, byteBuffer.personalModelBufferStreamOutput);
         byte[] imageBytes = byteBuffer.personalModelBufferStreamOutput.toByteArray();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
@@ -192,9 +200,9 @@ public class NeuralModels {
 
     public void predictSpatialEstimation(byte[] data, Camera camera){
 
-        Camera.Parameters parameters = camera.getParameters();
+        spatialEstimationCameraParameters = camera.getParameters();
 
-        YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
+        YuvImage yuvImage = new YuvImage(data, spatialEstimationCameraParameters.getPreviewFormat(), spatialEstimationCameraParameters.getPreviewSize().width, spatialEstimationCameraParameters.getPreviewSize().height, null);
         yuvImage.compressToJpeg(new Rect(0, 0, spatialEstimationSettings.getSpatialEstimationSizeImageHeight(), spatialEstimationSettings.getSpatialEstimationSizeImageWidth()), 90, byteBuffer.spatialEstimationBufferStreamOutput);
         byte[] imageBytes = byteBuffer.spatialEstimationBufferStreamOutput.toByteArray();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
@@ -205,9 +213,9 @@ public class NeuralModels {
 
     public void predictIdentificationFacialPoints(byte[] data, Camera camera){
 
-        Camera.Parameters parameters = camera.getParameters();
+        identificationFacialPointsCameraParameters = camera.getParameters();
 
-        YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), parameters.getPreviewSize().width, parameters.getPreviewSize().height, null);
+        YuvImage yuvImage = new YuvImage(data, identificationFacialPointsCameraParameters.getPreviewFormat(), identificationFacialPointsCameraParameters.getPreviewSize().width, identificationFacialPointsCameraParameters.getPreviewSize().height, null);
         yuvImage.compressToJpeg(new Rect(0, 0,facialPointsSettings.getIdentificationFacialPointsSizeImageHeight(), facialPointsSettings.getIdentificationFacialPointsSizeImageWidth()), 90, byteBuffer.identificationFacialPointsBufferStreamOutput);
         byte[] imageBytes = byteBuffer.identificationFacialPointsBufferStreamOutput.toByteArray();
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
