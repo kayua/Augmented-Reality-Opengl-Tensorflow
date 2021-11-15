@@ -10,6 +10,7 @@ import android.hardware.Camera;
 import android.util.Log;
 
 import com.tensorlearning.facemasks.Buffering.ByteBufferModel;
+import com.tensorlearning.facemasks.Estimator.EstimatorModel;
 import com.tensorlearning.facemasks.Settings.EstimatorSettings.EstimatorSettings;
 import com.tensorlearning.facemasks.Settings.SettingsFaceTracker.FaceTrackerSettings;
 import com.tensorlearning.facemasks.Settings.SettingsIdentificationFacialPoints.FacialPointsSettings;
@@ -38,6 +39,7 @@ public class NeuralModel {
     private final EstimatorSettings estimatorSettings = new EstimatorSettings();
 
     private final ByteBufferModel byteBuffer;
+    private final EstimatorModel estimatorModel;
 
     private Camera.Parameters faceTrackerCameraParameters = null;
     private Camera.Parameters personalModelsCameraParameters = null;
@@ -63,6 +65,7 @@ public class NeuralModel {
     public NeuralModel(Context context) {
 
         this.byteBuffer = new ByteBufferModel(context);
+        this.estimatorModel = new EstimatorModel();
 
     }
 
@@ -145,7 +148,17 @@ public class NeuralModel {
 
     }
 
+    public void createEstimator(){
 
+        estimatorModel.setEstimatorConstantFirstAcceleration(estimatorSettings.getEstimatorConstantFirstAcceleration());
+        estimatorModel.setEstimatorConstantSecondAcceleration(estimatorSettings.getEstimatorConstantSecondAcceleration());
+        estimatorModel.setEstimatorConstantThirdAcceleration(estimatorSettings.getEstimatorConstantThirdAcceleration());
+        estimatorModel.setEstimatorNumberMaxSimultaneousFace(estimatorSettings.getEstimatorNumberMaxSimultaneousFace());
+        estimatorModel.setEstimatorNumberPointsPerFace(estimatorSettings.getEstimatorNumberPointsPerFace());
+
+        
+        
+    }
 
     public Interpreter.Options faceTrackerSettings(){
 

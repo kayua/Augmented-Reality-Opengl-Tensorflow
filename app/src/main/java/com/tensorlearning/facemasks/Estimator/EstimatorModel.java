@@ -19,6 +19,10 @@ public class EstimatorModel {
     public float[] estimatorBufferThirdFrameSequencesAxisX;
     public float[] estimatorBufferThirdFrameSequencesAxisY;
 
+    public EstimatorModel() {
+
+
+    }
 
     public void setEstimatorConstantFirstAcceleration(float estimatorConstantFirstAcceleration) {
 
