@@ -1,7 +1,5 @@
 package com.tensorlearning.facemasks.Engine;
 
-import android.util.Log;
-
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -17,7 +15,7 @@ public class ObjectModel {
 
     private String  objectModelMaterialReference;
 
-    public Vector<Float> objectModelVerticesComponents;
+    private Vector<Float> objectModelVerticesComponents;
     private Vector<Float> objectModelTextureCoordinates;
     private Vector<Float> objectModelObjectPositions;
 
@@ -35,7 +33,7 @@ public class ObjectModel {
 
 
     public ObjectModel() {
-        Log.i("ALOCANDO", "---------------------");
+
         objectModelNumberFaces = 0;
         objectModelNumberNormals = 0;
         objectModelIdObject = 0;
@@ -58,7 +56,7 @@ public class ObjectModel {
 
         }
 
-        for(int i = 0; i < objectModelVerticesComponents.size(); i++){
+        for(int i = 0; i < objectModelTextureCoordinates.size(); i++){
 
             objectModelTextureCoordinatesFlattenBuffer[i] = objectModelTextureCoordinates.get(i);
 

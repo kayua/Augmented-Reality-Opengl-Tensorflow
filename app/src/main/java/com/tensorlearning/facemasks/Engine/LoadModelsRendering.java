@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -68,7 +69,7 @@ public final class LoadModelsRendering {
 
     public void decomposeFileObject(String stringBufferLine, int numberSequenceModels){
 
-
+        Log.i("String original: ",stringBufferLine);
         fileTemporaryProcessingLine = stringBufferLine.split("\\s");
 
         if(fileTemporaryProcessingLine[0].equals("v")){
@@ -77,7 +78,6 @@ public final class LoadModelsRendering {
             modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
             modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
             objectModelStruct.get(numberSequenceModels).addVerticesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
-            Log.i(String.valueOf(objectModelStruct.get(numberSequenceModels).objectModelVerticesComponents.size()), "---<><><><>---");
         }
 
         if(fileTemporaryProcessingLine[0].equals("vt")){
@@ -91,16 +91,11 @@ public final class LoadModelsRendering {
 
         if(fileTemporaryProcessingLine[0].equals("f")){
 
-            for (String s : fileTemporaryProcessingLine) {
-
-                modelObjectFloatAxisX = Float.parseFloat(s.split("/")[1]);
-                modelObjectFloatAxisY = Float.parseFloat(s.split("/")[2]);
-                modelObjectFloatAxisZ = Float.parseFloat(s.split("/")[3]);
-
+                modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
+                modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
+                modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
                 objectModelStruct.get(numberSequenceModels).addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
 
-
-            }
 
         }
 
@@ -124,6 +119,7 @@ public final class LoadModelsRendering {
             objectModelStruct.get(i).bufferedVerticesModel();
             objectModelStruct.get(i).bufferedTextureModel();
             objectModelStruct.get(i).bufferedIndexModel();
+            Log.i("******************************************", "*******************************");
 
         }
 

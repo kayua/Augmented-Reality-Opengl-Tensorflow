@@ -34,7 +34,7 @@ class EngineRenderer implements GLSurfaceView.Renderer {
     public void loadModels(){
 
         ArrayList<String> listModels = new ArrayList<>();
-        listModels.add(new String("male.obj"));
+        listModels.add(new String("Mug.obj"));
         this.renderModels.setFileObjectModel(listModels);
         this.renderModels.loadModels();
 
