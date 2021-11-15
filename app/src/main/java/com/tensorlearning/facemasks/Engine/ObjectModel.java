@@ -57,6 +57,27 @@ public final class ObjectModel {
         objectModelNormalComponentsFlattenBuffer = new float[objectModelNormalComponents.size()];
         objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
         objectModelObjectPositionsFlattenBuffer  = new  float[objectModelObjectPositions.size()];
+
+        for(int i = 0; i < objectModelNormalComponents.size(); i++){
+
+            objectModelNormalComponentsFlattenBuffer[i] = objectModelNormalComponents.get(i);
+
+        }
+
+        for(int i = 0; i < objectModelNormalComponents.size(); i++){
+
+            objectModelTextureCoordinatesFlattenBuffer[i] = objectModelTextureCoordinates.get(i);
+
+        }
+
+        for(int i = 0; i < objectModelObjectPositions.size(); i++){
+
+            objectModelObjectPositionsFlattenBuffer[i] = objectModelObjectPositions.get(i);
+
+        }
+
+
+
     }
 
 
