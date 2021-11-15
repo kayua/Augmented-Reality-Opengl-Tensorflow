@@ -31,16 +31,6 @@ public class SurfaceComponent extends GLSurfaceView {
 
     }
 
-    private MappedByteBuffer loadModelFile(String file) throws IOException {
-
-        AssetFileDescriptor assetFileDescriptor = getContext().getAssets().openFd(file);
-        FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
-        FileChannel fileChannel = fileInputStream.getChannel();
-        long startOffset = assetFileDescriptor.getStartOffset();
-        long len = assetFileDescriptor.getLength();
-
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
-    }
 
 
 }

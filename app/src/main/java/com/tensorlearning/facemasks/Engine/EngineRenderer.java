@@ -8,23 +8,37 @@ import android.opengl.GLU;
 
 import org.tensorflow.lite.Interpreter;
 
+import java.util.ArrayList;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 class EngineRenderer implements GLSurfaceView.Renderer {
 
     private ModelRendering mCube;
-    Camera camera;
+
     private float mCubeRotation;
     Context context;
+    LoadModelsRendering renderModels;
 
-    public EngineRenderer(Context context,  Interpreter interpreter, Camera camera) {
+    public EngineRenderer(Context context) {
         mCube = new ModelRendering();
-        this.camera = camera;
         this.context = context;
+        this.renderModels = new LoadModelsRendering(context);
+        loadModels();
+
 
     }
 
+    public void loadModels(){
+
+        ArrayList<String> listModels = new ArrayList<>();
+        listModels.add(new String("male.obj"));
+        this.renderModels.setFileObjectModel(listModels);
+        this.renderModels.loadModels();
+
+
+    }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -49,14 +63,13 @@ class EngineRenderer implements GLSurfaceView.Renderer {
 
         gl.glRotatef(mCubeRotation, 1.0f, 1.0f, 1.0f);
 
-        mCube.draw(gl);
+        this.renderModels.draw(gl);
 
         gl.glLoadIdentity();
 
         mCubeRotation -= 2.90f;
 
 
-        LoadModelsRendering objLoader = new LoadModelsRendering(this.context, "Mug.obj");
 
     }
 

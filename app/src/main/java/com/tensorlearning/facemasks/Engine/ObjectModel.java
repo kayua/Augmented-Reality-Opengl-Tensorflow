@@ -83,6 +83,12 @@ public final class ObjectModel {
 
     }
 
+    public int getObjectNumberComponentsPerPlane() {
+
+        return objectNumberComponentsPerPlane;
+
+    }
+
     public String getObjectModelMaterialReference() {
 
         return objectModelMaterialReference;
