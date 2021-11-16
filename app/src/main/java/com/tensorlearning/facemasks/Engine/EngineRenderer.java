@@ -25,9 +25,7 @@ class EngineRenderer implements GLSurfaceView.Renderer {
         mCube = new ModelRendering();
         this.context = context;
         this.renderModels = new LoadModelsRendering(context);
-
         loadModels();
-
 
     }
 
@@ -36,6 +34,7 @@ class EngineRenderer implements GLSurfaceView.Renderer {
         ArrayList<String> listModels = new ArrayList<>();
         listModels.add(new String("Mug.obj"));
         this.renderModels.setFileObjectModel(listModels);
+        this.renderModels.allocationMemoryObjects();
         this.renderModels.loadModels();
 
 

@@ -51,7 +51,6 @@ public class ObjectModel {
         objectModelVerticesComponentsFlattenBuffer = new float[objectModelVerticesComponents.size()];
         objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
         objectModelIndexFlattenBuffer = new byte[objectModelObjectPositions.size()];
-        Log.i("77777777777777777777777777777", String.valueOf(objectModelObjectPositions.size()));
 
         for(int i = 0; i < objectModelVerticesComponents.size(); i++){
 

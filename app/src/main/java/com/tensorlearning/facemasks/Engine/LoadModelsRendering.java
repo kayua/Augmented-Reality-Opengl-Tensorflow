@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -36,13 +35,20 @@ public final class LoadModelsRendering {
 
         this.context = context;
         this.objectModelStruct= new ArrayList<>(0);
-        this.objectModelStruct.add(new ObjectModel());
-        this.objectModelStruct.add(new ObjectModel());
-        this.objectModelStruct.add(new ObjectModel());
-        this.objectModelStruct.add(new ObjectModel());
+
+    }
+
+    public void allocationMemoryObjects(){
+
+        for(int i=0; i<fileObjectModel.size(); i++ ){
+
+            this.objectModelStruct.add(new ObjectModel());
+
+        }
 
 
     }
+
 
     public void readFileObject(int sequenceObjectId){
 
@@ -135,7 +141,6 @@ public final class LoadModelsRendering {
 
     }
 
-
     public void draw(GL10 gl) {
 
         gl.glFrontFace(GL10.GL_CW);
@@ -144,7 +149,6 @@ public final class LoadModelsRendering {
 
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferVertices);
         gl.glColorPointer(4, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferTexture);
-        Log.i("GL ES", String.valueOf(objectModelStruct.get(i).byteBufferTexture.toString().length()));
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
