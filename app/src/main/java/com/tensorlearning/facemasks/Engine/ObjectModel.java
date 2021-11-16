@@ -21,11 +21,11 @@ public class ObjectModel {
 
     private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
-    private float[] objectModelIndexFlattenBuffer;
+    private byte[] objectModelIndexFlattenBuffer;
 
     public FloatBuffer floatBufferVerticesComponents;
     public FloatBuffer floatBufferTextureComponents;
-    public FloatBuffer floatBufferIndexComponents;
+    public ByteBuffer floatBufferIndexComponents;
 
     public ByteBuffer byteBufferVertices;
     public ByteBuffer byteBufferTexture;
@@ -48,7 +48,7 @@ public class ObjectModel {
 
         objectModelVerticesComponentsFlattenBuffer = new float[objectModelVerticesComponents.size()];
         objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
-        objectModelIndexFlattenBuffer = new  float[objectModelObjectPositions.size()];
+        objectModelIndexFlattenBuffer = new byte[objectModelObjectPositions.size()];
 
         for(int i = 0; i < objectModelVerticesComponents.size(); i++){
 
@@ -126,10 +126,10 @@ public class ObjectModel {
 
     public void bufferedIndexModel() {
 
-        byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexFlattenBuffer.length * 4);
-        byteBufferIndex.order(ByteOrder.nativeOrder());
+        byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexFlattenBuffer.length);
         floatBufferIndexComponents.put(objectModelIndexFlattenBuffer);
         floatBufferIndexComponents.position(0);
+
 
     }
 
