@@ -138,7 +138,7 @@ public final class LoadModelsRendering {
         for(int i = 0; i < this.numberObjectsRendered; i++){
 
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferVertices);
-        gl.glColorPointer(4, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferTexture);
+        gl.glColorPointer(3, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferTexture);
         Log.i("GL ES", String.valueOf(objectModelStruct.get(i).byteBufferTexture.toString().length()));
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
@@ -150,7 +150,7 @@ public final class LoadModelsRendering {
 
         if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==5){
 
-                gl.glDrawElements(GL10.GL_TRIANGLE_FAN, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
+                gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
             }
 
 
