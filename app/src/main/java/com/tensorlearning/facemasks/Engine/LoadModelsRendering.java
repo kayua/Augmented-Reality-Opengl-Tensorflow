@@ -27,6 +27,10 @@ public final class LoadModelsRendering {
     private float modelObjectFloatAxisY;
     private float modelObjectFloatAxisZ;
 
+    private byte modelObjectFloatAxisXByte;
+    private byte modelObjectFloatAxisYByte;
+    private byte modelObjectFloatAxisZByte;
+
 
     public LoadModelsRendering(Context context) {
 
@@ -91,10 +95,11 @@ public final class LoadModelsRendering {
 
         if(fileTemporaryProcessingLine[0].equals("f")){
 
-                modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
-                modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
-                modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
-                objectModelStruct.get(numberSequenceModels).addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+                modelObjectFloatAxisXByte = Byte.parseByte(fileTemporaryProcessingLine[1]);
+
+                modelObjectFloatAxisYByte = Byte.parseByte(fileTemporaryProcessingLine[2]);
+                modelObjectFloatAxisZByte = Byte.parseByte(fileTemporaryProcessingLine[3]);
+                objectModelStruct.get(numberSequenceModels).addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisXByte, modelObjectFloatAxisYByte, modelObjectFloatAxisZByte);
                 modelObjectFloatAxisX = Float.parseFloat("0.6");
                 modelObjectFloatAxisY = Float.parseFloat("0.6");
                 modelObjectFloatAxisZ = Float.parseFloat("0.6");
@@ -138,19 +143,19 @@ public final class LoadModelsRendering {
         for(int i = 0; i < this.numberObjectsRendered; i++){
 
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferVertices);
-        gl.glColorPointer(3, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferTexture);
+        gl.glColorPointer(4, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferTexture);
         Log.i("GL ES", String.valueOf(objectModelStruct.get(i).byteBufferTexture.toString().length()));
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
         if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==4){
 
-            gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
+            gl.glDrawElements(GL10.GL_TRIANGLES, 35, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
         }
 
         if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==5){
 
-                gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
+                gl.glDrawElements(GL10.GL_TRIANGLES, 35, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
             }
 
 

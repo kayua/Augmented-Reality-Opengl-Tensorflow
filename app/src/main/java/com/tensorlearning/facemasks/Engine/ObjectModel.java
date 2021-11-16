@@ -17,7 +17,7 @@ public class ObjectModel {
 
     private Vector<Float> objectModelVerticesComponents;
     private Vector<Float> objectModelTextureCoordinates;
-    private Vector<Float> objectModelObjectPositions;
+    private Vector<Byte> objectModelObjectPositions;
 
     private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
@@ -94,7 +94,7 @@ public class ObjectModel {
 
     }
 
-    public void addObjectIndexComponents(int numberComponents, float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
+    public void addObjectIndexComponents(int numberComponents, byte coordinateAxisX, byte coordinateAxisY, byte coordinateAxisZ){
 
         objectModelObjectPositions.add(coordinateAxisX);
         objectModelObjectPositions.add(coordinateAxisY);
@@ -128,7 +128,6 @@ public class ObjectModel {
 
         byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexFlattenBuffer.length * 4);
         byteBufferIndex.order(ByteOrder.nativeOrder());
-        floatBufferIndexComponents = byteBufferIndex.asFloatBuffer();
         floatBufferIndexComponents.put(objectModelIndexFlattenBuffer);
         floatBufferIndexComponents.position(0);
 
