@@ -96,9 +96,9 @@ public final class LoadModelsRendering {
         if(fileTemporaryProcessingLine[0].equals("f")){
 
                 modelObjectFloatAxisXByte = Byte.parseByte(fileTemporaryProcessingLine[1]);
-
                 modelObjectFloatAxisYByte = Byte.parseByte(fileTemporaryProcessingLine[2]);
                 modelObjectFloatAxisZByte = Byte.parseByte(fileTemporaryProcessingLine[3]);
+
                 objectModelStruct.get(numberSequenceModels).addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisXByte, modelObjectFloatAxisYByte, modelObjectFloatAxisZByte);
                 modelObjectFloatAxisX = Float.parseFloat("0.6");
                 modelObjectFloatAxisY = Float.parseFloat("0.6");

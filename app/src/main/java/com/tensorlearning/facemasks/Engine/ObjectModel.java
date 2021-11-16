@@ -1,5 +1,7 @@
 package com.tensorlearning.facemasks.Engine;
 
+import android.util.Log;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -49,6 +51,7 @@ public class ObjectModel {
         objectModelVerticesComponentsFlattenBuffer = new float[objectModelVerticesComponents.size()];
         objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
         objectModelIndexFlattenBuffer = new byte[objectModelObjectPositions.size()];
+        Log.i("77777777777777777777777777777", String.valueOf(objectModelObjectPositions.size()));
 
         for(int i = 0; i < objectModelVerticesComponents.size(); i++){
 
@@ -127,8 +130,8 @@ public class ObjectModel {
     public void bufferedIndexModel() {
 
         byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexFlattenBuffer.length);
-        floatBufferIndexComponents.put(objectModelIndexFlattenBuffer);
-        floatBufferIndexComponents.position(0);
+        byteBufferIndex.put(objectModelIndexFlattenBuffer);
+        byteBufferIndex.position(0);
 
 
     }
