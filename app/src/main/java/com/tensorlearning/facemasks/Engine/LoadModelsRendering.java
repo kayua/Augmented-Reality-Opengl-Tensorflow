@@ -1,8 +1,6 @@
 package com.tensorlearning.facemasks.Engine;
 
 import android.content.Context;
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -49,13 +47,12 @@ public final class LoadModelsRendering {
 
     }
 
-
     public void readFileObject(int sequenceObjectId){
 
 
         try {
 
-            fileInputReference = new InputStreamReader(context.getAssets().open("male.obj"));
+            fileInputReference = new InputStreamReader(context.getAssets().open(fileObjectModel.get(sequenceObjectId)));
             bufferReaderObject = new BufferedReader(fileInputReference);
 
             while ((stringBufferReadLine = bufferReaderObject.readLine()) != null) {
@@ -130,10 +127,10 @@ public final class LoadModelsRendering {
         for(int i=0; i< fileObjectModel.size(); i++){
 
             readFileObject(i);
-            objectModelStruct.get(i).createBufferObject();
-            objectModelStruct.get(i).bufferedVerticesModel();
-            objectModelStruct.get(i).bufferedTextureModel();
-            objectModelStruct.get(i).bufferedIndexModel();
+            objectModelStruct.get(i).dynamicAllocationObject();
+            objectModelStruct.get(i).allocationBufferVerticesModel();
+            objectModelStruct.get(i).allocationBufferTextureModel();
+            objectModelStruct.get(i).allocationBufferIndexModel();
 
 
         }

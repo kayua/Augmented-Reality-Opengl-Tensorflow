@@ -1,7 +1,5 @@
 package com.tensorlearning.facemasks.Engine;
 
-import android.util.Log;
-
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -9,17 +7,11 @@ import java.util.Vector;
 
 public class ObjectModel {
 
-    private final int objectModelNumberFaces;
-    private final int objectModelNumberNormals;
-    private final int objectModelIdObject;
-
     private int objectNumberComponentsPerPlane;
 
-    private String  objectModelMaterialReference;
-
-    private Vector<Float> objectModelVerticesComponents;
-    private Vector<Float> objectModelTextureCoordinates;
-    private Vector<Byte> objectModelObjectPositions;
+    private final Vector<Float> objectModelVerticesComponents;
+    private final Vector<Float> objectModelTextureCoordinates;
+    private final Vector<Byte> objectModelObjectPositions;
 
     private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
@@ -27,7 +19,6 @@ public class ObjectModel {
 
     public FloatBuffer floatBufferVerticesComponents;
     public FloatBuffer floatBufferTextureComponents;
-    public ByteBuffer floatBufferIndexComponents;
 
     public ByteBuffer byteBufferVertices;
     public ByteBuffer byteBufferTexture;
@@ -36,37 +27,33 @@ public class ObjectModel {
 
     public ObjectModel() {
 
-        objectModelNumberFaces = 0;
-        objectModelNumberNormals = 0;
-        objectModelIdObject = 0;
-        objectModelMaterialReference = "";
         objectModelVerticesComponents = new Vector<>(0);
         objectModelTextureCoordinates = new Vector<>(0);
         objectModelObjectPositions = new Vector<>(0);
 
     }
 
-    public void createBufferObject(){
+    public void dynamicAllocationObject(){
 
         objectModelVerticesComponentsFlattenBuffer = new float[objectModelVerticesComponents.size()];
         objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
         objectModelIndexFlattenBuffer = new byte[objectModelObjectPositions.size()];
 
-        for(int i = 0; i < objectModelVerticesComponents.size(); i++){
+        for(int iterator = 0; iterator < objectModelVerticesComponents.size(); iterator++){
 
-            objectModelVerticesComponentsFlattenBuffer[i] = objectModelVerticesComponents.get(i);
-
-        }
-
-        for(int i = 0; i < objectModelTextureCoordinates.size(); i++){
-
-            objectModelTextureCoordinatesFlattenBuffer[i] = objectModelTextureCoordinates.get(i);
+            objectModelVerticesComponentsFlattenBuffer[iterator] = objectModelVerticesComponents.get(iterator);
 
         }
 
-        for(int i = 0; i < objectModelObjectPositions.size(); i++){
+        for(int iterator = 0; iterator < objectModelTextureCoordinates.size(); iterator++){
 
-            objectModelIndexFlattenBuffer[i] = objectModelObjectPositions.get(i);
+            objectModelTextureCoordinatesFlattenBuffer[iterator] = objectModelTextureCoordinates.get(iterator);
+
+        }
+
+        for(int iterator = 0; iterator < objectModelObjectPositions.size(); iterator++){
+
+            objectModelIndexFlattenBuffer[iterator] = objectModelObjectPositions.get(iterator);
 
         }
 
@@ -106,7 +93,7 @@ public class ObjectModel {
     }
 
 
-    public void bufferedVerticesModel() {
+    public void allocationBufferVerticesModel() {
 
         byteBufferVertices = ByteBuffer.allocateDirect(objectModelVerticesComponentsFlattenBuffer.length * 4);
         byteBufferVertices.order(ByteOrder.nativeOrder());
@@ -116,7 +103,7 @@ public class ObjectModel {
 
     }
 
-    public void bufferedTextureModel() {
+    public void allocationBufferTextureModel() {
 
         byteBufferTexture = ByteBuffer.allocateDirect(objectModelTextureCoordinatesFlattenBuffer.length * 4);
         byteBufferTexture.order(ByteOrder.nativeOrder());
@@ -126,7 +113,7 @@ public class ObjectModel {
 
     }
 
-    public void bufferedIndexModel() {
+    public void allocationBufferIndexModel() {
 
         byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexFlattenBuffer.length);
         byteBufferIndex.put(objectModelIndexFlattenBuffer);
