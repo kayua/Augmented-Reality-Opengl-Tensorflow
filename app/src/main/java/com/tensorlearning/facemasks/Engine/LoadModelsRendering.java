@@ -69,7 +69,7 @@ public final class LoadModelsRendering {
 
     public void decomposeFileObject(String stringBufferLine, int numberSequenceModels){
 
-        Log.i("String original: ",stringBufferLine);
+
         fileTemporaryProcessingLine = stringBufferLine.split("\\s");
 
         if(fileTemporaryProcessingLine[0].equals("v")){
