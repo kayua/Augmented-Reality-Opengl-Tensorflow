@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.microedition.khronos.opengles.GL10;
 
+
 public final class LoadModelsRendering {
 
 
@@ -24,9 +25,9 @@ public final class LoadModelsRendering {
     private float modelObjectFloatAxisY;
     private float modelObjectFloatAxisZ;
 
-    private byte modelObjectFloatAxisXByte;
-    private byte modelObjectFloatAxisYByte;
-    private byte modelObjectFloatAxisZByte;
+    private short modelObjectFloatAxisXByte;
+    private short modelObjectFloatAxisYByte;
+    private short modelObjectFloatAxisZByte;
 
 
     public LoadModelsRendering(Context context) {
@@ -98,9 +99,9 @@ public final class LoadModelsRendering {
 
         if(fileTemporaryProcessingLine[0].equals("f")){
 
-                modelObjectFloatAxisXByte = Byte.parseByte(fileTemporaryProcessingLine[1]);
-                modelObjectFloatAxisYByte = Byte.parseByte(fileTemporaryProcessingLine[2]);
-                modelObjectFloatAxisZByte = Byte.parseByte(fileTemporaryProcessingLine[3]);
+                modelObjectFloatAxisXByte = Integer.parseInt(fileTemporaryProcessingLine[1]);
+                modelObjectFloatAxisYByte = Integer.parseInt(fileTemporaryProcessingLine[2]);
+                modelObjectFloatAxisZByte = Integer.parseInt(fileTemporaryProcessingLine[3]);
 
                 objectModelStruct.get(numberSequenceModels).addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisXByte, modelObjectFloatAxisYByte, modelObjectFloatAxisZByte);
                 modelObjectFloatAxisX = Float.parseFloat("0.6");
@@ -151,12 +152,12 @@ public final class LoadModelsRendering {
 
         if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==4){
 
-            gl.glDrawElements(GL10.GL_TRIANGLES, 35, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
+            gl.glDrawElements(GL10.GL_TRIANGLES, 35, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
         }
 
         if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==5){
 
-                gl.glDrawElements(GL10.GL_TRIANGLES, 35, GL10.GL_UNSIGNED_BYTE, objectModelStruct.get(i).byteBufferIndex);
+                gl.glDrawElements(GL10.GL_TRIANGLES, 35, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
             }
 
 

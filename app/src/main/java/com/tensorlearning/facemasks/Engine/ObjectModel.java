@@ -3,6 +3,8 @@ package com.tensorlearning.facemasks.Engine;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
 import java.util.Vector;
 
 public class ObjectModel {
@@ -11,14 +13,15 @@ public class ObjectModel {
 
     private final Vector<Float> objectModelVerticesComponents;
     private final Vector<Float> objectModelTextureCoordinates;
-    private final Vector<Byte> objectModelObjectPositions;
+    private final Vector<Short> objectModelObjectPositions;
 
     private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
-    private byte[] objectModelIndexFlattenBuffer;
+    private short[] objectModelIndexComponentsFlattenBuffer;
 
     public FloatBuffer floatBufferVerticesComponents;
     public FloatBuffer floatBufferTextureComponents;
+    public ShortBuffer intBufferTextureComponents;
 
     public ByteBuffer byteBufferVertices;
     public ByteBuffer byteBufferTexture;
@@ -37,7 +40,7 @@ public class ObjectModel {
 
         objectModelVerticesComponentsFlattenBuffer = new float[objectModelVerticesComponents.size()];
         objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
-        objectModelIndexFlattenBuffer = new byte[objectModelObjectPositions.size()];
+        objectModelIndexComponentsFlattenBuffer = new short[objectModelObjectPositions.size()];
 
         for(int iterator = 0; iterator < objectModelVerticesComponents.size(); iterator++){
 
@@ -53,7 +56,7 @@ public class ObjectModel {
 
         for(int iterator = 0; iterator < objectModelObjectPositions.size(); iterator++){
 
-            objectModelIndexFlattenBuffer[iterator] = objectModelObjectPositions.get(iterator);
+            objectModelIndexComponentsFlattenBuffer[iterator] = objectModelObjectPositions.get(iterator);
 
         }
 
@@ -83,7 +86,7 @@ public class ObjectModel {
 
     }
 
-    public void addObjectIndexComponents(int numberComponents, byte coordinateAxisX, byte coordinateAxisY, byte coordinateAxisZ){
+    public void addObjectIndexComponents(int numberComponents, short coordinateAxisX, short coordinateAxisY, short coordinateAxisZ){
 
         objectModelObjectPositions.add(coordinateAxisX);
         objectModelObjectPositions.add(coordinateAxisY);
@@ -115,9 +118,11 @@ public class ObjectModel {
 
     public void allocationBufferIndexModel() {
 
-        byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexFlattenBuffer.length);
-        byteBufferIndex.put(objectModelIndexFlattenBuffer);
-        byteBufferIndex.position(0);
+        byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexComponentsFlattenBuffer.length*2);
+        byteBufferIndex.order(ByteOrder.nativeOrder());
+        intBufferTextureComponents = byteBufferIndex.asShortBuffer();
+        intBufferTextureComponents.put(objectModelIndexComponentsFlattenBuffer);
+        intBufferTextureComponents.position(0);
 
 
     }
