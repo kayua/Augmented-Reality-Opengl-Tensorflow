@@ -33,7 +33,7 @@ class EngineSettings {
                                         + "   gl_Position = uMVPMatrix * vPosition;  \n"
                                         + "}                            \n";
 
-    private final String fShaderStr =  "#version 300 es		 			          	\n"
+    private final String settingFragmentShaderStr =  "#version 300 es		 			          	\n"
                                         + "precision mediump float;					  	\n"
                                         + "uniform vec4 vColor;	 			 		  	\n"
                                         + "out vec4 fragColor;	 			 		  	\n"
