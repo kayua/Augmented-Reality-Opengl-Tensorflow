@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.Engine;
+package com.tensorlearning.facemasks.Engine.Buffering;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -6,7 +6,7 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 import java.util.Vector;
 
-public class ObjectModel {
+public class MemoryAllocation {
 
     private int objectNumberComponentsPerPlane;
 
@@ -27,7 +27,7 @@ public class ObjectModel {
     public ByteBuffer byteBufferIndex;
 
 
-    public ObjectModel() {
+    public MemoryAllocation() {
 
         objectModelVerticesComponents = new Vector<>(0);
         objectModelTextureCoordinates = new Vector<>(0);

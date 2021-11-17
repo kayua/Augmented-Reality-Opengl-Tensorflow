@@ -1,4 +1,5 @@
 package com.tensorlearning.facemasks.Engine.Formats;
+
 import java.util.Vector;
 
 
@@ -7,22 +8,22 @@ public class WavefrontFormat {
 
     private final Vector<Float> objectModelVerticesComponents;
     private final Vector<Float> objectModelTextureCoordinates;
-    private final Vector<Short> objectModelObjectPositions;
+    private final Vector<Short> objectModelSurfaceIndexVector;
 
     private int objectModelNumberVerticesComponents;
     private int objectModelNumberTextureCoordinates;
-    private int objectModelNumberObjectPositions;
+    private int objectModelNumberSurfaceIndexVector;
 
     private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
-    private short[] objectModelIndexComponentsFlattenBuffer;
+    private short[] objectModelSurfaceIndexVectorFlattenBuffer;
 
 
     public WavefrontFormat() {
 
         objectModelVerticesComponents = new Vector<>(0);
         objectModelTextureCoordinates = new Vector<>(0);
-        objectModelObjectPositions = new Vector<>(0);
+        objectModelSurfaceIndexVector = new Vector<>(0);
 
     }
 
@@ -30,7 +31,7 @@ public class WavefrontFormat {
 
         objectModelVerticesComponentsFlattenBuffer = new float[objectModelVerticesComponents.size()];
         objectModelTextureCoordinatesFlattenBuffer = new float[objectModelTextureCoordinates.size()];
-        objectModelIndexComponentsFlattenBuffer = new short[objectModelObjectPositions.size()];
+        objectModelSurfaceIndexVectorFlattenBuffer = new short[objectModelSurfaceIndexVector.size()];
 
 
         for(int iterator = 0; iterator < objectModelVerticesComponents.size(); iterator++){
@@ -45,9 +46,9 @@ public class WavefrontFormat {
 
         }
 
-        for(int iterator = 0; iterator < objectModelObjectPositions.size(); iterator++){
+        for(int iterator = 0; iterator < objectModelSurfaceIndexVector.size(); iterator++){
 
-            objectModelIndexComponentsFlattenBuffer[iterator] = objectModelObjectPositions.get(iterator);
+            objectModelSurfaceIndexVectorFlattenBuffer[iterator] = objectModelSurfaceIndexVector.get(iterator);
 
         }
 
@@ -70,11 +71,11 @@ public class WavefrontFormat {
 
     }
 
-    public void addObjectIndexComponents(int numberComponents, short coordinateAxisX, short coordinateAxisY, short coordinateAxisZ){
+    public void addObjectIndexComponents(short coordinateAxisX, short coordinateAxisY, short coordinateAxisZ){
 
-        objectModelObjectPositions.add(coordinateAxisX);
-        objectModelObjectPositions.add(coordinateAxisY);
-        objectModelObjectPositions.add(coordinateAxisZ);
+        objectModelSurfaceIndexVector.add(coordinateAxisX);
+        objectModelSurfaceIndexVector.add(coordinateAxisY);
+        objectModelSurfaceIndexVector.add(coordinateAxisZ);
 
     }
 
@@ -91,9 +92,9 @@ public class WavefrontFormat {
 
     }
 
-    public short[] getObjectModelIndexComponentsFlattenBuffer() {
+    public short[] getObjectModelSurfaceIndexVectorFlattenBuffer() {
 
-        return objectModelIndexComponentsFlattenBuffer;
+        return objectModelSurfaceIndexVectorFlattenBuffer;
 
     }
 
@@ -110,9 +111,9 @@ public class WavefrontFormat {
 
     }
 
-    public int getObjectModelNumberObjectPositions() {
+    public int getObjectModelNumberSurfacesVector() {
 
-        return objectModelNumberObjectPositions;
+        return objectModelNumberSurfaceIndexVector;
 
     }
 
