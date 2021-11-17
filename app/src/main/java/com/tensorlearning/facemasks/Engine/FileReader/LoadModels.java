@@ -23,13 +23,10 @@ public final class LoadModels {
     private Context context;
     private WavefrontFormat objectModelWavefront;
 
-    private float modelObjectFloatAxisX;
-    private float modelObjectFloatAxisY;
-    private float modelObjectFloatAxisZ;
+    private float modelVerticeCoordinateX;
+    private float modelVerticeCoordinateY;
+    private float modelVerticeCoordinateZ;
 
-    private float modelObjectFloatAxisX;
-    private float modelObjectFloatAxisY;
-    private float modelObjectFloatAxisZ;
 
     private short modelObjectFloatAxisXByte;
     private short modelObjectFloatAxisYByte;
@@ -84,24 +81,24 @@ public final class LoadModels {
     public void decomposeFileModelObject(String[] stringBufferLine){
 
 
-        if(fileTemporaryProcessingLine[0].equals("v")){
+        if( stringBufferLine[0].equals("v")){
 
-            modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
-            modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
-            modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
-            objectModelWavefront.addVerticesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+            modelVerticeCoordinateX = Float.parseFloat(fileTemporaryProcessingLine[1]);
+            modelVerticeCoordinateY = Float.parseFloat(fileTemporaryProcessingLine[2]);
+            modelVerticeCoordinateZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
+            objectModelWavefront.addVerticesComponents(modelVerticeCoordinateX, modelVerticeCoordinateY, modelVerticeCoordinateZ);
         }
 
-        if(fileTemporaryProcessingLine[0].equals("vt")){
+        if(stringBufferLine[0].equals("vt")){
 
-            modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
-            modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
-            modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
-            objectModelWavefront.addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+            modelVerticeCoordinateX = Float.parseFloat(fileTemporaryProcessingLine[1]);
+            modelVerticeCoordinateY = Float.parseFloat(fileTemporaryProcessingLine[2]);
+            modelVerticeCoordinateZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
+            objectModelWavefront.addTexturesComponents(modelVerticeCoordinateX, modelVerticeCoordinateY, modelVerticeCoordinateZ);
 
         }
 
-        if(fileTemporaryProcessingLine[0].equals("f")){
+        if( stringBufferLine[0].equals("f")){
 
                 modelObjectFloatAxisXByte = Short.parseShort(fileTemporaryProcessingLine[1]);
                 modelObjectFloatAxisYByte = Short.parseShort(fileTemporaryProcessingLine[2]);
