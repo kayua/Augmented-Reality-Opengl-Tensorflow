@@ -1,10 +1,9 @@
 package com.tensorlearning.facemasks.Engine.Settings;
 
-import android.content.Context;
 import android.opengl.GLES30;
 
 
-class EngineSettings {
+public class EngineSettings{
 
 
     private final int settingDepthFunction = GLES30.GL_LEQUAL;
@@ -44,8 +43,7 @@ class EngineSettings {
                                         + "}                                            \n";
 
 
-    public EngineSettings(Context context) {
-
+    public EngineSettings() {
 
     }
 
