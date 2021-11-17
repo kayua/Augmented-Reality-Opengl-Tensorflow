@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-class EngineManagement implements GLSurfaceView.Renderer {
+class Transformation implements GLSurfaceView.Renderer {
 
     private ModelRendering mCube;
 
@@ -20,7 +20,7 @@ class EngineManagement implements GLSurfaceView.Renderer {
     Context context;
     LoadModelsRendering renderModels;
 
-    public EngineManagement(Context context) {
+    public Transformation(Context context) {
         mCube = new ModelRendering();
         this.context = context;
         this.renderModels = new LoadModelsRendering(context);
