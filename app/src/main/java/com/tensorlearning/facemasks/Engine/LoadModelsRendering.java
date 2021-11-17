@@ -149,18 +149,7 @@ public final class LoadModelsRendering {
         gl.glColorPointer(4, GL10.GL_FLOAT, 0, objectModelStruct.get(i).byteBufferTexture);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-
-        if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==4){
-
-            gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
-        }
-
-        if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==5){
-
-                gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
-            }
-
-
+        gl.glDrawElements(GL10.GL_TRIANGLES, 32, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 
