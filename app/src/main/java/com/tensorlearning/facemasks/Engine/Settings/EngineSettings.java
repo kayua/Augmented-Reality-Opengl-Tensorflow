@@ -17,6 +17,8 @@ class EngineSettings {
     private final float settingsClearDepthFunction = 1.0f;
     private final int settingsHintPerspective = GLES32.GL_FRAGMENT_SHADER_DERIVATIVE_HINT;
     private final int settingsHintNicest = GLES32.GL_NICEST;
+    private final int settingsColorBuffer = GLES32.GL_COLOR_BUFFER_BIT;
+    private final int settingsDepthBuffer = GLES32.GL_DEPTH_BUFFER_BIT;
 
     public EngineSettings(Context context) {
 
