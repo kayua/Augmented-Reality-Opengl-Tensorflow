@@ -99,9 +99,9 @@ public final class LoadModelsRendering {
 
         if(fileTemporaryProcessingLine[0].equals("f")){
 
-                modelObjectFloatAxisXByte = Integer.parseInt(fileTemporaryProcessingLine[1]);
-                modelObjectFloatAxisYByte = Integer.parseInt(fileTemporaryProcessingLine[2]);
-                modelObjectFloatAxisZByte = Integer.parseInt(fileTemporaryProcessingLine[3]);
+                modelObjectFloatAxisXByte = Short.parseShort(fileTemporaryProcessingLine[1]);
+                modelObjectFloatAxisYByte = Short.parseShort(fileTemporaryProcessingLine[2]);
+                modelObjectFloatAxisZByte = Short.parseShort(fileTemporaryProcessingLine[3]);
 
                 objectModelStruct.get(numberSequenceModels).addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisXByte, modelObjectFloatAxisYByte, modelObjectFloatAxisZByte);
                 modelObjectFloatAxisX = Float.parseFloat("0.6");
@@ -152,12 +152,12 @@ public final class LoadModelsRendering {
 
         if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==4){
 
-            gl.glDrawElements(GL10.GL_TRIANGLES, 35, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
+            gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
         }
 
         if(objectModelStruct.get(i).getObjectNumberComponentsPerPlane()==5){
 
-                gl.glDrawElements(GL10.GL_TRIANGLES, 35, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
+                gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
             }
 
 

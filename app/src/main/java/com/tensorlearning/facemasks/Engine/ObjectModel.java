@@ -119,7 +119,6 @@ public class ObjectModel {
     public void allocationBufferIndexModel() {
 
         byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexComponentsFlattenBuffer.length*2);
-        byteBufferIndex.order(ByteOrder.nativeOrder());
         intBufferTextureComponents = byteBufferIndex.asShortBuffer();
         intBufferTextureComponents.put(objectModelIndexComponentsFlattenBuffer);
         intBufferTextureComponents.position(0);

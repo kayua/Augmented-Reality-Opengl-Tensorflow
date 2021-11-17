@@ -1,12 +1,9 @@
 package com.tensorlearning.facemasks.Engine;
 
 import android.content.Context;
-import android.hardware.Camera;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 
-
-import org.tensorflow.lite.Interpreter;
 
 import java.util.ArrayList;
 
@@ -32,7 +29,7 @@ class EngineRenderer implements GLSurfaceView.Renderer {
     public void loadModels(){
 
         ArrayList<String> listModels = new ArrayList<>();
-        listModels.add(new String("male.obj"));
+        listModels.add(new String("m.obj"));
         this.renderModels.setFileObjectModel(listModels);
         this.renderModels.allocationMemoryObjects();
         this.renderModels.loadModels();
