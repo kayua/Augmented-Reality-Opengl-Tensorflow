@@ -2,7 +2,6 @@ package com.tensorlearning.facemasks.Engine.Objects;
 
 
 import android.opengl.GLES30;
-import android.util.Log;
 
 import com.tensorlearning.facemasks.Engine.Core.myRenderer;
 import com.tensorlearning.facemasks.Engine.Settings.SettingsEngine;
@@ -106,27 +105,10 @@ class ObjectModel{
         int verticesPerface = 6;
 
         GLES30.glUniform4fv(mColorHandle, 1, colorblue, 0);
+        GLES30.glDrawElements(GLES30.GL_TRIANGLES, 36, GLES30.GL_UNSIGNED_SHORT, indices);
         GLES30.glDrawArrays(GLES30.GL_TRIANGLES,startPos,verticesPerface);
         startPos += verticesPerface;
 
-        GLES30.glUniform4fv(mColorHandle, 1, colorcyan, 0);
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLES, startPos, verticesPerface);
-        startPos += verticesPerface;
-
-        GLES30.glUniform4fv(mColorHandle, 1, colorred, 0);
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLES,startPos,verticesPerface);
-        startPos += verticesPerface;
-
-        GLES30.glUniform4fv(mColorHandle, 1, colorgray, 0);
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLES,startPos,verticesPerface);
-        startPos += verticesPerface;
-
-        GLES30.glUniform4fv(mColorHandle, 1, colorgreen, 0);
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLES,startPos,verticesPerface);
-        startPos += verticesPerface;
-
-        GLES30.glUniform4fv(mColorHandle, 1, coloryellow, 0);
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLES,startPos,verticesPerface);
 
     }
 
