@@ -150,6 +150,7 @@ public final class LoadModelsRendering {
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
         gl.glDrawElements(GL10.GL_TRIANGLES, 32, GL10.GL_SHORT, objectModelStruct.get(i).byteBufferIndex);
+
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 
