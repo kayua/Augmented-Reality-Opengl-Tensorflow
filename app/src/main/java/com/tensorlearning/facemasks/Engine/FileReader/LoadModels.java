@@ -1,6 +1,8 @@
 package com.tensorlearning.facemasks.Engine.FileReader;
 
 import android.content.Context;
+
+import com.tensorlearning.facemasks.Engine.Formats.WavefrontFormat;
 import com.tensorlearning.facemasks.Engine.ObjectModel;
 
 import java.io.BufferedReader;
@@ -14,12 +16,16 @@ public final class LoadModels {
 
     private String stringBufferReadLine;
     private String[] fileTemporaryProcessingLine;
-    private ArrayList<String> fileObjectModel;
     private BufferedReader bufferReaderObject = null;
     private InputStreamReader fileInputReference;
     private int numberObjectsRendered=0;
     public ArrayList<ObjectModel> objectModelStruct;
     private Context context;
+    private WavefrontFormat objectModelWavefront;
+
+    private float modelObjectFloatAxisX;
+    private float modelObjectFloatAxisY;
+    private float modelObjectFloatAxisZ;
 
     private float modelObjectFloatAxisX;
     private float modelObjectFloatAxisY;
@@ -33,55 +39,57 @@ public final class LoadModels {
     public LoadModels(Context context) {
 
         this.context = context;
-        this.objectModelStruct= new ArrayList<>(0);
+        allocationMemoryNewObject();
 
     }
 
     public void allocationMemoryNewObject(){
 
-            this.objectModelStruct.add(new ObjectModel());
+        this.objectModelWavefront = new WavefrontFormat();
 
     }
 
 
     public void readFileModelObject(int typeObject, String fileNameModelObject){
 
+        if(typeObject==0){
 
-        try {
+            try {
 
-            fileInputReference = new InputStreamReader(context.getAssets().open(fileNameModelObject));
-            bufferReaderObject = new BufferedReader(fileInputReference);
+                fileInputReference = new InputStreamReader(context.getAssets().open(fileNameModelObject));
+                bufferReaderObject = new BufferedReader(fileInputReference);
 
-            while ((stringBufferReadLine = bufferReaderObject.readLine()) != null) {
+                while ((stringBufferReadLine = bufferReaderObject.readLine()) != null) {
 
-                decomposeFileModelObject(stringBufferReadLine);
+                    decomposeFileModelObject(stringBufferReadLine.split("\\s"));
 
+                }
+
+            } catch (IOException ignored) {
+
+            } finally {
+
+                if (bufferReaderObject != null) {
+
+                    try { bufferReaderObject.close(); } catch (IOException ignored) { }
+
+                }
             }
 
-        } catch (IOException ignored) {
-
-        } finally {
-
-            if (bufferReaderObject != null) {
-
-                try { bufferReaderObject.close(); } catch (IOException ignored) { }
-
-            }
         }
+
 
     }
 
-    public void decomposeFileModelObject(String stringBufferLine){
+    public void decomposeFileModelObject(String[] stringBufferLine){
 
-
-        fileTemporaryProcessingLine = stringBufferLine.split("\\s");
 
         if(fileTemporaryProcessingLine[0].equals("v")){
 
             modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
             modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
             modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
-            objectModelStruct.get(numberSequenceModels).addVerticesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+            objectModelWavefront.addVerticesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
         }
 
         if(fileTemporaryProcessingLine[0].equals("vt")){
@@ -89,7 +97,7 @@ public final class LoadModels {
             modelObjectFloatAxisX = Float.parseFloat(fileTemporaryProcessingLine[1]);
             modelObjectFloatAxisY = Float.parseFloat(fileTemporaryProcessingLine[2]);
             modelObjectFloatAxisZ = Float.parseFloat(fileTemporaryProcessingLine[3]);
-            objectModelStruct.get(numberSequenceModels).addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+            objectModelWavefront.addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
 
         }
 
@@ -98,12 +106,7 @@ public final class LoadModels {
                 modelObjectFloatAxisXByte = Short.parseShort(fileTemporaryProcessingLine[1]);
                 modelObjectFloatAxisYByte = Short.parseShort(fileTemporaryProcessingLine[2]);
                 modelObjectFloatAxisZByte = Short.parseShort(fileTemporaryProcessingLine[3]);
-
-                objectModelStruct.get(numberSequenceModels).addObjectIndexComponents(fileTemporaryProcessingLine.length, modelObjectFloatAxisXByte, modelObjectFloatAxisYByte, modelObjectFloatAxisZByte);
-                modelObjectFloatAxisX = Float.parseFloat("0.6");
-                modelObjectFloatAxisY = Float.parseFloat("0.6");
-                modelObjectFloatAxisZ = Float.parseFloat("0.6");
-                objectModelStruct.get(numberSequenceModels).addTexturesComponents(modelObjectFloatAxisX, modelObjectFloatAxisY, modelObjectFloatAxisZ);
+                objectModelWavefront.addObjectIndexComponents(modelObjectFloatAxisXByte, modelObjectFloatAxisYByte, modelObjectFloatAxisZByte);
 
 
         }
