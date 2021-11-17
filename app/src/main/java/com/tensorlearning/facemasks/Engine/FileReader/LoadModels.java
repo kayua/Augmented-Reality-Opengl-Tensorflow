@@ -42,13 +42,11 @@ public final class LoadModels {
 
     }
 
-
     public void allocationMemoryNewObject(){
 
         this.objectModelWavefront = new WavefrontFormat();
 
     }
-
 
     public void readFileModelObject(int typeObjectModel, String fileNameModelObject){
 
@@ -84,7 +82,6 @@ public final class LoadModels {
 
 
     }
-
 
     public void decomposeFileModelObjectWavefront(String[] readeLineModelFile){
 
@@ -131,6 +128,7 @@ public final class LoadModels {
         memoryAllocationModel.allocationBufferVerticesModel();
 
     }
+
 
     public ByteBuffer getByteBufferVertices(){
 

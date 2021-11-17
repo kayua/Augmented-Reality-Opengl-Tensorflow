@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.tensorlearning.facemasks.Engine.Formats.WavefrontFormat;
 import com.tensorlearning.facemasks.Engine.Settings.EngineSettings;
-
 import java.util.ArrayList;
 
 
@@ -21,7 +20,7 @@ class Management {
 
     }
 
-    
+
 
 
 
