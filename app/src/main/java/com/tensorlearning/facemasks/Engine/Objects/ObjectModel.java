@@ -23,7 +23,7 @@ class ObjectModel{
     int programObject;
     int[] linked = new int[1];
     float size = 0.4f;
-    private SettingsEngine settingsEngine;
+    private SettingsEngine settingsEngine = new SettingsEngine();
 
     float[] mVerticesData = new float[]{};
 
@@ -54,8 +54,6 @@ class ObjectModel{
                     + "  fragColor = vColor;                    	\n"
                     + "}                                            \n";
 
-    String TAG = "Cube";
-
 
     public ObjectModel() {
 
@@ -85,19 +83,20 @@ class ObjectModel{
         GLES30.glGetProgramiv(programObject, settingsEngine.getSettingColorBuffer(), linked, 0);
 
         if (linked[0] == 0) { GLES30.glDeleteProgram(programObject); return; }
+
         mProgramObject = programObject;
 
     }
 
-
     public void draw(float[] mvpMatrix) {
 
+
         GLES30.glUseProgram(mProgramObject);
-        mMVPMatrixHandle = GLES30.glGetUniformLocation(mProgramObject, "uMVPMatrix");
-        myRenderer.checkGlError("glGetUniformLocation");
-        mColorHandle = GLES30.glGetUniformLocation(mProgramObject, "vColor");
+        mMVPMatrixHandle = GLES30.glGetUniformLocation(mProgramObject, settingsEngine.getSettingUniformLocation());
+        myRenderer.checkGlError(settingsEngine.getSettingCheckGlError());
+        mColorHandle = GLES30.glGetUniformLocation(mProgramObject, settingsEngine.getSettingUniformLocationColor());
         GLES30.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
-        myRenderer.checkGlError("glUniformMatrix4fv");
+        myRenderer.checkGlError(settingsEngine.getSettingCheckGlErrorMatrix());
 
         int VERTEX_POS_INDX = 0;
         mVertices.position(VERTEX_POS_INDX);
