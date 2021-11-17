@@ -1,14 +1,11 @@
 package com.tensorlearning.facemasks.Engine.Formats;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
 import java.util.Vector;
 
 public class WavefrontFormat {
 
     private int objectNumberComponentsPerPlane;
+
+
 
     private final Vector<Float> objectModelVerticesComponents;
     private final Vector<Float> objectModelTextureCoordinates;
@@ -18,13 +15,6 @@ public class WavefrontFormat {
     private float[] objectModelTextureCoordinatesFlattenBuffer;
     private short[] objectModelIndexComponentsFlattenBuffer;
 
-    public FloatBuffer floatBufferVerticesComponents;
-    public FloatBuffer floatBufferTextureComponents;
-    public ShortBuffer intBufferTextureComponents;
-
-    public ByteBuffer byteBufferVertices;
-    public ByteBuffer byteBufferTexture;
-    public ByteBuffer byteBufferIndex;
 
 
     public WavefrontFormat() {
@@ -95,37 +85,22 @@ public class WavefrontFormat {
     }
 
 
-    public void allocationBufferVerticesModel() {
+    public float[] getObjectModelVerticesComponentsFlattenBuffer() {
 
-        byteBufferVertices = ByteBuffer.allocateDirect(objectModelVerticesComponentsFlattenBuffer.length * 4);
-        byteBufferVertices.order(ByteOrder.nativeOrder());
-        floatBufferVerticesComponents = byteBufferVertices.asFloatBuffer();
-        floatBufferVerticesComponents.put(objectModelVerticesComponentsFlattenBuffer);
-        floatBufferVerticesComponents.position(0);
+        return objectModelVerticesComponentsFlattenBuffer;
 
     }
 
-    public void allocationBufferTextureModel() {
+    public float[] getObjectModelTextureCoordinatesFlattenBuffer() {
 
-        byteBufferTexture = ByteBuffer.allocateDirect(objectModelTextureCoordinatesFlattenBuffer.length * 4);
-        byteBufferTexture.order(ByteOrder.nativeOrder());
-        floatBufferTextureComponents = byteBufferTexture.asFloatBuffer();
-        floatBufferTextureComponents.put(objectModelTextureCoordinatesFlattenBuffer);
-        floatBufferTextureComponents.position(0);
+        return objectModelTextureCoordinatesFlattenBuffer;
 
     }
 
-    public void allocationBufferIndexModel() {
+    public short[] getObjectModelIndexComponentsFlattenBuffer() {
 
-        byteBufferIndex = ByteBuffer.allocateDirect(objectModelIndexComponentsFlattenBuffer.length*2);
-        byteBufferTexture.order(ByteOrder.nativeOrder());
-        intBufferTextureComponents = byteBufferIndex.asShortBuffer();
-        intBufferTextureComponents.put(objectModelIndexComponentsFlattenBuffer);
-        intBufferTextureComponents.position(0);
-
+        return objectModelIndexComponentsFlattenBuffer;
 
     }
-
-
 
 }
