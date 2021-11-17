@@ -37,28 +37,24 @@ public final class LoadModels {
 
     }
 
-    public void allocationMemoryObjects(){
-
-        for(int i=0; i<fileObjectModel.size(); i++ ){
+    public void allocationMemoryNewObject(){
 
             this.objectModelStruct.add(new ObjectModel());
 
-        }
-
-
     }
 
-    public void readFileObject(int sequenceObjectId){
+
+    public void readFileModelObject(int typeObject, String fileNameModelObject){
 
 
         try {
 
-            fileInputReference = new InputStreamReader(context.getAssets().open(fileObjectModel.get(sequenceObjectId)));
+            fileInputReference = new InputStreamReader(context.getAssets().open(fileNameModelObject));
             bufferReaderObject = new BufferedReader(fileInputReference);
 
             while ((stringBufferReadLine = bufferReaderObject.readLine()) != null) {
 
-                decomposeFileObject(stringBufferReadLine, sequenceObjectId);
+                decomposeFileModelObject(stringBufferReadLine);
 
             }
 
@@ -75,7 +71,7 @@ public final class LoadModels {
 
     }
 
-    public void decomposeFileObject(String stringBufferLine, int numberSequenceModels){
+    public void decomposeFileModelObject(String stringBufferLine){
 
 
         fileTemporaryProcessingLine = stringBufferLine.split("\\s");
