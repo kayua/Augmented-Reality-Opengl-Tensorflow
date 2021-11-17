@@ -1,6 +1,7 @@
 package com.tensorlearning.facemasks.Engine.Objects;
 
 
+import android.graphics.Color;
 import android.opengl.GLES30;
 
 import com.tensorlearning.facemasks.Engine.Core.myRenderer;
@@ -21,9 +22,8 @@ class ObjectModel{
     int fragmentShader;
     int programObject;
     int[] linked = new int[1];
-    float size = 0.4f;
     private SettingsEngine settingsEngine = new SettingsEngine();
-
+    private ByteBuffer byteBufferIndex;
     float[] mVerticesData = new float[]{};
 
     float colorcyan[] = myColor.cyan();
@@ -97,20 +97,28 @@ class ObjectModel{
         GLES30.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
         myRenderer.checkGlError(settingsEngine.getSettingCheckGlErrorMatrix());
 
-        int VERTEX_POS_INDX = 0;
-        mVertices.position(VERTEX_POS_INDX);
-        GLES30.glVertexAttribPointer(VERTEX_POS_INDX, 3, GLES30.GL_FLOAT, false, 0, mVertices);
-        GLES30.glEnableVertexAttribArray(VERTEX_POS_INDX);
-        int startPos =0;
-        int verticesPerface = 6;
-
-        GLES30.glUniform4fv(mColorHandle, 1, colorblue, 0);
-        GLES30.glDrawElements(GLES30.GL_TRIANGLES, 36, GLES30.GL_UNSIGNED_SHORT, indices);
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLES,startPos,verticesPerface);
-        startPos += verticesPerface;
+        GLES30.glVertexAttribPointer(0, 3, GLES30.GL_FLOAT, false, 0, mVertices);
+        GLES30.glEnableVertexAttribArray(0);
+        GLES30.glUniform4fv(mColorHandle, 1, new float[]{Color.red(Color.RED) / 255f, Color.green(Color.RED) / 255f, Color.blue(Color.RED) / 255f, 1.0f}, 0);
+        GLES30.glDrawElements(GLES30.GL_TRIANGLES, 36, GLES30.GL_SHORT, byteBufferIndex);
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
