@@ -10,10 +10,6 @@ public class WavefrontFormat {
     private final Vector<Float> objectModelTextureCoordinates;
     private final Vector<Short> objectModelSurfaceIndexVector;
 
-    private int objectModelNumberVerticesComponents;
-    private int objectModelNumberTextureCoordinates;
-    private int objectModelNumberSurfaceIndexVector;
-
     private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
     private short[] objectModelSurfaceIndexVectorFlattenBuffer;
@@ -102,7 +98,7 @@ public class WavefrontFormat {
 
     public int getObjectModelNumberVerticesComponents() {
 
-        return objectModelNumberVerticesComponents;
+        return objectModelVerticesComponents.size();
 
     }
 

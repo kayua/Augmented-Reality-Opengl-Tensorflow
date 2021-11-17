@@ -57,7 +57,7 @@ public final class LoadModels {
 
                 while ((stringBufferReadLine = bufferReaderObject.readLine()) != null) {
 
-                    decomposeFileModelObject(stringBufferReadLine.split("\\s"));
+                    decomposeFileModelObjectWavefront(stringBufferReadLine.split("\\s"));
 
                 }
 
@@ -78,7 +78,7 @@ public final class LoadModels {
     }
 
 
-    public void decomposeFileModelObject(String[] readeLineModelFile){
+    public void decomposeFileModelObjectWavefront(String[] readeLineModelFile){
 
 
         if(readeLineModelFile[0].equals("v")){
@@ -111,7 +111,6 @@ public final class LoadModels {
 
 
     }
-
 
 
 
