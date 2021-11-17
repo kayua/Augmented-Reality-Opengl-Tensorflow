@@ -8,9 +8,6 @@ import java.nio.ShortBuffer;
 
 public class MemoryAllocation {
 
-
-
-
     private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
     private short[] objectModelSurfaceIndexVectorFlattenBuffer;
@@ -28,7 +25,6 @@ public class MemoryAllocation {
 
 
     }
-
 
     public void allocationBufferVerticesModel() {
 
@@ -76,6 +72,24 @@ public class MemoryAllocation {
     public void setObjectModelSurfaceIndexVectorFlattenBuffer(short[] objectModelSurfaceIndexVectorFlattenBuffer) {
 
         this.objectModelSurfaceIndexVectorFlattenBuffer = objectModelSurfaceIndexVectorFlattenBuffer;
+
+    }
+
+    public ByteBuffer getByteBufferVertices() {
+
+        return byteBufferVertices;
+
+    }
+
+    public ByteBuffer getByteBufferTexture() {
+
+        return byteBufferTexture;
+
+    }
+
+    public ByteBuffer getByteBufferIndex() {
+
+        return byteBufferIndex;
 
     }
 

@@ -7,6 +7,7 @@ import com.tensorlearning.facemasks.Engine.Formats.WavefrontFormat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
 
 
 public final class LoadModels {
@@ -29,6 +30,7 @@ public final class LoadModels {
     private short modelSurfaceIndexPlaneFirst;
     private short modelSurfaceIndexPlaneSecond;
     private short modelSurfaceIndexPlaneThird;
+
 
     private MemoryAllocation memoryAllocationModel;
 
@@ -69,6 +71,7 @@ public final class LoadModels {
             } finally {
 
                 objectModelWavefront.dynamicAllocationObject();
+                allocationByteBufferModel();
 
                 if (bufferReaderObject != null) {
 
@@ -92,6 +95,7 @@ public final class LoadModels {
             modelVerticesCoordinateY = Float.parseFloat(readeLineModelFile[2]);
             modelVerticesCoordinateZ = Float.parseFloat(readeLineModelFile[3]);
             objectModelWavefront.addVerticesComponents(modelVerticesCoordinateX, modelVerticesCoordinateY, modelVerticesCoordinateZ);
+
         }
 
         if(readeLineModelFile[0].equals("vt")){
@@ -116,7 +120,7 @@ public final class LoadModels {
 
     }
 
-    public void getByteBufferModel(){
+    public void allocationByteBufferModel(){
 
         memoryAllocationModel = new MemoryAllocation();
         memoryAllocationModel.setObjectModelSurfaceIndexVectorFlattenBuffer(objectModelWavefront.getObjectModelSurfaceIndexVectorFlattenBuffer());
@@ -125,7 +129,25 @@ public final class LoadModels {
         memoryAllocationModel.allocationBufferSurfaceIndexModel();
         memoryAllocationModel.allocationBufferTextureModel();
         memoryAllocationModel.allocationBufferVerticesModel();
+
     }
 
+    public ByteBuffer getByteBufferVertices(){
+
+        return memoryAllocationModel.getByteBufferVertices();
+
+    }
+
+    public ByteBuffer getByteBufferIndex(){
+
+        return memoryAllocationModel.getByteBufferIndex();
+
+    }
+
+    public ByteBuffer getByteBufferTexture(){
+
+        return memoryAllocationModel.getByteBufferTexture();
+
+    }
 
 }
