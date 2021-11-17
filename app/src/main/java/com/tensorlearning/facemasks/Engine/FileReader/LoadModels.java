@@ -2,6 +2,7 @@ package com.tensorlearning.facemasks.Engine.FileReader;
 
 import android.content.Context;
 
+import com.tensorlearning.facemasks.Engine.Buffering.MemoryAllocation;
 import com.tensorlearning.facemasks.Engine.Formats.WavefrontFormat;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +29,8 @@ public final class LoadModels {
     private short modelSurfaceIndexPlaneFirst;
     private short modelSurfaceIndexPlaneSecond;
     private short modelSurfaceIndexPlaneThird;
+
+    private MemoryAllocation memoryAllocationModel;
 
 
     public LoadModels(Context context) {
@@ -64,6 +67,8 @@ public final class LoadModels {
             } catch (IOException ignored) {
 
             } finally {
+
+                objectModelWavefront.dynamicAllocationObject();
 
                 if (bufferReaderObject != null) {
 
@@ -109,9 +114,18 @@ public final class LoadModels {
         }
 
 
-
     }
 
+    public void getByteBufferModel(){
+
+        memoryAllocationModel = new MemoryAllocation();
+        memoryAllocationModel.setObjectModelSurfaceIndexVectorFlattenBuffer(objectModelWavefront.getObjectModelSurfaceIndexVectorFlattenBuffer());
+        memoryAllocationModel.setObjectModelVerticesComponentsFlattenBuffer(objectModelWavefront.getObjectModelVerticesComponentsFlattenBuffer());
+        memoryAllocationModel.setObjectModelTextureCoordinatesFlattenBuffer(objectModelWavefront.getObjectModelTextureCoordinatesFlattenBuffer());
+        memoryAllocationModel.allocationBufferSurfaceIndexModel();
+        memoryAllocationModel.allocationBufferTextureModel();
+        memoryAllocationModel.allocationBufferVerticesModel();
+    }
 
 
 }

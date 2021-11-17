@@ -104,13 +104,13 @@ public class WavefrontFormat {
 
     public int getObjectModelNumberTextureCoordinates() {
 
-        return objectModelNumberTextureCoordinates;
+        return objectModelTextureCoordinates.size();
 
     }
 
     public int getObjectModelNumberSurfacesVector() {
 
-        return objectModelNumberSurfaceIndexVector;
+        return objectModelSurfaceIndexVector.size();
 
     }
 
