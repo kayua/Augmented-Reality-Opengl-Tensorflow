@@ -3,33 +3,32 @@ package com.tensorlearning.facemasks.Engine.FileReader;
 import android.content.Context;
 
 import com.tensorlearning.facemasks.Engine.Formats.WavefrontFormat;
-import com.tensorlearning.facemasks.Engine.ObjectModel;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 
 public final class LoadModels {
 
 
     private String stringBufferReadLine;
-    private String[] fileTemporaryProcessingLine;
     private BufferedReader bufferReaderObject = null;
     private InputStreamReader fileInputReference;
     private int numberObjectsRendered=0;
     private Context context;
     private WavefrontFormat objectModelWavefront;
 
-    private float modelVerticeCoordinateX;
-    private float modelVerticeCoordinateY;
-    private float modelVerticeCoordinateZ;
+    private float modelVerticesCoordinateX;
+    private float modelVerticesCoordinateY;
+    private float modelVerticesCoordinateZ;
 
-
-    private short modelObjectFloatAxisXByte;
-    private short modelObjectFloatAxisYByte;
-    private short modelObjectFloatAxisZByte;
+    private float modelTextureCoordinateX;
+    private float modelTextureCoordinateY;
+    private float modelTextureCoordinateZ;
+    
+    private short modelSurfaceIndexFloatAxisXByte;
+    private short modelSurfaceIndexFloatAxisYByte;
+    private short modelSurfaceIndexFloatAxisZByte;
 
 
     public LoadModels(Context context) {
@@ -46,9 +45,10 @@ public final class LoadModels {
     }
 
 
-    public void readFileModelObject(int typeObject, String fileNameModelObject){
+    public void readFileModelObject(int typeObjectModel, String fileNameModelObject){
 
-        if(typeObject==0){
+
+        if(typeObjectModel==0){
 
             try {
 
@@ -82,27 +82,27 @@ public final class LoadModels {
 
         if( readeLineModelFile[0].equals("v")){
 
-            modelVerticeCoordinateX = Float.parseFloat(readeLineModelFile[1]);
-            modelVerticeCoordinateY = Float.parseFloat(readeLineModelFile[2]);
-            modelVerticeCoordinateZ = Float.parseFloat(readeLineModelFile[3]);
-            objectModelWavefront.addVerticesComponents(modelVerticeCoordinateX, modelVerticeCoordinateY, modelVerticeCoordinateZ);
+            modelVerticesCoordinateX = Float.parseFloat(readeLineModelFile[1]);
+            modelVerticesCoordinateY = Float.parseFloat(readeLineModelFile[2]);
+            modelVerticesCoordinateZ = Float.parseFloat(readeLineModelFile[3]);
+            objectModelWavefront.addVerticesComponents(modelVerticesCoordinateX, modelVerticesCoordinateY, modelVerticesCoordinateZ);
         }
 
         if(readeLineModelFile[0].equals("vt")){
 
-            modelVerticeCoordinateX = Float.parseFloat(readeLineModelFile[1]);
-            modelVerticeCoordinateY = Float.parseFloat(readeLineModelFile[2]);
-            modelVerticeCoordinateZ = Float.parseFloat(readeLineModelFile[3]);
-            objectModelWavefront.addTexturesComponents(modelVerticeCoordinateX, modelVerticeCoordinateY, modelVerticeCoordinateZ);
+            modelTextureCoordinateX = Float.parseFloat(readeLineModelFile[1]);
+            modelTextureCoordinateY = Float.parseFloat(readeLineModelFile[2]);
+            modelTextureCoordinateZ = Float.parseFloat(readeLineModelFile[3]);
+            objectModelWavefront.addTexturesComponents(modelTextureCoordinateX, modelTextureCoordinateY, modelTextureCoordinateZ);
 
         }
 
         if(readeLineModelFile[0].equals("f")){
 
-                modelObjectFloatAxisXByte = Short.parseShort(readeLineModelFile[1]);
-                modelObjectFloatAxisYByte = Short.parseShort(readeLineModelFile[2]);
-                modelObjectFloatAxisZByte = Short.parseShort(readeLineModelFile[3]);
-                objectModelWavefront.addObjectIndexComponents(modelObjectFloatAxisXByte, modelObjectFloatAxisYByte, modelObjectFloatAxisZByte);
+            modelSurfaceIndexFloatAxisXByte = Short.parseShort(readeLineModelFile[1]);
+            modelSurfaceIndexFloatAxisYByte = Short.parseShort(readeLineModelFile[2]);
+            modelSurfaceIndexFloatAxisZByte = Short.parseShort(readeLineModelFile[3]);
+            objectModelWavefront.addObjectIndexComponents(modelSurfaceIndexFloatAxisXByte, modelSurfaceIndexFloatAxisYByte, modelSurfaceIndexFloatAxisZByte);
 
 
         }
