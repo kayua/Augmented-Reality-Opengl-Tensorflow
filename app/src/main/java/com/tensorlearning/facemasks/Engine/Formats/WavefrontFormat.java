@@ -96,23 +96,4 @@ public class WavefrontFormat {
     }
 
 
-    public int getObjectModelNumberVerticesComponents() {
-
-        return objectModelVerticesComponents.size();
-
-    }
-
-    public int getObjectModelNumberTextureCoordinates() {
-
-        return objectModelTextureCoordinates.size();
-
-    }
-
-    public int getObjectModelNumberSurfacesVector() {
-
-        return objectModelSurfaceIndexVector.size();
-
-    }
-
-
 }
