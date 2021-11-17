@@ -1,20 +1,21 @@
 package com.tensorlearning.facemasks.Engine.Formats;
 import java.util.Vector;
 
+
 public class WavefrontFormat {
-
-    private int objectNumberComponentsPerPlane;
-
 
 
     private final Vector<Float> objectModelVerticesComponents;
     private final Vector<Float> objectModelTextureCoordinates;
     private final Vector<Short> objectModelObjectPositions;
 
+    private int objectModelNumberVerticesComponents;
+    private int objectModelNumberTextureCoordinates;
+    private int objectModelNumberObjectPositions;
+
     private float[] objectModelVerticesComponentsFlattenBuffer;
     private float[] objectModelTextureCoordinatesFlattenBuffer;
     private short[] objectModelIndexComponentsFlattenBuffer;
-
 
 
     public WavefrontFormat() {
@@ -52,12 +53,6 @@ public class WavefrontFormat {
 
     }
 
-    public int getObjectNumberComponentsPerPlane() {
-
-        return objectNumberComponentsPerPlane;
-
-    }
-
 
     public void addVerticesComponents(float coordinateAxisX, float coordinateAxisY, float coordinateAxisZ){
 
@@ -80,7 +75,6 @@ public class WavefrontFormat {
         objectModelObjectPositions.add(coordinateAxisX);
         objectModelObjectPositions.add(coordinateAxisY);
         objectModelObjectPositions.add(coordinateAxisZ);
-        objectNumberComponentsPerPlane = numberComponents;
 
     }
 
@@ -102,5 +96,25 @@ public class WavefrontFormat {
         return objectModelIndexComponentsFlattenBuffer;
 
     }
+
+
+    public int getObjectModelNumberVerticesComponents() {
+
+        return objectModelNumberVerticesComponents;
+
+    }
+
+    public int getObjectModelNumberTextureCoordinates() {
+
+        return objectModelNumberTextureCoordinates;
+
+    }
+
+    public int getObjectModelNumberObjectPositions() {
+
+        return objectModelNumberObjectPositions;
+
+    }
+
 
 }
