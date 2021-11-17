@@ -26,9 +26,9 @@ public final class LoadModels {
     private float modelTextureCoordinateY;
     private float modelTextureCoordinateZ;
     
-    private short modelSurfaceIndexFloatAxisXByte;
-    private short modelSurfaceIndexFloatAxisYByte;
-    private short modelSurfaceIndexFloatAxisZByte;
+    private short modelSurfaceIndexPlaneFirst;
+    private short modelSurfaceIndexPlaneSecond;
+    private short modelSurfaceIndexPlaneThird;
 
 
     public LoadModels(Context context) {
@@ -99,10 +99,10 @@ public final class LoadModels {
 
         if(readeLineModelFile[0].equals("f")){
 
-            modelSurfaceIndexFloatAxisXByte = Short.parseShort(readeLineModelFile[1]);
-            modelSurfaceIndexFloatAxisYByte = Short.parseShort(readeLineModelFile[2]);
-            modelSurfaceIndexFloatAxisZByte = Short.parseShort(readeLineModelFile[3]);
-            objectModelWavefront.addObjectIndexComponents(modelSurfaceIndexFloatAxisXByte, modelSurfaceIndexFloatAxisYByte, modelSurfaceIndexFloatAxisZByte);
+            modelSurfaceIndexPlaneFirst = Short.parseShort(readeLineModelFile[1]);
+            modelSurfaceIndexPlaneSecond = Short.parseShort(readeLineModelFile[2]);
+            modelSurfaceIndexPlaneThird = Short.parseShort(readeLineModelFile[3]);
+            objectModelWavefront.addObjectIndexComponents(modelSurfaceIndexPlaneFirst, modelSurfaceIndexPlaneSecond, modelSurfaceIndexPlaneThird);
 
 
         }
