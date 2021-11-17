@@ -6,6 +6,100 @@ import android.opengl.GLES30;
 
 class EngineSettings {
 
+    public int getSettingDepthFunction() {
+
+        return settingDepthFunction;
+
+    }
+
+    public int getSettingEnable() {
+
+        return settingEnable;
+
+    }
+
+    public int getSettingHintPerspective() {
+
+        return settingHintPerspective;
+
+    }
+
+    public int getSettingHintNicest() {
+
+        return settingHintNicest;
+
+    }
+
+    public int getSettingColorBuffer() {
+
+        return settingColorBuffer;
+
+    }
+
+    public int getSettingDepthBuffer() {
+
+        return settingDepthBuffer;
+
+    }
+
+    public int getSettingVertexShader() {
+
+        return settingVertexShader;
+
+    }
+
+    public int getSettingFragmentShader() {
+
+        return settingFragmentShader;
+
+    }
+
+    public int getSettingLinkStatus() {
+
+        return settingLinkStatus;
+
+    }
+
+    public int getSettingTriangles() {
+
+        return settingTriangles;
+
+    }
+
+    public String getSettingUniformLocation() {
+
+        return settingUniformLocation;
+
+    }
+
+    public String getSettingCheckGlError() {
+
+        return settingCheckGlError;
+
+    }
+
+    public String getSettingUniformLocationColor() {
+
+        return settingUniformLocationColor;
+
+    }
+
+    public String getSettingCheckGlErrorMatrix() {
+        return settingCheckGlErrorMatrix;
+    }
+
+    public float getSettingsClearDepthFunction() {
+        return settingsClearDepthFunction;
+    }
+
+    public String getSettingVerticesShaderStr() {
+        return settingVerticesShaderStr;
+    }
+
+    public String getSettingFragmentShaderStr() {
+        return settingFragmentShaderStr;
+    }
+
     private final int settingDepthFunction = GLES30.GL_LEQUAL;
     private final int settingEnable = GLES30.GL_DEPTH_TEST;
     private final int settingHintPerspective = GLES30.GL_FRAGMENT_SHADER_DERIVATIVE_HINT;
