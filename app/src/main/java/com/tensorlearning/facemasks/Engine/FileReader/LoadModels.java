@@ -14,7 +14,6 @@ public final class LoadModels {
     private String stringBufferReadLine;
     private BufferedReader bufferReaderObject = null;
     private InputStreamReader fileInputReference;
-    private int numberObjectsRendered=0;
     private Context context;
     private WavefrontFormat objectModelWavefront;
 
@@ -37,6 +36,7 @@ public final class LoadModels {
         allocationMemoryNewObject();
 
     }
+
 
     public void allocationMemoryNewObject(){
 
@@ -77,10 +77,11 @@ public final class LoadModels {
 
     }
 
+
     public void decomposeFileModelObject(String[] readeLineModelFile){
 
 
-        if( readeLineModelFile[0].equals("v")){
+        if(readeLineModelFile[0].equals("v")){
 
             modelVerticesCoordinateX = Float.parseFloat(readeLineModelFile[1]);
             modelVerticesCoordinateY = Float.parseFloat(readeLineModelFile[2]);
@@ -110,6 +111,7 @@ public final class LoadModels {
 
 
     }
+
 
 
 

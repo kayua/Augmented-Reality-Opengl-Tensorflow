@@ -19,6 +19,7 @@ public class WavefrontFormat {
     private short[] objectModelSurfaceIndexVectorFlattenBuffer;
 
 
+
     public WavefrontFormat() {
 
         objectModelVerticesComponents = new Vector<>(0);
