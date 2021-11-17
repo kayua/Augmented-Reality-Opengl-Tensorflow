@@ -4,18 +4,26 @@ package com.tensorlearning.facemasks.Engine.Objects;
 import android.opengl.GLES30;
 import android.util.Log;
 
+import com.tensorlearning.facemasks.Engine.Core.myRenderer;
+import com.tensorlearning.facemasks.Engine.Settings.SettingsEngine;
+import com.tensorlearning.facemasks.Engine.Texture.myColor;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-class ObjectModel {
+class ObjectModel{
 
     private int mProgramObject;
     private int mMVPMatrixHandle;
     private int mColorHandle;
     private FloatBuffer mVertices;
-
+    int vertexShader;
+    int fragmentShader;
+    int programObject;
+    int[] linked = new int[1];
     float size = 0.4f;
+    private SettingsEngine settingsEngine;
 
     float[] mVerticesData = new float[]{};
 
@@ -49,7 +57,7 @@ class ObjectModel {
     String TAG = "Cube";
 
 
-    public Cube() {
+    public ObjectModel() {
 
         mVertices = ByteBuffer
                 .allocateDirect(mVerticesData.length * 4)
@@ -58,48 +66,29 @@ class ObjectModel {
                 .put(mVerticesData);
         mVertices.position(0);
 
-        //setup the shaders
-        int vertexShader;
-        int fragmentShader;
-        int programObject;
-        int[] linked = new int[1];
+        initializeEngine();
 
-        // Load the vertex/fragment shaders
-        vertexShader = myRenderer.LoadShader(GLES30.GL_VERTEX_SHADER, vShaderStr);
-        fragmentShader = myRenderer.LoadShader(GLES30.GL_FRAGMENT_SHADER, fShaderStr);
+    }
 
-        // Create the program object
+    public void initializeEngine(){
+
+        vertexShader = myRenderer.LoadShader(settingsEngine.getSettingVertexShader(), vShaderStr);
+        fragmentShader = myRenderer.LoadShader(settingsEngine.getSettingFragmentShader(), fShaderStr);
         programObject = GLES30.glCreateProgram();
 
-        if (programObject == 0) {
-            Log.e(TAG, "So some kind of error, but what?");
-            return;
-        }
+        if (programObject == 0) { return; }
 
         GLES30.glAttachShader(programObject, vertexShader);
         GLES30.glAttachShader(programObject, fragmentShader);
-
-        // Bind vPosition to attribute 0
-        GLES30.glBindAttribLocation(programObject, 0, "vPosition");
-
-        // Link the program
+        GLES30.glBindAttribLocation(programObject, 0, settingsEngine.getSettingVerticesPosition());
         GLES30.glLinkProgram(programObject);
+        GLES30.glGetProgramiv(programObject, settingsEngine.getSettingColorBuffer(), linked, 0);
 
-        // Check the link status
-        GLES30.glGetProgramiv(programObject, GLES30.GL_LINK_STATUS, linked, 0);
-
-        if (linked[0] == 0) {
-            Log.e(TAG, "Error linking program:");
-            Log.e(TAG, GLES30.glGetProgramInfoLog(programObject));
-            GLES30.glDeleteProgram(programObject);
-            return;
-        }
-
-        // Store the program object
+        if (linked[0] == 0) { GLES30.glDeleteProgram(programObject); return; }
         mProgramObject = programObject;
 
-        //now everything is setup and ready to draw.
     }
+
 
     public void draw(float[] mvpMatrix) {
 

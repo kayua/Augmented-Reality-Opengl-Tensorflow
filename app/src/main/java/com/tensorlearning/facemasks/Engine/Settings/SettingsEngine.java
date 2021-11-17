@@ -3,7 +3,7 @@ package com.tensorlearning.facemasks.Engine.Settings;
 import android.opengl.GLES30;
 
 
-public class EngineSettings{
+public class SettingsEngine {
 
 
     private final int settingDepthFunction = GLES30.GL_LEQUAL;
@@ -21,6 +21,12 @@ public class EngineSettings{
     private final String settingCheckGlError = "glGetUniformLocation";
     private final String settingUniformLocationColor = "vColor";
     private final String settingCheckGlErrorMatrix = "glUniformMatrix4fv";
+
+    public String getSettingVerticesPosition() {
+        return settingVerticesPosition;
+    }
+
+    private final String settingVerticesPosition = "vPosition";
 
     private final float settingsClearDepthFunction = 1.0f;
 
@@ -43,7 +49,7 @@ public class EngineSettings{
                                         + "}                                            \n";
 
 
-    public EngineSettings() {
+    public SettingsEngine() {
 
     }
 

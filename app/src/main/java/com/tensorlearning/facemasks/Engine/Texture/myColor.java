@@ -8,7 +8,7 @@ package com.tensorlearning.facemasks.Engine.Texture;
 import android.graphics.Color;
 
 public class myColor {
-    static float[] red() {
+    public static float[] red() {
         return new float[]{
                 Color.red(Color.RED) / 255f,
                 Color.green(Color.RED) / 255f,
@@ -17,7 +17,7 @@ public class myColor {
         };
     }
 
-    static float[] green() {
+    public static float[] green() {
         return new float[]{
                 Color.red(Color.GREEN) / 255f,
                 Color.green(Color.GREEN) / 255f,
@@ -26,7 +26,7 @@ public class myColor {
         };
     }
 
-    static float[] blue() {
+    public static float[] blue() {
         return new float[]{
                 Color.red(Color.BLUE) / 255f,
                 Color.green(Color.BLUE) / 255f,
@@ -35,7 +35,7 @@ public class myColor {
         };
     }
 
-    static float[] yellow() {
+    public static float[] yellow() {
         return new float[]{
                 Color.red(Color.YELLOW) / 255f,
                 Color.green(Color.YELLOW) / 255f,
@@ -44,7 +44,7 @@ public class myColor {
         };
     }
 
-    static float[] cyan() {
+    public static float[] cyan() {
         return new float[]{
                 Color.red(Color.CYAN) / 255f,
                 Color.green(Color.CYAN) / 255f,
@@ -53,7 +53,7 @@ public class myColor {
         };
     }
 
-    static float[] gray() {
+    public static float[] gray() {
         return new float[]{
                 Color.red(Color.GRAY) / 255f,
                 Color.green(Color.GRAY) / 255f,
