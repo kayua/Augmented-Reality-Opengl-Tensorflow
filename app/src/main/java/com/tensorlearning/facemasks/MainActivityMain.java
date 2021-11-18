@@ -10,6 +10,12 @@ import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+
+import com.tensorlearning.facemasks.Engine.Core.ModelSurfaceView;
+import com.tensorlearning.facemasks.Engine.Core.ModelViewerApplication;
+import com.tensorlearning.facemasks.Engine.Light.Light;
+import com.tensorlearning.facemasks.Engine.Objects.Model;
 import com.tensorlearning.facemasks.Engine.SurfaceComponent;
 import com.tensorlearning.facemasks.Recognize.Models.NeuralModel;
 
@@ -21,7 +27,7 @@ public class MainActivityMain extends Activity implements SurfaceHolder.Callback
     private Camera camera;
     private SurfaceView mSurfaceView;
     private SurfaceHolder mSurfaceHolder;
-    private SurfaceComponent mGLSurfaceView;
+    private ModelSurfaceView mGLSurfaceView;
     private NeuralModel model = null;
 
 
@@ -44,8 +50,14 @@ public class MainActivityMain extends Activity implements SurfaceHolder.Callback
 
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         mSurfaceHolder.setFormat(PixelFormat.TRANSPARENT| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+        Model models = new Model() {
+            @Override
+            public void draw(float[] viewMatrix, float[] projectionMatrix, @NonNull Light light) {
 
-        mGLSurfaceView = new SurfaceComponent(this, camera);
+            }
+        };
+        ModelViewerApplication.getInstance().setCurrentModel(models);
+        mGLSurfaceView = new ModelSurfaceView(this, models);
         mGLSurfaceView.setAlpha(0.2f);
         addContentView(mGLSurfaceView, new WindowManager.LayoutParams(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.FILL_PARENT));
 
