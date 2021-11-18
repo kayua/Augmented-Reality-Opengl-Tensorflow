@@ -4,9 +4,6 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 
-
-import java.util.ArrayList;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -14,28 +11,21 @@ class EngineRenderer implements GLSurfaceView.Renderer {
 
     private ModelRendering mCube;
 
+
     private float mCubeRotation;
     Context context;
     LoadModelsRendering renderModels;
 
     public EngineRenderer(Context context) {
         mCube = new ModelRendering();
+
+
         this.context = context;
         this.renderModels = new LoadModelsRendering(context);
-        loadModels();
-
-    }
-
-    public void loadModels(){
-
-        ArrayList<String> listModels = new ArrayList<>();
-        listModels.add(new String("m.obj"));
-        this.renderModels.setFileObjectModel(listModels);
-        this.renderModels.allocationMemoryObjects();
-        this.renderModels.loadModels();
 
 
     }
+
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
