@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private ModelViewerApplication app;
     @Nullable
     private ModelSurfaceView modelView;
+    private ViewGroup containerView;
 
 
     @Override
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         app = ModelViewerApplication.getInstance();
+
+        containerView = findViewById(R.id.container_view);
+
 
 
         if (getIntent().getData() != null && savedInstanceState == null) {
@@ -94,6 +98,22 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_open_model:
+                checkReadPermissionThenOpen();
+                return true;
+            case R.id.menu_load_sample:
+                loadSampleModel();
+                return true;
+            case R.id.menu_about:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -147,11 +167,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void createNewModelView(@Nullable Model model) {
         if (modelView != null) {
-
+            containerView.removeView(modelView);
         }
         ModelViewerApplication.getInstance().setCurrentModel(model);
         modelView = new ModelSurfaceView(this, model);
-
+        containerView.addView(modelView, 0);
     }
 
     private class ModelLoadTask extends AsyncTask<Uri, Integer, Model> {
@@ -226,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setCurrentModel(@NonNull Model model) {
         createNewModelView(model);
-        Toast.makeText(getApplicationContext(), R.string.open_model_success, Toast.LENGTH_SHORT).show();
         setTitle(model.getTitle());
 
     }
@@ -244,11 +263,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showAboutDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.app_name)
-                .setMessage(R.string.about_text)
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
-    }
 }
