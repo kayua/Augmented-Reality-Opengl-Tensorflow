@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">FaceMasks</string>
+
+    <string name="ok" textColor="#000">Ok</string>
+    <string name="about">Програмын тухай…</string>
+    <string name="guide">Ашиглах заавар</string>
+    <string name="exit">Гарах</string>
+    <string name="guide_text">1. Агуулахын 3 хэмжээст загварыг байгуулна. \n
+2. Харгалзах агуулахын дугаарыг сонгоно. \n
+3. Файл хэсэгт байгуулсан 3 хэмжээст загварыг ачаална. \n
+4. Агуулахын нөөцийн хэмжээг тооцоолно.</string>
+    <string name="about_text">Агуулахын нөөц хэмжигч V1.0 \n Энэхүү програмаар сонгосон агуулахын гурван хэмжээст загварыг байгуулж, агуулахын нөөцийн хэмжээг тооцоолох боломжтой. STL, OBJ, PLY өргөтгөлтэй загваруудыг ашиглаж болно. </string>
+    <string name="load_sample">3D загварыг ачаалах</string>
+    <string name="read_permission_failed">Загвар файлуудыг нээх, унших зөвшөөрлийг/permission/ олгоно уу.</string>
+    <string name="open_model">Загварыг  нээх</string>
+    <string name="open_model_success">3D загварыг амжилттай ачааллаа.</string>
+    <string name="open_model_error">3D загварыг ачаалж чадсангүй.</string>
+    <string name="view_vr">бр тест</string>
+    <string name="view_vr_not_loaded">Эхлээд загвараа ачааллах ёстой.</string>
 </resources>
