@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_open_model:
-                checkReadPermissionThenOpen();
                 return true;
             case R.id.menu_load_sample:
                 loadSampleModel();
@@ -115,23 +114,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case READ_PERMISSION_REQUEST:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    beginOpenModel();
-                } else {
-                    Toast.makeText(this, R.string.read_permission_failed, Toast.LENGTH_SHORT).show();
-                }
-                break;
-            default:
-                break;
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
@@ -143,16 +125,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void checkReadPermissionThenOpen() {
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED)
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    READ_PERMISSION_REQUEST);
-        } else {
-            beginOpenModel();
-        }
-    }
 
     private void beginOpenModel() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
