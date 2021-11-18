@@ -39,7 +39,6 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int READ_PERMISSION_REQUEST = 100;
     private static final int OPEN_DOCUMENT_REQUEST = 101;
 
     private static final String[] SAMPLE_MODELS = new String[] {"lucy.stl" };
@@ -98,22 +97,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_open_model:
-                return true;
-            case R.id.menu_load_sample:
-                loadSampleModel();
-                return true;
-            case R.id.menu_about:
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
@@ -125,12 +108,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    private void beginOpenModel() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.setType("*/*");
-        startActivityForResult(intent, OPEN_DOCUMENT_REQUEST);
-    }
 
     private void beginLoadModel(@NonNull Uri uri) {
 
@@ -191,9 +168,6 @@ public class MainActivity extends AppCompatActivity {
             }
             if (model != null) {
                 setCurrentModel(model);
-            } else {
-                Toast.makeText(getApplicationContext(), R.string.open_model_error, Toast.LENGTH_SHORT).show();
-
             }
         }
 
