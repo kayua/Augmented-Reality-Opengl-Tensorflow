@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tensorlearning.facemasks.Engine.Components.FileUtils;
 import com.tensorlearning.facemasks.R;
 
 import java.net.URISyntaxException;
@@ -46,27 +47,6 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-
-    private void showFileChooser() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-
-        try {
-            startActivityForResult(
-                    Intent.createChooser(intent, "Файл оруулахаар сонгоно уу"),
-                    FILE_SELECT_CODE);
-        } catch (android.content.ActivityNotFoundException ex) {
-            // Potentially direct the user to the Market with a Dialog
-            Toast.makeText(this, "File Manager суулгана уу!",
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-  //  public native String stringFromJNI();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

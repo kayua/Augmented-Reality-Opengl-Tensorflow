@@ -1,8 +1,10 @@
-package com.tensorlearning.facemasks.Engine.Core;
+package com.tensorlearning.facemasks.Engine.Objects;
 
 import android.opengl.Matrix;
 
 import androidx.annotation.NonNull;
+
+import com.tensorlearning.facemasks.Engine.Light.Light;
 
 
 public abstract class Model {

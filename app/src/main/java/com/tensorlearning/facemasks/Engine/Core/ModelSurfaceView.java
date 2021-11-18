@@ -8,6 +8,9 @@ import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.tensorlearning.facemasks.Engine.Components.Util;
+import com.tensorlearning.facemasks.Engine.Objects.Model;
+
 public class ModelSurfaceView extends GLSurfaceView {
     private static final int TOUCH_NONE = 0;
     private static final int TOUCH_ROTATE = 1;

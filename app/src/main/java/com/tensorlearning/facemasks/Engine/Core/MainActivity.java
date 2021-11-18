@@ -26,9 +26,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContentResolverCompat;
 import androidx.core.content.ContextCompat;
 
-import com.tensorlearning.facemasks.Engine.Core.obj.ObjModel;
-import com.tensorlearning.facemasks.Engine.Core.ply.PlyModel;
-import com.tensorlearning.facemasks.Engine.Core.stl.StlModel;
+import com.tensorlearning.facemasks.Engine.Components.Util;
+import com.tensorlearning.facemasks.Engine.Formats.ObjModel;
+import com.tensorlearning.facemasks.Engine.Formats.PlyModel;
+import com.tensorlearning.facemasks.Engine.Formats.StlModel;
+import com.tensorlearning.facemasks.Engine.Objects.Model;
 import com.tensorlearning.facemasks.R;
 
 
@@ -36,12 +38,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
+
     private static final int READ_PERMISSION_REQUEST = 100;
     private static final int OPEN_DOCUMENT_REQUEST = 101;
 
-    private static final String[] SAMPLE_MODELS
-            = new String[] { "bunny.stl", "dragon.stl", "lucy.stl" };
-    private static int sampleModelIndex;
+    private static final String[] SAMPLE_MODELS = new String[] {"lucy.stl" };
+
 
     private ModelViewerApplication app;
     @Nullable
@@ -194,8 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         model.setTitle(fileName);
                     } else {
-                        // assume it's STL.
-                        // TODO: autodetect file type by reading contents?
+
                         model = new StlModel(stream);
                     }
                     return model;
@@ -249,16 +250,12 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
     }
 
-    private void startVrActivity() {
-        if (app.getCurrentModel() == null) {
-            Toast.makeText(this, R.string.view_vr_not_loaded, Toast.LENGTH_SHORT).show();
-        }
-    }
+
 
     private void loadSampleModel() {
         try {
             InputStream stream = getApplicationContext().getAssets()
-                    .open(SAMPLE_MODELS[sampleModelIndex % SAMPLE_MODELS.length]);
+                    .open(SAMPLE_MODELS[0]);
             setCurrentModel(new StlModel(stream));
             stream.close();
         } catch (IOException e) {

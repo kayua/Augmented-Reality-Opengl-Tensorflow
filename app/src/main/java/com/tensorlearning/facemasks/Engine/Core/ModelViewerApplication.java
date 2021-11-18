@@ -4,14 +4,13 @@ import android.app.Application;
 
 import androidx.annotation.Nullable;
 
+import com.tensorlearning.facemasks.Engine.Objects.Model;
+
 
 public class ModelViewerApplication extends Application
 {
     private static ModelViewerApplication INSTANCE;
 
-    // Store the current model globally, so that we don't have to re-decode it upon
-    // relaunching the main or VR activities.
-    // TODO: handle this a bit better.
     @Nullable
     private Model currentModel;
 

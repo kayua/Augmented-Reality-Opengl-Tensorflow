@@ -1,10 +1,10 @@
-package com.tensorlearning.facemasks.Engine.Core.obj;
+package com.tensorlearning.facemasks.Engine.Formats;
 
 
 import androidx.annotation.NonNull;
 
-import com.tensorlearning.facemasks.Engine.Core.IndexedModel;
-import com.tensorlearning.facemasks.Engine.Core.Util;
+import com.tensorlearning.facemasks.Engine.Buffering.IndexedModel;
+import com.tensorlearning.facemasks.Engine.Components.Util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

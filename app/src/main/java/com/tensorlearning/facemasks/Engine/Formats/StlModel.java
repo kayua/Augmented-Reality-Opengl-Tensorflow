@@ -1,9 +1,9 @@
-package com.tensorlearning.facemasks.Engine.Core.stl;
+package com.tensorlearning.facemasks.Engine.Formats;
 
 import androidx.annotation.NonNull;
 
-import com.tensorlearning.facemasks.Engine.Core.ArrayModel;
-import com.tensorlearning.facemasks.Engine.Core.Util;
+import com.tensorlearning.facemasks.Engine.Buffering.ArrayModel;
+import com.tensorlearning.facemasks.Engine.Components.Util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.tensorlearning.facemasks.Engine.Core.Util.readIntLe;
+import static com.tensorlearning.facemasks.Engine.Components.Util.readIntLe;
 
 
 public class StlModel extends ArrayModel {

@@ -1,6 +1,8 @@
-package com.tensorlearning.facemasks.Engine.Core;
+package com.tensorlearning.facemasks.Engine.Buffering;
 
 import android.opengl.GLES20;
+
+import com.tensorlearning.facemasks.Engine.Buffering.ArrayModel;
 
 import java.nio.IntBuffer;
 

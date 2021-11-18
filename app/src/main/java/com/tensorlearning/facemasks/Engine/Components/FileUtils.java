@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.Engine.Core;
+package com.tensorlearning.facemasks.Engine.Components;
 
 import android.content.Context;
 import android.database.Cursor;

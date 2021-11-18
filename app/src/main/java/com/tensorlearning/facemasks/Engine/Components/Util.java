@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.Engine.Core;
+package com.tensorlearning.facemasks.Engine.Components;
 
 import android.opengl.GLES20;
 import android.util.Log;
@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RawRes;
+
+import com.tensorlearning.facemasks.Engine.Core.ModelViewerApplication;
 
 import java.io.Closeable;
 import java.io.IOException;

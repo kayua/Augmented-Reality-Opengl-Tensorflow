@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.Engine.Core;
+package com.tensorlearning.facemasks.Engine.Light;
 
 import android.opengl.Matrix;
 

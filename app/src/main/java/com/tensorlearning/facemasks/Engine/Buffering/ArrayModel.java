@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.Engine.Core;
+package com.tensorlearning.facemasks.Engine.Buffering;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
@@ -7,6 +7,9 @@ import android.opengl.Matrix;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.tensorlearning.facemasks.Engine.Light.Light;
+import com.tensorlearning.facemasks.Engine.Objects.Model;
+import com.tensorlearning.facemasks.Engine.Components.Util;
 import com.tensorlearning.facemasks.R;
 
 import java.nio.FloatBuffer;

@@ -1,41 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tensorlearning.facemasks">
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.PERMISSION_GRANTED" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION"/>
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission." />
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.HardwareBuffer" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"/>
-    <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="true"/>
     <uses-feature android:glEsVersion="0x00020000" android:required="true" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"/>
+    <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="true"/>
+
+    <!-- Indicates use of Android's VR-mode, available only on Android N+. -->
+    <uses-feature android:name="android.software.vr.mode" android:required="false"/>
+    <!-- Indicates use of VR features that are available only on Daydream-ready devices. -->
+    <uses-feature android:name="android.hardware.vr.high_performance" android:required="false"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:name=".Engine.Core.ModelViewerApplication"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FaceMasks">
-        <activity android:name=".Engine.Core.MainActivity" android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity android:name=".Engine.Core.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,6 +30,54 @@
                 <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity android:name=".Engine.Core.MainActivity"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.stl"
+                    android:scheme="http" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.stl"
+                    android:scheme="https" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.stl"
+                    android:scheme="content" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.stl"
+                    android:scheme="file" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/stl"/>
+                <data android:mimeType="application/x-stl"/>
+                <data android:mimeType="application/octet-stream" android:scheme="content"/>
+            </intent-filter>
+        </activity>
+
+
+        <uses-library android:name="com.sec.android.app.multiwindow" android:required="false" />
+        <meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
 
     </application>
 

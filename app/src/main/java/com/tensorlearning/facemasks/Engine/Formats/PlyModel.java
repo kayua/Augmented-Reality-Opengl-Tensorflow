@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.Engine.Core.ply;
+package com.tensorlearning.facemasks.Engine.Formats;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
@@ -6,9 +6,9 @@ import android.opengl.Matrix;
 
 import androidx.annotation.NonNull;
 
-import com.tensorlearning.facemasks.Engine.Core.IndexedModel;
-import com.tensorlearning.facemasks.Engine.Core.Light;
-import com.tensorlearning.facemasks.Engine.Core.Util;
+import com.tensorlearning.facemasks.Engine.Buffering.IndexedModel;
+import com.tensorlearning.facemasks.Engine.Light.Light;
+import com.tensorlearning.facemasks.Engine.Components.Util;
 import com.tensorlearning.facemasks.R;
 
 import java.io.BufferedInputStream;
@@ -21,7 +21,7 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tensorlearning.facemasks.Engine.Core.Util.readIntLe;
+import static com.tensorlearning.facemasks.Engine.Components.Util.readIntLe;
 
 
 public class PlyModel extends IndexedModel {

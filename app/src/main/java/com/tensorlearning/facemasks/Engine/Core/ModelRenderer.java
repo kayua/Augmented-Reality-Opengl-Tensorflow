@@ -6,6 +6,10 @@ import android.opengl.Matrix;
 
 import androidx.annotation.Nullable;
 
+import com.tensorlearning.facemasks.Engine.Light.Light;
+import com.tensorlearning.facemasks.Engine.Mapping.Floor;
+import com.tensorlearning.facemasks.Engine.Objects.Model;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
