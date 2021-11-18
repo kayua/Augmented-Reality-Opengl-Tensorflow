@@ -30,12 +30,6 @@ public final class Util {
         return program;
     }
 
-    public static void checkGLError(@NonNull String label) {
-        int error;
-        if ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
-            throw new RuntimeException(label + ": glError " + error);
-        }
-    }
 
     public static void closeSilently(@Nullable Closeable c) {
         try {

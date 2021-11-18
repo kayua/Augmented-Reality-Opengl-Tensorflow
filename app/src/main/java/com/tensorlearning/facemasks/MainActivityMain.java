@@ -11,7 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.tensorlearning.facemasks.Engine.SurfaceComponent;
-import com.tensorlearning.facemasks.Models.NeuralModel;
+import com.tensorlearning.facemasks.Recognize.Models.NeuralModel;
 
 import java.io.IOException;
 

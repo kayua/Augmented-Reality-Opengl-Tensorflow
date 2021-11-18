@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.Buffering;
+package com.tensorlearning.facemasks.Recognize.Buffering;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;

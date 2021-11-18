@@ -1,4 +1,4 @@
-package com.tensorlearning.facemasks.Models;
+package com.tensorlearning.facemasks.Recognize.Models;
 
 
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.util.Log;
 
-import com.tensorlearning.facemasks.Buffering.MemoryAllocationBuffer;
-import com.tensorlearning.facemasks.Estimator.EstimatorModel;
+import com.tensorlearning.facemasks.Recognize.Buffering.MemoryAllocationBuffer;
+import com.tensorlearning.facemasks.Recognize.Estimator.EstimatorModel;
 import com.tensorlearning.facemasks.Settings.EstimatorSettings.EstimatorSettings;
 import com.tensorlearning.facemasks.Settings.SettingsFaceTracker.FaceTrackerSettings;
 import com.tensorlearning.facemasks.Settings.SettingsIdentificationFacialPoints.FacialPointsSettings;
