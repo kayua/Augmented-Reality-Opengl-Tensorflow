@@ -3,6 +3,10 @@ package com.tensorlearning.facemasks.Engine.Core;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 
+import androidx.annotation.NonNull;
+
+import com.tensorlearning.facemasks.R;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -84,7 +88,7 @@ public class Floor extends ArrayModel {
             GLES20.glDeleteProgram(glProgram);
             glProgram = -1;
         }
-        glProgram = com.dmitrybrant.modelviewer.util.Util.compileProgram(R.raw.floor_vertex, R.raw.floor_fragment,
+        glProgram = Util.compileProgram(R.raw.floor_vertex, R.raw.floor_fragment,
                 new String[] {"a_Position", "a_Normal"});
 
         Matrix.setIdentityM(modelMatrix, 0);
@@ -95,7 +99,7 @@ public class Floor extends ArrayModel {
     }
 
     @Override
-    public void draw(float[] viewMatrix, float[] projectionMatrix, @NonNull com.dmitrybrant.modelviewer.Light light) {
+    public void draw(float[] viewMatrix, float[] projectionMatrix, @NonNull Light light) {
         if (vertexBuffer == null || normalBuffer == null) {
             return;
         }
