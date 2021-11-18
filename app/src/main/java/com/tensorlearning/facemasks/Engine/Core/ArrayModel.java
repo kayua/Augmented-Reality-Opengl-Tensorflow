@@ -4,6 +4,11 @@ import android.opengl.GLES20;
 import android.opengl.Matrix;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.tensorlearning.facemasks.R;
+
 import java.nio.FloatBuffer;
 
 
@@ -15,7 +20,8 @@ public class ArrayModel extends Model {
 
 
     protected int vertexCount;
-    @Nullable protected FloatBuffer vertexBuffer;
+    @Nullable
+    protected FloatBuffer vertexBuffer;
     @Nullable protected FloatBuffer normalBuffer;
 
     @Override

@@ -2,6 +2,8 @@ package com.tensorlearning.facemasks.Engine.Core;
 
 import android.opengl.Matrix;
 
+import androidx.annotation.NonNull;
+
 
 public abstract class Model {
 
@@ -10,7 +12,8 @@ public abstract class Model {
     protected float centerMassZ;
     protected float floorOffset;
 
-    @NonNull private String title;
+    @NonNull
+    private String title;
 
     protected int glProgram = -1;
     protected float[] modelMatrix = new float[16];

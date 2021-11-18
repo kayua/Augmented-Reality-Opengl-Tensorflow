@@ -2,10 +2,13 @@ package com.tensorlearning.facemasks.Engine.Core;
 
 import android.opengl.Matrix;
 
+import androidx.annotation.NonNull;
+
 
 public class Light {
 
-    @NonNull private float[] lightPosInWorldSpace;
+    @NonNull
+    private float[] lightPosInWorldSpace;
     private final float[] lightPosInEyeSpace = new float[4];
     private float[] ambientColor = new float[] {0.1f, 0.1f, 0.4f};
     private float[] diffuseColor = new float[] {1.0f, 1.0f, 1.0f};

@@ -13,6 +13,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.tensorlearning.facemasks.R;
+
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
@@ -120,7 +125,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
                 break;
             }*/
             case R.id.chooser2:{
-                Intent inte = new Intent(this, com.dmitrybrant.modelviewer.MainActivity.class);
+                Intent inte = new Intent(this, MainActivity.class);
                 startActivity(inte);
                 break;
             }

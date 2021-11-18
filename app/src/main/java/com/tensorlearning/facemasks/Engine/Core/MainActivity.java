@@ -19,7 +19,19 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
-import java.io.ByteArrayInputStream;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContentResolverCompat;
+import androidx.core.content.ContextCompat;
+
+import com.tensorlearning.facemasks.Engine.Core.obj.ObjModel;
+import com.tensorlearning.facemasks.Engine.Core.ply.PlyModel;
+import com.tensorlearning.facemasks.Engine.Core.stl.StlModel;
+import com.tensorlearning.facemasks.R;
+
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -32,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private static int sampleModelIndex;
 
     private ModelViewerApplication app;
-    @Nullable private ModelSurfaceView modelView;
+    @Nullable
+    private ModelSurfaceView modelView;
     private ViewGroup containerView;
     private ProgressBar progressBar;
 
@@ -166,17 +179,6 @@ public class MainActivity extends AppCompatActivity {
                 ContentResolver cr = getApplicationContext().getContentResolver();
                 String fileName = getFileName(cr, uri);
 
-                if ("http".equals(uri.getScheme()) || "https".equals(uri.getScheme())) {
-                    OkHttpClient client = new OkHttpClient();
-                    Request request = new Request.Builder().url(uri.toString()).build();
-                    Response response = client.newCall(request).execute();
-
-                    // TODO: figure out how to NOT need to read the whole file at once.
-                    stream = new ByteArrayInputStream(response.body().bytes());
-                } else {
-                    stream = cr.openInputStream(uri);
-                }
-
                 if (stream != null) {
                     Model model;
                     if (!TextUtils.isEmpty(fileName)) {
@@ -250,8 +252,6 @@ public class MainActivity extends AppCompatActivity {
     private void startVrActivity() {
         if (app.getCurrentModel() == null) {
             Toast.makeText(this, R.string.view_vr_not_loaded, Toast.LENGTH_SHORT).show();
-        } else {
-            startActivity(new Intent(this, ModelGvrActivity.class));
         }
     }
 

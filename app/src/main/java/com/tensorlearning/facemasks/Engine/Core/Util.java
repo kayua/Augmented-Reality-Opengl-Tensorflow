@@ -3,6 +3,10 @@ package com.tensorlearning.facemasks.Engine.Core;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RawRes;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,7 +64,7 @@ public final class Util {
     }
 
     private static float getDensityScalar() {
-        return com.dmitrybrant.modelviewer.ModelViewerApplication.getInstance().getResources().getDisplayMetrics().density;
+        return ModelViewerApplication.getInstance().getResources().getDisplayMetrics().density;
     }
 
     private static int loadShader(int type, @NonNull String shaderCode){
@@ -82,7 +86,7 @@ public final class Util {
 
     @NonNull
     private static String readTextFileFromRawRes(@RawRes int resourceId) {
-        InputStream inputStream = com.dmitrybrant.modelviewer.ModelViewerApplication.getInstance().getResources()
+        InputStream inputStream = ModelViewerApplication.getInstance().getResources()
                 .openRawResource(resourceId);
         try {
             byte[] bytes = new byte[inputStream.available()];

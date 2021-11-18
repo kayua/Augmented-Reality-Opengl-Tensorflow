@@ -6,7 +6,7 @@ import android.opengl.Matrix;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class Floor extends com.dmitrybrant.modelviewer.ArrayModel {
+public class Floor extends ArrayModel {
 
     private float[] floorColor = new float[] {0.2f, 0.2f, 0.2f, 0.5f};
     private float[] lineColor = new float[] {0.6f, 0.6f, 0.6f, 0.5f};

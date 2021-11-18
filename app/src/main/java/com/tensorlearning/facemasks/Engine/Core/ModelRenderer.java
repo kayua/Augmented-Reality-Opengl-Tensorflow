@@ -4,6 +4,8 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
+import androidx.annotation.Nullable;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -13,7 +15,8 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
     private static final float Z_NEAR = 2f;
     private static final float Z_FAR = MODEL_BOUND_SIZE * 10;
 
-    @Nullable private com.dmitrybrant.modelviewer.Model model;
+    @Nullable
+    private Model model;
     private final Light light = new Light(new float[] {0.0f, 0.0f, MODEL_BOUND_SIZE * 10, 1.0f});
     private final Floor floor = new Floor();
 
@@ -26,7 +29,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
     private float translateY;
     private float translateZ;
 
-    public ModelRenderer(@Nullable com.dmitrybrant.modelviewer.Model model) {
+    public ModelRenderer(@Nullable Model model) {
         this.model = model;
     }
 

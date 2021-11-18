@@ -5,12 +5,16 @@ import android.graphics.PointF;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 public class ModelSurfaceView extends GLSurfaceView {
     private static final int TOUCH_NONE = 0;
     private static final int TOUCH_ROTATE = 1;
     private static final int TOUCH_ZOOM = 2;
 
-    @NonNull private ModelRenderer renderer;
+    @NonNull
+    private ModelRenderer renderer;
 
     private float previousX;
     private float previousY;
