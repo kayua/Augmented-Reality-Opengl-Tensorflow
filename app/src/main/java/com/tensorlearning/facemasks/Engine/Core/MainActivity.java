@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private ModelViewerApplication app;
     @Nullable
     private ModelSurfaceView modelView;
-    private ViewGroup containerView;
-    private ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         app = ModelViewerApplication.getInstance();
 
-        containerView = findViewById(R.id.container_view);
-        progressBar = findViewById(R.id.model_progress_bar);
-        progressBar.setVisibility(View.GONE);
 
         if (getIntent().getData() != null && savedInstanceState == null) {
             beginLoadModel(getIntent().getData());
@@ -73,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         if (app.getCurrentModel() != null) {
             setTitle(app.getCurrentModel().getTitle());
         }
+        loadSampleModel();
     }
 
     @Override
@@ -97,22 +94,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_open_model:
-                checkReadPermissionThenOpen();
-                return true;
-            case R.id.menu_load_sample:
-                loadSampleModel();
-                return true;
-            case R.id.menu_about:
-                showAboutDialog();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -160,17 +141,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void beginLoadModel(@NonNull Uri uri) {
-        progressBar.setVisibility(View.VISIBLE);
+
         new ModelLoadTask().execute(uri);
     }
 
     private void createNewModelView(@Nullable Model model) {
         if (modelView != null) {
-            containerView.removeView(modelView);
+
         }
         ModelViewerApplication.getInstance().setCurrentModel(model);
         modelView = new ModelSurfaceView(this, model);
-        containerView.addView(modelView, 0);
+
     }
 
     private class ModelLoadTask extends AsyncTask<Uri, Integer, Model> {
@@ -220,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                 setCurrentModel(model);
             } else {
                 Toast.makeText(getApplicationContext(), R.string.open_model_error, Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
+
             }
         }
 
@@ -247,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         createNewModelView(model);
         Toast.makeText(getApplicationContext(), R.string.open_model_success, Toast.LENGTH_SHORT).show();
         setTitle(model.getTitle());
-        progressBar.setVisibility(View.GONE);
+
     }
 
 
