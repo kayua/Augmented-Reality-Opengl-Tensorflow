@@ -1,30 +1,21 @@
 package com.tensorlearning.facemasks.Engine.Core;
 
-import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContentResolverCompat;
-import androidx.core.content.ContextCompat;
 
 import com.tensorlearning.facemasks.Engine.Components.Util;
 import com.tensorlearning.facemasks.Engine.Formats.ObjModel;
@@ -52,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         app = ModelViewerApplication.getInstance();
@@ -59,10 +51,6 @@ public class MainActivity extends AppCompatActivity {
         containerView = findViewById(R.id.container_view);
 
 
-
-        if (getIntent().getData() != null && savedInstanceState == null) {
-            beginLoadModel(getIntent().getData());
-        }
     }
 
     @Override
@@ -104,15 +92,11 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == OPEN_DOCUMENT_REQUEST && resultCode == RESULT_OK && resultData.getData() != null) {
             Uri uri = resultData.getData();
             grantUriPermission(getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            beginLoadModel(uri);
+
         }
     }
 
 
-    private void beginLoadModel(@NonNull Uri uri) {
-
-        new ModelLoadTask().execute(uri);
-    }
 
     private void createNewModelView(@Nullable Model model) {
         if (modelView != null) {
@@ -123,72 +107,6 @@ public class MainActivity extends AppCompatActivity {
         containerView.addView(modelView, 0);
     }
 
-    private class ModelLoadTask extends AsyncTask<Uri, Integer, Model> {
-        protected Model doInBackground(Uri... file) {
-            InputStream stream = null;
-            try {
-                Uri uri = file[0];
-                ContentResolver cr = getApplicationContext().getContentResolver();
-                String fileName = getFileName(cr, uri);
-
-                if (stream != null) {
-                    Model model;
-                    if (!TextUtils.isEmpty(fileName)) {
-                        if (fileName.toLowerCase().endsWith(".stl")) {
-                            model = new StlModel(stream);
-                        } else if (fileName.toLowerCase().endsWith(".obj")) {
-                            model = new ObjModel(stream);
-                        } else if (fileName.toLowerCase().endsWith(".ply")) {
-                            model = new PlyModel(stream);
-                        } else {
-                            // assume it's STL.
-                            model = new StlModel(stream);
-                        }
-                        model.setTitle(fileName);
-                    } else {
-
-                        model = new StlModel(stream);
-                    }
-                    return model;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                Util.closeSilently(stream);
-            }
-            return null;
-        }
-
-        protected void onProgressUpdate(Integer... progress) {
-        }
-
-        protected void onPostExecute(Model model) {
-            if (isDestroyed()) {
-                return;
-            }
-            if (model != null) {
-                setCurrentModel(model);
-            }
-        }
-
-        @Nullable
-        private String getFileName(@NonNull ContentResolver cr, @NonNull Uri uri) {
-            if ("content".equals(uri.getScheme())) {
-                String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
-                Cursor metaCursor = ContentResolverCompat.query(cr, uri, projection, null, null, null, null);
-                if (metaCursor != null) {
-                    try {
-                        if (metaCursor.moveToFirst()) {
-                            return metaCursor.getString(0);
-                        }
-                    } finally {
-                        metaCursor.close();
-                    }
-                }
-            }
-            return uri.getLastPathSegment();
-        }
-    }
 
     private void setCurrentModel(@NonNull Model model) {
         createNewModelView(model);
