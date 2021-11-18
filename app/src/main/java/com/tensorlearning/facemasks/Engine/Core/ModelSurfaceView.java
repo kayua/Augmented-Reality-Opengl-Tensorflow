@@ -1,6 +1,7 @@
 package com.tensorlearning.facemasks.Engine.Core;
 
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.graphics.PointF;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
@@ -31,8 +32,10 @@ public class ModelSurfaceView extends GLSurfaceView {
         setEGLContextClientVersion(2);
 
         renderer = new ModelRenderer(model);
+        setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         setRenderer(renderer);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        getHolder().setFormat(PixelFormat.TRANSPARENT);
     }
 
     @Override
