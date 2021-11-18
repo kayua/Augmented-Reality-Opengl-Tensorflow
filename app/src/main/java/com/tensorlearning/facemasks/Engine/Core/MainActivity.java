@@ -1,25 +1,11 @@
 package com.tensorlearning.facemasks.Engine.Core;
 
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.Menu;
-
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContentResolverCompat;
-
-import com.tensorlearning.facemasks.Engine.Components.Util;
-import com.tensorlearning.facemasks.Engine.Formats.ObjModel;
-import com.tensorlearning.facemasks.Engine.Formats.PlyModel;
 import com.tensorlearning.facemasks.Engine.Formats.StlModel;
 import com.tensorlearning.facemasks.Engine.Objects.Model;
 import com.tensorlearning.facemasks.R;
@@ -30,7 +16,6 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int OPEN_DOCUMENT_REQUEST = 101;
 
     private static final String[] SAMPLE_MODELS = new String[] {"lucy.stl" };
 
@@ -84,18 +69,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        super.onActivityResult(requestCode, resultCode, resultData);
-        if (requestCode == OPEN_DOCUMENT_REQUEST && resultCode == RESULT_OK && resultData.getData() != null) {
-            Uri uri = resultData.getData();
-            grantUriPermission(getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        }
-    }
-
 
 
     private void createNewModelView(@Nullable Model model) {
