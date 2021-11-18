@@ -1,5 +1,10 @@
 package com.tensorlearning.facemasks.Engine.Core.stl;
 
+import androidx.annotation.NonNull;
+
+import com.tensorlearning.facemasks.Engine.Core.ArrayModel;
+import com.tensorlearning.facemasks.Engine.Core.Util;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static com.tensorlearning.facemasks.Engine.Core.Util.readIntLe;
 
-public class StlModel extends com.dmitrybrant.modelviewer.ArrayModel {
+
+public class StlModel extends ArrayModel {
     private static final int HEADER_SIZE = 80;
     private static final int ASCII_TEST_SIZE = 256;
 
