@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.model_progress_bar);
         progressBar.setVisibility(View.GONE);
 
-      //  findViewById(R.id.vr_fab).setOnClickListener((View v) -> startVrActivity());
-
         if (getIntent().getData() != null && savedInstanceState == null) {
             beginLoadModel(getIntent().getData());
         }

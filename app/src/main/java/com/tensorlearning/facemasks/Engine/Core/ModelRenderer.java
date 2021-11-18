@@ -73,7 +73,6 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
         float ratio = (float) width / height;
         Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1, 1, Z_NEAR, Z_FAR);
 
-        // initialize the view matrix
         rotateAngleX = 0;
         rotateAngleY = 0;
         translateX = 0f;
@@ -81,10 +80,8 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
         translateZ = -MODEL_BOUND_SIZE * 1.5f;
         updateViewMatrix();
 
-        // Set light matrix before doing any other transforms on the view matrix
         light.applyViewMatrix(viewMatrix);
 
-        // By default, rotate the model towards the user a bit
         rotateAngleX = -15.0f;
         rotateAngleY = 15.0f;
         updateViewMatrix();
@@ -95,8 +92,6 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
         GLES20.glClearColor(0.2f, 0.2f, 0.2f, 1f);
         GLES20.glEnable(GLES20.GL_CULL_FACE);
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-        //GLES20.glEnable(GLES20.GL_BLEND);
-        //GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
         floor.init(MODEL_BOUND_SIZE);
         if (model != null) {

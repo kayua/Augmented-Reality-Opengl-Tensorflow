@@ -102,28 +102,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-          /*  case R.id.chooser: {
-                showFileChooser();
-                /// file read
-               ObjLoader objLoader = new ObjLoader(context, "Mug.obj");
 
-                int numFaces = objLoader.numFaces;
-
-// Initialize the buffers.
-                int positions = ByteBuffer.allocateDirect(objLoader.positions.length *mBytesPerFloat)
-                        .order(ByteOrder.nativeOrder()).asFloatBuffer();
-                positions.put(objLoader.positions).position(0);
-
-                normals = ByteBuffer.allocateDirect(objLoader.normals.length * mBytesPerFloat)
-                        .order(ByteOrder.nativeOrder()).asFloatBuffer();
-                normals.put(objLoader.normals).position(0);
-
-                textureCoordinates = ByteBuffer.allocateDirect(objLoader.textureCoordinates.length * mBytesPerFloat)
-                        .order(ByteOrder.nativeOrder()).asFloatBuffer();
-                textureCoordinates.put(objLoader.textureCoordinates).position(0);
-
-                break;
-            }*/
             case R.id.chooser2:{
                 Intent inte = new Intent(this, MainActivity.class);
                 startActivity(inte);
@@ -148,13 +127,6 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
                         .setMessage(R.string.guide_text)
                         .setPositiveButton(R.string.ok, null)
                         .show();
-
-            /*    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog = builder.create();
-                dialog.setMessage(String.valueOf(R.string.guide_text));
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
-                dialog.show();*/
 
                 return true;
             case R.id.menu_exit:

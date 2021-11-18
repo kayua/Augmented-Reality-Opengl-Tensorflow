@@ -20,8 +20,7 @@ public class Floor extends ArrayModel {
     public void init(float boundSize) {
         extent = boundSize * 5.0f;
 
-        // The grid lines on the floor are rendered procedurally and large polygons cause floating point
-        // precision problems on some architectures. So we split the floor into 4 quadrants.
+
         final float[] coords = new float[] {
                 // +X, +Z quadrant
                 extent, 0, 0,
